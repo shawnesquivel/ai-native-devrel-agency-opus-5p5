@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, type ReactNode } from "react";
+import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
 import { AUDIENCES, REQUEST_TYPES, type Audience, type Priority, type RequestType } from "@/lib/requests";
 import { SITE } from "@/lib/site";
 
@@ -18,9 +18,15 @@ type Tab = (typeof TABS)[number];
 
 type ApiResult = { status: number; body: unknown } | null;
 
-const ENDPOINT = `${SITE.url}/api/v1/requests`;
+const subscribeNoop = () => () => {};
 
 export default function RequestPlayground() {
+  const origin = useSyncExternalStore(
+    subscribeNoop,
+    () => window.location.origin,
+    () => SITE.url,
+  );
+  const endpoint = `${origin}/api/v1/requests`;
   const [type, setType] = useState<RequestType>("cookbook");
   const [title, setTitle] = useState(EXAMPLE_TITLES.cookbook);
   const [brief, setBrief] = useState("Show devs how to triage issues with an agent. Use the latest SDK.");
@@ -63,11 +69,11 @@ export default function RequestPlayground() {
 
 // Agent calls the tool
 devrel.create_request(${json})`,
-    cURL: `curl -X POST ${ENDPOINT} \\
+    cURL: `curl -X POST ${endpoint} \\
   -H "Authorization: Bearer $DEVREL_API_KEY" \\
   -H "Content-Type: application/json" \\
   -d '${JSON.stringify(payload)}'`,
-    TypeScript: `const res = await fetch("${ENDPOINT}", {
+    TypeScript: `const res = await fetch("${endpoint}", {
   method: "POST",
   headers: {
     "Authorization": \`Bearer \${process.env.DEVREL_API_KEY}\`,
@@ -233,7 +239,7 @@ function Segmented<T extends string>({
   );
 }
 
-const TOKEN = /("(?:[^"\\]|\\.)*"(?=\s*:))|("(?:[^"\\]|\\.)*"|'[^']*'|`[^`]*`)|(\/\/.*$)|\b(const|await|true|false|null|curl)\b|(\b\d+\b)/gm;
+const TOKEN = /("(?:[^"\\]|\\.)*"(?=\s*:))|("(?:[^"\\]|\\.)*"|'[^']*'|`[^`]*`)|((?<![:\w])\/\/.*$)|\b(const|await|true|false|null|curl)\b|(\b\d+\b)/gm;
 
 function highlight(src: string): ReactNode[] {
   const out: ReactNode[] = [];
