@@ -17,7 +17,7 @@ const STEPS = [
   {
     n: "02",
     title: "Request anything",
-    body: "File a ticket from the dashboard — or let your agent do it through MCP. Blogs, videos, threads, cookbooks.",
+    body: "Drop it in your private Slack channel, or let your agent file it through MCP. Blogs, videos, threads, cookbooks.",
     visual: (
       <div className="flex flex-wrap gap-1.5">
         {["blog", "longform", "shortform", "thread", "cookbook"].map((t) => (

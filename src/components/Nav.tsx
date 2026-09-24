@@ -5,6 +5,7 @@ import Logo from "@/components/Logo";
 const LINKS = [
   { label: "How it works", href: "/#how-it-works" },
   { label: "API", href: "/#api" },
+  { label: "MCP", href: "/mcp" },
   { label: "Compare", href: "/#compare" },
   { label: "Work", href: "/work" },
   { label: "FAQ", href: "/#faq" },

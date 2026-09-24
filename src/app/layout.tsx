@@ -25,12 +25,12 @@ const instrumentSerif = Instrument_Serif({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.url),
   title: {
-    default: `${SITE.name} — DevRel as a subscription`,
-    template: `%s — ${SITE.name}`,
+    default: `${SITE.name} | DevRel as a subscription`,
+    template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
   openGraph: {
-    title: `${SITE.name} — DevRel as a subscription`,
+    title: `${SITE.name} | DevRel as a subscription`,
     description: SITE.description,
     type: "website",
   },

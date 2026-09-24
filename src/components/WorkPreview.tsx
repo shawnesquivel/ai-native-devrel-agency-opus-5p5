@@ -8,7 +8,7 @@ const FEATURED = [
   "Build an AI agent with Vercel, Composio and Cursor",
   "Viral Instagram reel",
   "Composio plugins for Claude, ChatGPT, OpenClaw & Cursor",
-  "Cursor hackathon — 80 people showed up to build Canada",
+  "Cursor hackathon: 80 people showed up to build Canada",
   "Explaining Gumloop Skills",
   "AEO technical writing for Composio",
 ];

@@ -4,6 +4,8 @@ export default function CTAButton({ className = "" }: { className?: string }) {
   return (
     <a
       href={CTA.href}
+      target="_blank"
+      rel="noreferrer"
       className={`group relative inline-flex items-center gap-2 overflow-hidden rounded-full bg-accent px-5 py-2.5 text-sm font-semibold text-black shadow-[0_0_0_1px_rgb(198_255_74/0.4),0_8px_30px_-8px_rgb(198_255_74/0.5)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_0_1px_rgb(198_255_74/0.7),0_12px_40px_-6px_rgb(198_255_74/0.75)] active:translate-y-0 ${className}`}
     >
       <span

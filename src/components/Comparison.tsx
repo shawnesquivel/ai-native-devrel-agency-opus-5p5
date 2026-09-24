@@ -23,7 +23,7 @@ const ROWS: { feature: string; cells: [Cell, Cell, Cell] }[] = [
   {
     feature: "Time to first deliverable",
     cells: [
-      { mark: "meh", text: "Minutes — then hours of rewriting" },
+      { mark: "meh", text: "Minutes, then hours of rewriting" },
       { mark: "no", text: "2–4 months to hire and ramp" },
       { mark: "yes", text: "Days" },
     ],
@@ -33,7 +33,7 @@ const ROWS: { feature: string; cells: [Cell, Cell, Cell] }[] = [
     cells: [
       { mark: "no", text: "Generic, instantly detectable" },
       { mark: "yes", text: "Yes" },
-      { mark: "yes", text: "Yes — human-planned & reviewed" },
+      { mark: "yes", text: "Yes, human-planned & reviewed" },
     ],
   },
   {
@@ -49,7 +49,7 @@ const ROWS: { feature: string; cells: [Cell, Cell, Cell] }[] = [
     cells: [
       { mark: "no", text: "No" },
       { mark: "meh", text: "Usually needs a separate video editor" },
-      { mark: "yes", text: "Included — no editor to hire" },
+      { mark: "yes", text: "Included, no editor to hire" },
     ],
   },
   {
@@ -69,11 +69,11 @@ const ROWS: { feature: string; cells: [Cell, Cell, Cell] }[] = [
     ],
   },
   {
-    feature: "Request from your agent (MCP)",
+    feature: "Request from your agent or Slack",
     cells: [
       { mark: "no", text: "No" },
       { mark: "no", text: "No" },
-      { mark: "yes", text: "Coming soon" },
+      { mark: "yes", text: "Official MCP server + private Slack channel" },
     ],
   },
   {
@@ -81,7 +81,7 @@ const ROWS: { feature: string; cells: [Cell, Cell, Cell] }[] = [
     cells: [
       { mark: "yes", text: "Yes" },
       { mark: "no", text: "Notice periods & severance" },
-      { mark: "yes", text: "Yes — pause or cancel anytime" },
+      { mark: "yes", text: "Yes, pause or cancel anytime" },
     ],
   },
 ];

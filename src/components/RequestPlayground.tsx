@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react";
-import { AUDIENCES, REQUEST_TYPES, type Audience, type Priority, type RequestType } from "@/lib/requests";
-import { SITE } from "@/lib/site";
+import { useMemo, useState, type ReactNode } from "react";
+import { AUDIENCES, REQUEST_TYPES, type Audience, type Priority, type RequestType } from "@/lib/request-types";
+import { useOrigin } from "@/lib/use-origin";
 
 const EXAMPLE_TITLES: Record<RequestType, string> = {
   blog: "How to add OAuth to your AI agent in 5 minutes",
@@ -18,14 +18,10 @@ type Tab = (typeof TABS)[number];
 
 type ApiResult = { status: number; body: unknown } | null;
 
-const subscribeNoop = () => () => {};
+const SAMPLE_KEY = "drk_live_xxxxxxxxxxxxxxxx";
 
 export default function RequestPlayground() {
-  const origin = useSyncExternalStore(
-    subscribeNoop,
-    () => window.location.origin,
-    () => SITE.url,
-  );
+  const origin = useOrigin();
   const endpoint = `${origin}/api/v1/requests`;
   const [type, setType] = useState<RequestType>("cookbook");
   const [title, setTitle] = useState(EXAMPLE_TITLES.cookbook);
@@ -64,19 +60,32 @@ export default function RequestPlayground() {
 
   const json = JSON.stringify(payload, null, 2);
   const code: Record<Tab, string> = {
-    MCP: `// In Cursor, Claude Code, or Codex
+    MCP: `// .cursor/mcp.json (Claude Code and Codex work the same way)
+{
+  "mcpServers": {
+    "devrel": {
+      "url": "${origin}/api/mcp",
+      "headers": {
+        "Authorization": "Bearer ${SAMPLE_KEY}" // your API key
+      }
+    }
+  }
+}
+
+// Then ask your agent
 > "File a ${REQUEST_TYPES[type].label.toLowerCase()} request: ${title}"
 
-// Agent calls the tool
-devrel.create_request(${json})`,
-    cURL: `curl -X POST ${endpoint} \\
-  -H "Authorization: Bearer $DEVREL_API_KEY" \\
+// It calls the tool
+create_request(${json})`,
+    cURL: `# drk_live_... is your API key
+curl -X POST ${endpoint} \\
+  -H "Authorization: Bearer ${SAMPLE_KEY}" \\
   -H "Content-Type: application/json" \\
   -d '${JSON.stringify(payload)}'`,
     TypeScript: `const res = await fetch("${endpoint}", {
   method: "POST",
   headers: {
-    "Authorization": \`Bearer \${process.env.DEVREL_API_KEY}\`,
+    "Authorization": "Bearer ${SAMPLE_KEY}", // your API key
     "Content-Type": "application/json",
   },
   body: JSON.stringify(${json.replace(/\n/g, "\n  ")}),
@@ -139,15 +148,18 @@ const request = await res.json(); // { id: "req_...", status: "queued" }`,
           </Field>
         </div>
 
-        <button
-          type="button"
-          onClick={send}
-          disabled={loading}
-          className="mt-auto inline-flex items-center justify-center gap-2 rounded-xl border border-line-strong bg-white/5 px-4 py-3 font-mono text-sm text-fg transition-all hover:border-accent/50 hover:bg-accent-soft hover:text-accent disabled:opacity-60"
-        >
-          {loading ? "Sending…" : "POST /api/v1/requests"}
-          <span aria-hidden>↵</span>
-        </button>
+        <div className="mt-auto space-y-2">
+          <button
+            type="button"
+            onClick={send}
+            disabled={loading}
+            className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-line-strong bg-white/5 px-4 py-3 font-mono text-sm text-fg transition-all hover:border-accent/50 hover:bg-accent-soft hover:text-accent disabled:opacity-60"
+          >
+            {loading ? "Sending…" : "POST /api/v1/requests"}
+            <span aria-hidden>↵</span>
+          </button>
+          <p className="text-center text-xs text-subtle">Sandbox: nothing is stored. Real requests use your API key.</p>
+        </div>
       </div>
 
       <div className="flex min-w-0 flex-col bg-bg/60">
@@ -172,7 +184,7 @@ const request = await res.json(); // { id: "req_...", status: "queued" }`,
           <span className="font-mono text-[10px] text-subtle">sandbox</span>
         </div>
 
-        <pre className="max-h-80 min-h-64 flex-1 overflow-auto p-5 font-mono text-[12.5px] leading-relaxed text-muted">
+        <pre className="max-h-[28rem] min-h-64 flex-1 overflow-auto p-5 font-mono text-[12.5px] leading-relaxed text-muted">
           <code>{highlight(code[tab])}</code>
         </pre>
 
@@ -239,7 +251,7 @@ function Segmented<T extends string>({
   );
 }
 
-const TOKEN = /("(?:[^"\\]|\\.)*"(?=\s*:))|("(?:[^"\\]|\\.)*"|'[^']*'|`[^`]*`)|((?<![:\w])\/\/.*$)|\b(const|await|true|false|null|curl)\b|(\b\d+\b)/gm;
+const TOKEN = /("(?:[^"\\]|\\.)*"(?=\s*:))|("(?:[^"\\]|\\.)*"|'[^']*'|`[^`]*`)|((?<![:\w])\/\/.*$|^#.*$)|\b(const|await|true|false|null|curl)\b|(\b\d+\b)/gm;
 
 function highlight(src: string): ReactNode[] {
   const out: ReactNode[] = [];

@@ -14,8 +14,8 @@ export default function Hero() {
             href="#api"
             className="group inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/60 py-1 pl-1 pr-3 text-xs text-muted backdrop-blur transition-colors hover:text-fg"
           >
-            <span className="rounded-full bg-violet/20 px-2 py-0.5 font-mono text-[10px] text-violet">SOON</span>
-            Official MCP server — request content from your agent
+            <span className="rounded-full bg-violet/20 px-2 py-0.5 font-mono text-[10px] text-violet">NEW</span>
+            Official MCP server: request content from your agent
             <span className="transition-transform group-hover:translate-x-0.5">→</span>
           </a>
 
@@ -24,8 +24,8 @@ export default function Hero() {
           </h1>
 
           <p className="max-w-xl text-lg leading-relaxed text-muted">
-            Submit a ticket — or let your agent file one — and get blogs, long-form YouTube, X content, and cookbooks
-            built by a developer who ships with Cursor, Claude Code, and Codex every day.
+            Send a request in Slack or let your agent file one over MCP. Get blogs, long-form YouTube, X content, and
+            cookbooks built by a developer who ships with Cursor, Claude Code, and Codex every day.
           </p>
 
           <div className="flex flex-wrap items-center gap-4">
