@@ -1,9 +1,9 @@
+const VERCEL_HOST = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
+
 export const SITE = {
   name: "AI Native DevRel",
   founder: "Shawn Esquivel",
-  url: process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL}`
-    : "http://localhost:3000",
+  url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
   email: "shawnesquivel24@gmail.com",
   description:
     "DevRel as a subscription. Submit a ticket (or let your agent do it) and get blogs, long-form YouTube, X content, and cookbooks shipped by a developer who builds with AI every day.",
