@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import Reveal from "@/components/Reveal";
 import { Section, SectionHeading, Serif } from "@/components/Section";
-import { REQUEST_TYPES, type RequestType } from "@/lib/requests";
+import { REQUEST_TYPES, type RequestType } from "@/lib/request-types";
 
 const ICONS: Record<RequestType, ReactNode> = {
   blog: <path d="M5 3h9l5 5v13H5z M14 3v5h5 M8 12h8 M8 16h6" />,
