@@ -4,7 +4,7 @@ export const SITE = {
   name: "AI Native DevRel",
   founder: "Shawn Esquivel",
   url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
-  email: "shawnesquivel24@gmail.com",
+  email: "shawn@amihanventures.ca",
   description:
     "DevRel as a subscription. Submit a ticket (or let your agent do it) and get blogs, long-form YouTube, X content, and cookbooks shipped by a developer who builds with AI every day.",
 };
@@ -19,7 +19,7 @@ export const IMAGES = {
 
 export const CTA = {
   label: "Book an intro call",
-  href: `mailto:${SITE.email}?subject=${encodeURIComponent("AI Native DevRel — intro call")}`,
+  href: "https://cal.com/shawn-ai/30min",
 };
 
 export const SOCIALS = [
@@ -160,7 +160,7 @@ export const WORK: WorkItem[] = [
     href: "https://github.com/jupyterlab/jupyterlab-git",
   },
   {
-    title: "Matchya — AI wellness companion",
+    title: "Matchya: AI wellness companion",
     category: "Cookbooks & code",
     metric: "8,000+ users",
     description: "Solo-built AI mobile app with a 5-star App Store rating.",
@@ -181,7 +181,7 @@ export const WORK: WorkItem[] = [
     href: "https://shawn-builds.com",
   },
   {
-    title: "Cursor hackathon — 80 people showed up to build Canada",
+    title: "Cursor hackathon: 80 people showed up to build Canada",
     category: "Community",
     brand: "Cursor",
     metric: "500K+ impressions",
@@ -203,7 +203,7 @@ export const TWEET_IDS = ["2032550830042394979", "2076653097338724843", "2075271
 export const FAQ = [
   {
     q: "How does the subscription work?",
-    a: "You pay one flat monthly fee and get access to the request queue. Add as many requests as you want — blogs, videos, threads, cookbooks — and they get shipped one by one in priority order. No contracts, no hiring process.",
+    a: "You pay one flat monthly fee and get access to the request queue. Add as many requests as you want (blogs, videos, threads, cookbooks) and they get shipped one by one in priority order. No contracts, no hiring process.",
   },
   {
     q: "Is it really unlimited requests?",
@@ -218,8 +218,12 @@ export const FAQ = [
     a: "No. Scripting, recording, editing, captions, and thumbnails are included. You get a publish-ready video for YouTube, X, Reels, or Shorts.",
   },
   {
-    q: "What's the MCP server?",
-    a: "Soon your agents can file requests directly. Connect the official AI Native DevRel MCP server to Cursor, Claude Code, or Codex, and your agent can create a request, check its status, and pull drafts for review — right from your editor.",
+    q: "How do I send requests?",
+    a: "Two ways. Connect the official AI Native DevRel MCP server to Cursor, Claude Code, or Codex, and your agent can file requests, check their status, and grab the finished link without leaving your editor. Or skip the setup entirely: you get a private Slack channel where you send requests, updates, and feedback, and drafts come back in the same thread.",
+  },
+  {
+    q: "Is the MCP server safe to connect?",
+    a: "Each team gets its own API key, and your agent can only ever see your own requests. Keys can be revoked instantly, and every request is validated and rate limited before it reaches the queue.",
   },
   {
     q: "Who owns the content?",
