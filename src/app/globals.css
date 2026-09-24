@@ -1,0 +1,159 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
+
+  --color-bg: #07070a;
+  --color-surface: #0e0e13;
+  --color-surface-2: #15151c;
+  --color-line: rgb(255 255 255 / 0.08);
+  --color-line-strong: rgb(255 255 255 / 0.14);
+  --color-fg: #f4f4f5;
+  --color-muted: #a1a1aa;
+  --color-subtle: #71717a;
+  --color-accent: #c6ff4a;
+  --color-accent-soft: rgb(198 255 74 / 0.12);
+  --color-violet: #8b7bff;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+}
+
+::selection {
+  background: var(--color-accent);
+  color: #000;
+}
+
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgb(255 255 255 / 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgb(255 255 255 / 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+.mask-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, #000 20%, #000 70%, transparent);
+}
+
+.mask-fade-x {
+  mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+.text-gradient {
+  background: linear-gradient(180deg, #fff 30%, rgb(255 255 255 / 0.55));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+@keyframes spin-slow {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 40s linear infinite;
+}
+
+.group:hover .animate-marquee,
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+.animate-dash {
+  stroke-dasharray: 4 8;
+  animation: dash 1.2s linear infinite;
+}
+
+.animate-spin-slow {
+  animation: spin-slow 14s linear infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+.reveal {
+  opacity: 0;
+}
+
+.reveal.is-visible {
+  animation: reveal-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .animate-dash,
+  .animate-spin-slow,
+  .animate-float,
+  .animate-blink {
+    animation: none;
+  }
+
+  .reveal {
+    opacity: 1;
+  }
+
+  .reveal.is-visible {
+    animation: none;
+  }
+}
