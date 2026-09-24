@@ -8,6 +8,9 @@ const OUTPUT_PATHS = [
 ];
 const INPUT_PATH = "M250 118 L250 238";
 
+// One shared timeline: the request travels into the core, then all three deliverables leave together.
+const CYCLE = "3.2s";
+
 const OUTPUTS = [
   { x: 90, label: "Blog post", meta: "2,140 words", icon: <DocIcon /> },
   { x: 250, label: "YouTube", meta: "18:42 · edited", icon: <PlayIcon /> },
@@ -25,7 +28,8 @@ export default function HeroGraphic() {
 
       <svg viewBox="0 0 500 600" className="absolute inset-0 size-full" fill="none">
         <defs>
-          <linearGradient id="beam" x1="0" y1="0" x2="0" y2="1">
+          {/* userSpaceOnUse: the straight vertical paths have a zero-width bbox, which breaks objectBoundingBox gradients. */}
+          <linearGradient id="beam" gradientUnits="userSpaceOnUse" x1="0" y1="118" x2="0" y2="462">
             <stop offset="0%" stopColor="#8b7bff" stopOpacity="0.9" />
             <stop offset="100%" stopColor="#c6ff4a" stopOpacity="0.9" />
           </linearGradient>
@@ -45,9 +49,15 @@ export default function HeroGraphic() {
           </g>
         ))}
 
-        {[INPUT_PATH, ...OUTPUT_PATHS].map((d, i) => (
-          <circle key={`p-${d}`} r="3.5" fill={i === 0 ? "#8b7bff" : "#c6ff4a"} filter="url(#glow)">
-            <animateMotion dur="2.4s" repeatCount="indefinite" begin={`-${i === 0 ? 0 : 1.2 - i * 0.25}s`} path={d} />
+        <circle r="3.5" fill="#8b7bff" filter="url(#glow)" opacity="0">
+          <animateMotion dur={CYCLE} repeatCount="indefinite" path={INPUT_PATH} keyPoints="0;1;1" keyTimes="0;0.4;1" calcMode="linear" />
+          <animate attributeName="opacity" dur={CYCLE} repeatCount="indefinite" values="0;1;1;0;0" keyTimes="0;0.05;0.35;0.4;1" />
+        </circle>
+
+        {OUTPUT_PATHS.map((d) => (
+          <circle key={`p-${d}`} r="3.5" fill="#c6ff4a" filter="url(#glow)" opacity="0">
+            <animateMotion dur={CYCLE} repeatCount="indefinite" path={d} keyPoints="0;0;1;1" keyTimes="0;0.45;0.95;1" calcMode="linear" />
+            <animate attributeName="opacity" dur={CYCLE} repeatCount="indefinite" values="0;0;1;1;0;0" keyTimes="0;0.45;0.52;0.88;0.95;1" />
           </circle>
         ))}
       </svg>

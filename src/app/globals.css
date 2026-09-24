@@ -67,9 +67,10 @@ body {
   }
 }
 
+/* Must be a multiple of the .animate-dash dasharray period (4 + 8) or the loop visibly jumps. */
 @keyframes dash {
   to {
-    stroke-dashoffset: -40;
+    stroke-dashoffset: -24;
   }
 }
 
@@ -117,7 +118,7 @@ body {
 
 .animate-dash {
   stroke-dasharray: 4 8;
-  animation: dash 1.2s linear infinite;
+  animation: dash 1s linear infinite;
 }
 
 .animate-spin-slow {
