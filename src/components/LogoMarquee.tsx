@@ -25,6 +25,7 @@ const LOGOS = [
   { name: "Composio", Logo: ComposioLogo },
   { name: "Anthropic", Logo: iconLogo("/logos/anthropic.svg", "Anthropic", "size-6") },
   { name: "LangChain", Logo: iconLogo("/logos/langchain.svg", "LangChain", "size-6") },
+  { name: "RentAHuman", Logo: iconLogo("/logos/rentahuman.svg", "rentahuman") },
 ];
 
 // Repeated so a single half of the track is always wider than the viewport, keeping the -50% loop seamless.
