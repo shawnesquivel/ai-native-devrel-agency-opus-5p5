@@ -1,10 +1,9 @@
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import Hero from "@/components/Hero";
-import HowItWorks from "@/components/HowItWorks";
 import Offers from "@/components/Offers";
 import Problem from "@/components/Problem";
-import Services from "@/components/Services";
+import Process from "@/components/Process";
 import Team from "@/components/Team";
 import Work from "@/components/Work";
 import { FAQ, SITE } from "@/lib/site";
@@ -39,8 +38,7 @@ export default function Home() {
       />
       <Hero />
       <Problem />
-      <HowItWorks />
-      <Services />
+      <Process />
       <Offers />
       <Team />
       <Work />

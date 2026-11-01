@@ -13,7 +13,7 @@ export default function FinalCta() {
               data-reveal
               className="mt-8 max-w-[14ch] text-balance text-[2.5rem] font-semibold leading-none tracking-[-0.045em] sm:text-6xl md:text-7xl"
             >
-              Make something agents want.
+              Make sure agents can find it.
             </h2>
           </div>
           <div data-reveal style={i(1)}>

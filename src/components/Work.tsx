@@ -14,7 +14,7 @@ function External() {
 
 export default function Work() {
   return (
-    <Section id="work" index="06" label="Proof" title="Our work.">
+    <Section id="work" index="05" label="Proof" title="Our work.">
       <h3 data-reveal className="mb-5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
         Our team has worked with
       </h3>

@@ -45,6 +45,7 @@ export function Section({
   intro,
   children,
   className = "",
+  bodyClassName = "mt-14 md:mt-20",
 }: {
   id?: string;
   index: string;
@@ -53,6 +54,7 @@ export function Section({
   intro?: ReactNode;
   children: ReactNode;
   className?: string;
+  bodyClassName?: string;
 }) {
   const headingId = id ? `${id}-title` : undefined;
   return (
@@ -86,7 +88,7 @@ export function Section({
               )}
             </div>
           </header>
-          <div className="mt-14 md:mt-20">{children}</div>
+          <div className={bodyClassName}>{children}</div>
         </div>
       </div>
     </section>

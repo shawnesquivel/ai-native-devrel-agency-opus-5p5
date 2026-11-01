@@ -24,7 +24,7 @@ ${STEPS.map((s, n) => `${n + 1}. ${s.title}: ${s.body}`).join("\n")}
 
 ## Ways to work with us
 
-${OFFERS.map((o) => `- ${o.title}: ${o.body} ${o.pricing}.`).join("\n")}
+${OFFERS.map((o) => `- ${o.title}: ${o.items.join(", ")}. ${o.pricing}.`).join("\n")}
 
 ## FAQ
 

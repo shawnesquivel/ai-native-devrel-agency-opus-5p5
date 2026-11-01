@@ -134,20 +134,37 @@ for (const vp of VIEWPORTS) {
       await page.waitForTimeout(path === "/" && s.id === "process" ? 4500 : 2200);
       await page.screenshot({ path: `${OUT}/${vp.name}-${slug}-${s.id}.png` });
     }
+    // Step through each chapter of the scroll-driven scene and audit every state.
+    const storyProblems = [];
+    const steps = await page.$$eval("[data-scrolly]", (els) => els.length && 4);
+    for (let n = 0; n < steps; n++) {
+      await page.evaluate((n) => {
+        const el = document.querySelector("[data-scrolly]");
+        const range = el.offsetHeight - el.firstElementChild.offsetHeight;
+        const top = el.getBoundingClientRect().top + scrollY;
+        window.scrollTo({ top: top + ((n + 0.5) / 4) * range, behavior: "instant" });
+      }, n);
+      await page.waitForTimeout(1800);
+      await page.screenshot({ path: `${OUT}/${vp.name}-${slug}-story-${n + 1}.png` });
+      for (const p of await page.evaluate(audit, "[data-scrolly]")) storyProblems.push({ step: n + 1, ...p });
+    }
+
     await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
     await page.waitForTimeout(600);
     await page.screenshot({ path: `${OUT}/${vp.name}-${slug}-full.png`, fullPage: true });
 
     // Open every FAQ item so the answers are checked too.
     await page.$$eval("details", (ds) => ds.forEach((d) => d.removeAttribute("name") || (d.open = true)));
-    await page.waitForTimeout(500);
+    await page.waitForTimeout(1500);
     if (path === "/" && (await page.$("#faq"))) {
       await page.addStyleTag({ content: "body > header { visibility: hidden }" });
       await page.locator("#faq").screenshot({ path: `${OUT}/${vp.name}-${slug}-faq-open.png` });
       await page.addStyleTag({ content: "body > header { visibility: visible }" });
+      // The element screenshot scrolls the page; let scroll-driven cross-fades settle before auditing.
+      await page.waitForTimeout(1200);
     }
 
-    const problems = await page.evaluate(audit, null);
+    const problems = [...storyProblems, ...(await page.evaluate(audit, null))];
     if (vp.isMobile && path === "/" && (await page.$("button[aria-controls]"))) {
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
       await page.click("button[aria-controls]");

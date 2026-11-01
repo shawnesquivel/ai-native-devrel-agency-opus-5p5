@@ -1,18 +1,20 @@
+import type { IconName } from "@/components/BrandIcon";
+
 const VERCEL_HOST = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
 
 /** The studio name. Change it here and it updates the wordmark, metadata, OG image and llms.txt. */
-export const BRAND_NAME = "[AGENCY NAME]";
+export const BRAND_NAME = "Lode";
 
 export const SITE = {
   name: BRAND_NAME,
   url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
   email: "shawn@amihanventures.ca",
-  tagline: "Make something agents want.",
+  tagline: "You built something agents want. Now make sure they can find it.",
   eyebrow: "Your full-stack DevRel studio",
   subline:
-    "Two full-stack engineers who build real projects with your product, then turn them into technical content developers trust and AI assistants recommend.",
+    "AI solved coding, not distribution. We make written and video content so ChatGPT and Claude recommend your product, not your competitors.",
   description:
-    "Full-stack developer relations for devtools startups. Engineers build real projects with your product, then turn them into docs, explainer videos and technical posts that developers trust and AI assistants recommend.",
+    "AI solved coding, not distribution. A full-stack DevRel studio for devtools startups: engineers make written and video content so ChatGPT and Claude recommend your product, not your competitors.",
 };
 
 export const CAL_URL = "https://cal.com/shawn-ai/30min";
@@ -23,23 +25,11 @@ export const NAV = [
   { label: "FAQ", href: "/#faq" },
 ];
 
-export const PROBLEMS = [
-  {
-    title: "Your blog reads like AI slop.",
-    body: "Generic posts don't get read, shared or cited.",
-  },
-  {
-    title: "ChatGPT recommends your competitor.",
-    body: "Developers ask an assistant first. If you're not in the answer, you're not on the shortlist.",
-  },
-  {
-    title: "Your docs confuse coding agents.",
-    body: "Agents guess when docs are vague. Then your product looks broken.",
-  },
-  {
-    title: "Hiring a DevRel takes months.",
-    body: "And one hire can't build, write, film and run events at once.",
-  },
+export const PROBLEMS: { title: string; icons: IconName[] }[] = [
+  { title: "Your blog reads like AI slop.", icons: ["article"] },
+  { title: "ChatGPT recommends your competitor.", icons: ["chatgpt"] },
+  { title: "Your docs confuse coding agents.", icons: ["cursor", "codex"] },
+  { title: "Hiring a DevRel takes months.", icons: ["calendar"] },
 ];
 
 export const STEPS = [
@@ -70,19 +60,16 @@ export const PYRAMID = [
 export const OFFERS = [
   {
     title: "Free AI visibility audit",
-    body: "Your buyers' questions, asked to ChatGPT, Claude and Gemini. See who gets named and why.",
     items: ["Answers from three assistants", "Who gets cited, and from where", "What to fix first"],
     pricing: "Free",
   },
   {
     title: "Launch kit",
-    body: "Everything a launch needs, timed to your launch.",
     items: ["Explainer video", "Shorts", "Launch posts"],
     pricing: "Pricing on a call",
   },
   {
     title: "Monthly DevRel retainer",
-    body: "A full-stack DevRel team, month-to-month.",
     items: ["Docs, videos and blogs every month", "Founder-led posts", "Monthly AI visibility report"],
     pricing: "Pricing on a call",
   },

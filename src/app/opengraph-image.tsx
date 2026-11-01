@@ -65,15 +65,16 @@ export default async function Image() {
             <div style={{ width: 14, height: 14, background: "#ff4f1a" }} />
             {SITE.eyebrow}
           </div>
-          <div style={{ display: "flex", flexDirection: "column", fontSize: 112, lineHeight: 1, letterSpacing: -5.5, marginTop: 28 }}>
-            <div>Make something</div>
+          <div style={{ display: "flex", flexDirection: "column", fontSize: 76, lineHeight: 1.04, letterSpacing: -3.4, marginTop: 28 }}>
             <div style={{ display: "flex" }}>
-              <div style={{ display: "flex", position: "relative" }}>
+              <div>You built something</div>
+              <div style={{ display: "flex", position: "relative", marginLeft: 20 }}>
                 agents
-                <div style={{ position: "absolute", left: 0, right: 0, bottom: 4, height: 10, background: "#ff4f1a" }} />
+                <div style={{ position: "absolute", left: 0, right: 0, bottom: 2, height: 7, background: "#ff4f1a" }} />
               </div>
-              <div style={{ marginLeft: 28 }}>want.</div>
             </div>
+            <div>want.</div>
+            <div style={{ color: "#66655f" }}>Now make sure they can find it.</div>
           </div>
         </div>
       </div>

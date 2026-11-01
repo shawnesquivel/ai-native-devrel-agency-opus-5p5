@@ -1,9 +1,10 @@
 import { SITE } from "@/lib/site";
+import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 import { CtaLink, i } from "./ui";
 
-const PILLARS = [
-  { label: "For agents", body: "Docs and examples that AI assistants can read, run and cite." },
-  { label: "For humans", body: "There's a human behind your brand: engineers on video, in posts and at events." },
+const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
+  { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "cursor", "codex"] },
+  { label: "For humans", body: "Engineers on video and in posts.", icons: ["youtube", "x", "linkedin", "article"] },
 ];
 
 export default function Hero() {
@@ -24,18 +25,21 @@ export default function Hero() {
 
           <h1
             id="hero-title"
-            className="mt-8 text-[min(2.625rem,10.6vw)] font-semibold leading-[0.98] tracking-[-0.05em] sm:text-7xl md:text-[5.5rem] lg:text-[6.25rem]"
+            className="mt-8 max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
           >
             <span className="hero-line">
-              <span style={i(0)}>Make something</span>
-            </span>
-            <span className="hero-line">
-              <span style={i(1)}>
+              <span style={i(0)}>
+                You built something{" "}
                 <span className="relative isolate inline-block">
                   agents
                   <span className="underline-draw" aria-hidden="true" />
                 </span>{" "}
                 want.
+              </span>
+            </span>
+            <span className="hero-line">
+              <span style={i(1)} className="text-muted">
+                Now make sure they can find it.
               </span>
             </span>
           </h1>
@@ -54,11 +58,26 @@ export default function Hero() {
           {PILLARS.map((p, n) => (
             <div
               key={p.label}
-              className={`hero-fade flex flex-col gap-2 px-5 py-6 sm:px-8 md:px-12 md:py-8 ${n ? "border-t border-line md:border-l md:border-t-0" : ""}`}
+              className={`hero-fade flex flex-col gap-4 px-5 py-6 sm:px-8 md:px-12 md:py-8 ${n ? "border-t border-line md:border-l md:border-t-0" : ""}`}
               style={i(n + 3)}
             >
-              <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{p.label}</p>
-              <p className="max-w-[40ch] text-[15px] leading-relaxed text-ink">{p.body}</p>
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{p.label}</p>
+                <p className="text-[15px] text-ink">{p.body}</p>
+              </div>
+              <ul className="flex gap-2">
+                {p.icons.map((icon, k) => (
+                  <li
+                    key={icon}
+                    title={ICON_LABELS[icon]}
+                    className="hero-fade grid size-10 place-items-center rounded-lg border border-line bg-card text-ink"
+                    style={i(n * 3 + k + 4)}
+                  >
+                    <BrandIcon name={icon} className="size-[18px]" />
+                    <span className="sr-only">{ICON_LABELS[icon]}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           ))}
         </div>
