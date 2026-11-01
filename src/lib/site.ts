@@ -34,19 +34,19 @@ export const PROBLEMS: { outcome: string; title: string; body: string; art: Prob
   {
     outcome: "AI recommendations",
     title: "AI recommends your competitor.",
-    body: "Buyers ask ChatGPT or Claude, and someone else gets named.",
+    body: "Buyers ask an assistant. It searches the web, then names someone else.",
     art: "answer",
   },
   {
     outcome: "Customers",
     title: "Agents can't use your docs.",
-    body: "Coding agents fail on them, so developers pick a tool that works.",
+    body: "Cursor, Claude Code and Codex build from your docs. When they get lost, adoption fails and you never see why.",
     art: "docs",
   },
   {
     outcome: "Speed",
     title: "A DevRel hire takes months.",
-    body: "And one person can't cover docs, video, posts and events.",
+    body: "A hire spends months learning your product before shipping. We ship on day one.",
     art: "hire",
   },
 ];
