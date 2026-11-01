@@ -1,4 +1,5 @@
-import { AUDIT, CAL_URL, FAQ, OFFERS, POINTS, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
+import { AUDIT, CAL_URL, CMS, ENGINE, FAQ, PACKAGES, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
+import { ICON_LABELS } from "@/components/BrandIcon";
 
 export const dynamic = "force-static";
 
@@ -9,7 +10,7 @@ export function GET() {
 
 ${SITE.subline}
 
-${POINTS.map((p) => `- ${p.label}: ${p.body}`).join("\n")}
+${ENGINE}
 
 ## Services
 
@@ -24,7 +25,13 @@ ${STEPS.map((s, n) => `${n + 1}. ${s.title}: ${s.body}`).join("\n")}
 ## Ways to work with us
 
 - ${AUDIT.title}: ${AUDIT.body} Free.
-${OFFERS.map((o) => `- ${o.title}: ${o.items.join(", ")}. ${o.pricing}.`).join("\n")}
+- ${PACKAGES.basic.title} (${PACKAGES.basic.tag.toLowerCase()}): ${PACKAGES.basic.items.join(", ")}. ${PACKAGES.pricing}.
+- ${PACKAGES.whiteGlove.title} (${PACKAGES.whiteGlove.tag.toLowerCase()}): ${PACKAGES.whiteGlove.lead} ${PACKAGES.whiteGlove.items.join(", ")}. ${PACKAGES.pricing}.
+
+## Works with your stack
+
+- We publish straight into your blog CMS: ${CMS.map((c) => ICON_LABELS[c]).join(", ")}.
+- Tag our agent in your Slack channel or through MCP to request content.
 
 ## FAQ
 

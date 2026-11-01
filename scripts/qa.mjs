@@ -94,7 +94,15 @@ function audit(rootSelector) {
   }
 
   // Clipping: text must sit inside every ancestor that clips overflow, and inside the viewport horizontally.
+  // Horizontal scrollers (mobile carousels) hold peeking cards on purpose, so text inside them is exempt.
+  const inScroller = (el) => {
+    for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+      if (/(auto|scroll)/.test(getComputedStyle(p).overflowX) && p.scrollWidth > p.clientWidth + 1) return true;
+    }
+    return false;
+  };
   for (const { el, r, ink, text } of rects) {
+    if (inScroller(el)) continue;
     if (r.right > vw + 1 || r.left < -1) problems.push({ type: "offscreen", text, where: describe(el), left: r.left, right: r.right });
     for (let p = el; p && p !== document.body; p = p.parentElement) {
       const cs = getComputedStyle(p);
@@ -109,7 +117,7 @@ function audit(rootSelector) {
 
   // Ellipsis/overflowing single elements.
   for (const el of root.querySelectorAll("*")) {
-    if (!visible(el) || !el.textContent.trim()) continue;
+    if (!visible(el) || !el.textContent.trim() || inScroller(el)) continue;
     const cs = getComputedStyle(el);
     if (cs.overflowX !== "visible" && el.scrollWidth > el.clientWidth + 1 && el.children.length === 0) {
       problems.push({ type: "text-overflow", text: el.textContent.trim().slice(0, 40), where: describe(el) });
@@ -128,6 +136,18 @@ for (const vp of VIEWPORTS) {
     const slug = path === "/" ? "home" : path.slice(1);
     await page.goto(URL + path, { waitUntil: "networkidle" });
     await page.waitForTimeout(1200);
+
+    // The hero chat must not change size while it types and answers: sample it through a full loop.
+    const shift = [];
+    if (path === "/" && (await page.$(".demo"))) {
+      const heights = new Set();
+      for (let k = 0; k < 75; k++) {
+        heights.add(Math.round((await page.$eval(".demo", (el) => el.getBoundingClientRect().height)) * 2) / 2);
+        await page.waitForTimeout(200);
+      }
+      if (heights.size > 1) shift.push({ type: "layout-shift", where: ".demo (hero chat)", heights: [...heights] });
+      else console.log(`  ${vp.name}: hero chat height stable at ${[...heights][0]}px over 15s`);
+    }
 
     // Scroll through every section so reveals, count-ups and the terminal run, screenshotting each viewport.
     const sections = await page.$$eval("main > section, main section, footer", (els) =>
@@ -171,7 +191,7 @@ for (const vp of VIEWPORTS) {
       await page.waitForTimeout(1200);
     }
 
-    const problems = [...storyProblems, ...(await page.evaluate(audit, null))];
+    const problems = [...shift, ...storyProblems, ...(await page.evaluate(audit, null))];
     if (vp.isMobile && path === "/" && (await page.$("button[aria-controls]"))) {
       await page.evaluate(() => window.scrollTo({ top: 0, behavior: "instant" }));
       await page.click("button[aria-controls]");

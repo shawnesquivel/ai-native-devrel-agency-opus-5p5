@@ -106,9 +106,15 @@ export default function ChatDemo() {
       </div>
 
       <div className="demo-body flex flex-col gap-4 p-4 sm:p-5">
-        <p className="ml-auto min-h-[2.25rem] max-w-[85%] rounded-xl rounded-br-sm bg-ink px-3 py-2 text-[14px] leading-snug text-paper">
-          {DEMO.question.slice(0, typed)}
-          {typing && <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-paper" />}
+        {/* The full question sits invisibly underneath so the bubble keeps its final size while typing. */}
+        <p className="relative ml-auto max-w-[85%] rounded-xl rounded-br-sm bg-ink px-3 py-2 text-[14px] leading-snug text-paper">
+          <span className="invisible" aria-hidden="true">
+            {DEMO.question}
+          </span>
+          <span className="absolute inset-x-3 top-2">
+            {DEMO.question.slice(0, typed)}
+            {typing && <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[2px] bg-paper" />}
+          </span>
         </p>
 
         <div className="flex items-start gap-2.5">

@@ -11,21 +11,55 @@ const CHAPTERS: { title: string; body: string; icons: IconName[] }[] = [
   },
   {
     title: "Ship",
-    body: "Everything that gets you recommended, shipped every week.",
+    body: "Everything that gets you recommended, shipped every day.",
     icons: ["markdown", "aeo", "youtube", "tutorial", "github", "mcp", "x", "calendar"],
   },
-  { title: "Measure", body: "A monthly report: what moved and what ships next.", icons: ["chart"] },
-  { title: "Repeat", body: "Back to the audit, every week. Every month you show up in more answers.", icons: [] },
+  { title: "Measure", body: "A monthly report: your score, what moved and what ships next.", icons: [] },
+  { title: "Repeat", body: "The engine keeps shipping trending formats in your brand voice. Your score keeps climbing.", icons: [] },
 ];
 
-/* Illustrative score per point in time, one per step. Not client data. */
-const TIMELINE = [
-  { label: "Week 1", score: 34 },
-  { label: "Week 2", score: 41 },
-  { label: "Month 1", score: 58 },
-  { label: "Month 3", score: 79 },
+/* Illustrative curve, not client data: [week, score]. Caps at 96. */
+const CURVE: [number, number][] = [
+  [1, 34],
+  [2, 38],
+  [4, 51],
+  [8, 64],
+  [13, 76],
+  [20, 88],
+  [26, 96],
 ];
 const NAMED_AT = 50;
+const LAST_WEEK = 26;
+
+/* Scroll progress -> weeks shown. Audit shows week 1; each later step extends the line. */
+const STOPS: [number, number][] = [
+  [0, 1],
+  [0.25, 1],
+  [0.5, 4],
+  [0.75, 13],
+  [1, LAST_WEEK],
+];
+
+const lerp = (pts: [number, number][], x: number) => {
+  for (let k = 1; k < pts.length; k++) {
+    const [x0, y0] = pts[k - 1];
+    const [x1, y1] = pts[k];
+    if (x <= x1) return y0 + ((x - x0) / (x1 - x0 || 1)) * (y1 - y0);
+  }
+  return pts[pts.length - 1][1];
+};
+
+/* Plot area inside a 400x220 viewBox. */
+const PX = { l: 34, r: 384, t: 14, b: 186 };
+/* Square-root time axis: early weeks get room, so Week 1 and Month 1 don't collide. */
+const gx = (week: number) => PX.l + Math.sqrt((week - 1) / (LAST_WEEK - 1)) * (PX.r - PX.l);
+const gy = (score: number) => PX.b - (score / 100) * (PX.b - PX.t);
+const X_TICKS = [
+  { week: 1, label: "Week 1" },
+  { week: 4, label: "Month 1" },
+  { week: 13, label: "Month 3" },
+  { week: 26, label: "Month 6" },
+];
 
 export default function ScrollStory() {
   const wrap = useRef<HTMLDivElement>(null);
@@ -67,8 +101,13 @@ export default function ScrollStory() {
     window.scrollTo({ top: top + ((n + 0.5) / CHAPTERS.length) * range, behavior: "smooth" });
   }, []);
 
-  const score = TIMELINE[step].score;
+  const week = lerp(STOPS, progress);
+  const score = Math.round(lerp(CURVE, week));
   const named = score >= NAMED_AT;
+  const shown = CURVE.filter(([w]) => w < week);
+  const line = [...shown, [week, lerp(CURVE, week)] as [number, number]];
+  const d = line.map(([w, v], n) => `${n ? "L" : "M"}${gx(w).toFixed(1)} ${gy(v).toFixed(1)}`).join(" ");
+  const tip = { x: (gx(week) / 400) * 100, y: (gy(lerp(CURVE, week)) / 220) * 100 };
   /* Line fill runs marker-to-marker: 0 at the first marker, 1 at the last. */
   const fill = Math.min(1, Math.max(0, progress * CHAPTERS.length - 0.5) / (CHAPTERS.length - 1));
 
@@ -119,45 +158,70 @@ export default function ScrollStory() {
           })}
         </ol>
 
-        {/* Score */}
-        <div className="order-1 lg:order-2 lg:col-span-6" role="img" aria-label={`Example visibility score: ${score} at ${TIMELINE[step].label}.`}>
+        {/* AI visibility score */}
+        <div className="order-1 lg:order-2 lg:col-span-6" role="img" aria-label={`Illustrative AI visibility score: ${score} out of 100, rising over time.`}>
           <div aria-hidden="true">
-            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Example score</p>
-            <div className="mt-2 flex items-end justify-between gap-4">
-              <span key={score} className="score-num text-[5.5rem] font-semibold leading-[0.85] tracking-[-0.06em] tabular-nums lg:text-[9rem]">
-                {score}
-              </span>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="flex items-center gap-2 text-[15px] font-semibold tracking-[-0.01em]">
+                  AI visibility score
+                  <span className="rounded border border-line px-1 py-px font-mono text-[10px] font-normal uppercase tracking-[0.08em] text-muted">
+                    illustrative
+                  </span>
+                </p>
+                <p className="mt-1 max-w-[36ch] text-pretty text-[13px] leading-snug text-muted">
+                  How often AI assistants name you when buyers ask about your category.
+                </p>
+              </div>
               <span
-                className={`mb-2 inline-flex items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 font-mono text-[11px] transition-colors duration-500 ${
+                className={`inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border px-2.5 py-1 font-mono text-[11px] transition-colors duration-500 ${
                   named ? "border-ink bg-accent text-ink" : "border-dashed border-line-strong text-muted"
                 }`}
               >
                 <span className={`size-1.5 rounded-full border ${named ? "border-ink bg-ink" : "border-muted"}`} />
-                {named ? "named in answers" : "not named"}
+                {named ? "named" : "not named"}
               </span>
             </div>
 
-            <ol className="mt-6 grid grid-cols-4 border-t border-line lg:mt-8">
-              {TIMELINE.map((t, n) => (
-                <li key={t.label} className="relative pt-3">
-                  <span
-                    className={`absolute -top-px left-0 h-px w-full origin-left bg-ink transition-transform duration-500 ${
-                      n <= step ? "scale-x-100" : "scale-x-0"
-                    }`}
-                  />
-                  <span className={`block font-mono text-[11px] transition-colors duration-500 ${n <= step ? "text-ink" : "text-muted"}`}>
-                    {t.label}
-                  </span>
-                  <span
-                    className={`mt-1 block text-lg font-semibold tabular-nums tracking-[-0.02em] transition-colors duration-500 ${
-                      n <= step ? "text-ink" : "text-line-strong"
-                    }`}
-                  >
-                    {t.score}
-                  </span>
-                </li>
+            <div className="relative mt-5 aspect-[400/220] w-full">
+              <svg viewBox="0 0 400 220" className="absolute inset-0 size-full overflow-visible" fill="none">
+                <line x1={PX.l} y1={PX.b} x2={PX.r} y2={PX.b} className="stroke-line-strong" vectorEffect="non-scaling-stroke" />
+                <line x1={PX.l} y1={PX.t} x2={PX.l} y2={PX.b} className="stroke-line-strong" vectorEffect="non-scaling-stroke" />
+                <line
+                  x1={PX.l}
+                  y1={gy(NAMED_AT)}
+                  x2={PX.r}
+                  y2={gy(NAMED_AT)}
+                  className="stroke-line-strong"
+                  strokeDasharray="3 4"
+                  vectorEffect="non-scaling-stroke"
+                />
+                <path d={d} className="stroke-ink" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+              </svg>
+
+              {[0, 50, 100].map((v) => (
+                <span key={v} className="graph-label right-[calc(100%-7.5%)] -translate-y-1/2 text-right" style={{ top: `${(gy(v) / 220) * 100}%` }}>
+                  {v}
+                </span>
               ))}
-            </ol>
+              <span className="graph-label right-0 -translate-y-full pb-1" style={{ top: `${(gy(NAMED_AT) / 220) * 100}%` }}>
+                named
+              </span>
+              {X_TICKS.map((t) => (
+                <span
+                  key={t.label}
+                  className={`graph-label top-[calc(186/220*100%)] pt-2 ${t.week === 1 ? "" : t.week === LAST_WEEK ? "-translate-x-full" : "-translate-x-1/2"}`}
+                  style={{ left: `${(gx(t.week) / 400) * 100}%` }}
+                >
+                  {t.label}
+                </span>
+              ))}
+
+              <span className="graph-tip" style={{ left: `${tip.x}%`, top: `${tip.y}%` }}>
+                <span className="graph-dot" />
+                <span className={`graph-value ${tip.x > 78 ? "right-3" : "left-3"}`}>{score}</span>
+              </span>
+            </div>
           </div>
         </div>
       </div>

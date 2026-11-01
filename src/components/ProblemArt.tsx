@@ -90,9 +90,9 @@ function Hire() {
       <div>
         <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted">DevRel hire</p>
         <div className="relative mt-1.5 h-2 rounded-full bg-line">
-          <span className="pa-onboard absolute inset-y-0 left-0 w-[78%] origin-left rounded-full bg-line-strong" />
+          <span className="pa-onboard absolute inset-y-0 left-0 w-[84%] origin-left rounded-l-full bg-line-strong" />
           <span
-            className="pa-fade absolute top-1/2 size-2.5 -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink bg-card"
+            className="pa-fade absolute top-1/2 z-10 size-3 -translate-x-1/2 -translate-y-1/2 rounded-full border border-ink bg-card"
             style={{ left: "84%", ...at(0.74) }}
           />
         </div>
