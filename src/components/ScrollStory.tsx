@@ -16,12 +16,12 @@ const CHAPTERS = [
 ];
 
 const BLOB: Pt[] = [
-  [50, 50],
+  [15, 50],
   [50, 50],
   [50, 50],
   [50, 24],
 ];
-const BLOB_SCALE = [0.78, 1, 0.92, 0.62];
+const BLOB_SCALE = [0.5, 1, 0.92, 0.62];
 
 type Node = {
   icon: IconName;
@@ -29,13 +29,14 @@ type Node = {
   at: Partial<Record<number, Pt>>;
   /** Beam direction per step: out = from the studio, in = into it. */
   flow: "in" | "out";
-  named?: boolean;
+  /** Reveal delay in seconds, for left-to-right sequencing. */
+  delay?: number;
 };
 
 const NODES: Node[] = [
-  { icon: "chatgpt", at: { 0: [18, 20] }, flow: "out" },
-  { icon: "claude", at: { 0: [50, 11] }, flow: "out", named: true },
-  { icon: "gemini", at: { 0: [82, 20] }, flow: "out" },
+  { icon: "chatgpt", at: { 0: [50, 28] }, flow: "out", delay: 0.15 },
+  { icon: "claude", at: { 0: [50, 50] }, flow: "out", delay: 0.3 },
+  { icon: "gemini", at: { 0: [50, 72] }, flow: "out", delay: 0.45 },
   { icon: "cursor", at: { 1: [15, 32] }, flow: "in" },
   { icon: "codex", at: { 1: [15, 68] }, flow: "in" },
   { icon: "github", at: { 1: [85, 50] }, flow: "in" },
@@ -45,6 +46,9 @@ const NODES: Node[] = [
   { icon: "x", label: "posts", at: { 2: [85, 28] }, flow: "out" },
   { icon: "linkedin", label: "posts", at: { 2: [85, 66] }, flow: "out" },
 ];
+
+/* Audit answers, revealed after the question reaches each assistant. Illustrative, not real results. */
+const ANSWERS: { y: number; you?: boolean }[] = [{ y: 28 }, { y: 50, you: true }, { y: 72 }];
 
 const REPORT: { icon: IconName; name: string; w: number }[] = [
   { icon: "chatgpt", name: "ChatGPT", w: 42 },
@@ -60,7 +64,8 @@ const nearest = (at: Node["at"], step: number): Pt => {
   return [50, 50];
 };
 
-const pos = ([x, y]: Pt, s = 1) => ({ "--x": x, "--y": y, "--s": s }) as CSSProperties;
+const pos = ([x, y]: Pt, s = 1, delay?: number) =>
+  ({ "--x": x, "--y": y, "--s": s, ...(delay !== undefined && { "--delay": `${delay}s` }) }) as CSSProperties;
 
 export default function ScrollStory() {
   const wrap = useRef<HTMLDivElement>(null);
@@ -179,7 +184,7 @@ export default function ScrollStory() {
             aria-label={`${CHAPTERS[step].title}: ${CHAPTERS[step].body}`}
           >
             <div aria-hidden="true" className="absolute inset-0">
-              <span className="orbit absolute left-1/2 top-1/2 size-[64%] rounded-full border border-dashed border-line-strong" />
+              <span className={`orbit ${step === 0 ? "opacity-0" : ""} absolute left-1/2 top-1/2 size-[64%] rounded-full border border-dashed border-line-strong transition-opacity duration-500`} />
 
               <svg viewBox="0 0 100 100" className="absolute inset-0 size-full overflow-visible" fill="none">
                 {NODES.map((node) =>
@@ -191,9 +196,21 @@ export default function ScrollStory() {
                       x2={p![0]}
                       y2={p![1]}
                       className={`beam ${node.flow === "in" ? "beam-in" : ""} ${+s === step ? "on" : ""}`}
+                      style={node.delay !== undefined ? ({ "--delay": `${node.delay}s` } as CSSProperties) : undefined}
                     />
                   )),
                 )}
+                {ANSWERS.map((a, n) => (
+                  <line
+                    key={`answer-${a.y}`}
+                    x1="50"
+                    y1={a.y}
+                    x2="82"
+                    y2={a.y}
+                    className={`beam ${step === 0 ? "on" : ""}`}
+                    style={{ "--delay": `${0.6 + n * 0.15}s` } as CSSProperties}
+                  />
+                ))}
                 <line x1="50" y1="24" x2="50" y2="44" className={`beam ${step === 3 ? "on" : ""}`} />
               </svg>
 
@@ -205,12 +222,9 @@ export default function ScrollStory() {
               {NODES.map((node) => {
                 const on = node.at[step] !== undefined;
                 return (
-                  <div key={node.icon} className={`node ${on ? "on" : ""}`} style={pos(nearest(node.at, step), on ? 1 : 0.6)}>
+                  <div key={node.icon} className={`node ${on ? "on" : ""}`} style={pos(nearest(node.at, step), on ? 1 : 0.6, node.delay)}>
                     <span className="relative grid size-[clamp(2.5rem,12cqw,3.75rem)] place-items-center rounded-xl border border-line bg-card text-ink shadow-[0_1px_0_rgb(255_255_255)_inset,0_6px_16px_-10px_rgb(18_18_17/0.35)]">
                       <BrandIcon name={node.icon} className="size-[45%]" />
-                      {node.named && (
-                        <span className="absolute -right-1 -top-1 size-2.5 rounded-full border-2 border-paper bg-accent" />
-                      )}
                     </span>
                     {node.label && (
                       <span className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 font-mono text-[11px] text-muted">
@@ -221,9 +235,21 @@ export default function ScrollStory() {
                 );
               })}
 
-              <div className={`chip ${step === 0 ? "on" : ""}`} style={pos([50, 86])}>
+              <div className={`chip ${step === 0 ? "on" : ""}`} style={pos([50, 11], 1, 0)}>
                 <span className="text-muted">ask</span> &quot;best auth sdk for next.js?&quot;
               </div>
+              {ANSWERS.map((a, n) => (
+                <div
+                  key={`answer-${a.y}`}
+                  className={`chip ${a.you ? "chip-you" : ""} ${step === 0 ? "on" : ""}`}
+                  style={pos([82, a.y], 1, 0.75 + n * 0.15)}
+                >
+                  {a.you ? "you" : "competitor"}
+                </div>
+              ))}
+              <p className={`chip chip-bare ${step === 0 ? "on" : ""}`} style={pos([50, 90], 1, 1.3)}>
+                named by 1 of 3
+              </p>
               <div className={`chip ${step === 1 ? "on" : ""}`} style={pos([50, 86])}>
                 quickstart.ts <span className="size-1.5 rounded-full bg-accent" /> tested
               </div>

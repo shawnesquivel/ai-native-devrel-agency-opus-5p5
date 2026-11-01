@@ -305,7 +305,7 @@ body {
 .stage .node.on,
 .stage .chip.on {
   opacity: 1;
-  transition-delay: 0.12s, 0.12s;
+  transition-delay: var(--delay, 0.12s), var(--delay, 0.12s);
 }
 
 .stage .blob-wrap {
@@ -356,6 +356,18 @@ body {
   line-height: 1;
 }
 
+.stage .chip-you {
+  background: var(--color-accent);
+  border-color: var(--color-ink);
+  color: var(--color-ink);
+}
+
+.stage .chip-bare {
+  border-color: transparent;
+  background: transparent;
+  color: var(--color-muted);
+}
+
 .stage .chip-dashed {
   border-style: dashed;
   background: var(--color-paper);
@@ -380,7 +392,7 @@ body {
 
 .stage .beam.on {
   opacity: 0.4;
-  transition-delay: 0.45s;
+  transition-delay: var(--delay, 0.45s);
 }
 
 .stage .beam-in {

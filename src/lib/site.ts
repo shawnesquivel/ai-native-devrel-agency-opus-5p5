@@ -57,9 +57,10 @@ export const PYRAMID = [
   { level: "Base", title: "Docs for AI agents", body: "Docs and examples coding agents can read and use." },
 ];
 
-export const OFFERS = [
+export const OFFERS: { title: string; icons?: IconName[]; items: string[]; pricing: string }[] = [
   {
     title: "Free AI visibility audit",
+    icons: ["chatgpt", "claude", "gemini"],
     items: ["Answers from three assistants", "Who gets cited, and from where", "What to fix first"],
     pricing: "Free",
   },
