@@ -1,10 +1,11 @@
 import { SITE } from "@/lib/site";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
+import ChatDemo from "./ChatDemo";
 import { CtaLink, i } from "./ui";
 
 const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
-  { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "cursor", "codex"] },
-  { label: "For humans", body: "Engineers on video and in posts.", icons: ["youtube", "x", "linkedin", "article"] },
+  { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "cursor", "codex"] },
+  { label: "For humans", body: "Engineers on video and in posts.", icons: ["youtube", "x", "linkedin", "reddit", "article"] },
 ];
 
 export default function Hero() {
@@ -17,7 +18,8 @@ export default function Hero() {
           ))}
         </div>
 
-        <div className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-32">
+        <div className="relative grid gap-12 px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10">
+          <div className="lg:col-span-7">
           <p className="hero-fade inline-flex items-center gap-2.5 border border-line bg-card py-1.5 pl-2 pr-3 font-mono text-xs uppercase tracking-[0.12em] text-ink-2" style={i(0)}>
             <span className="size-2 bg-accent" aria-hidden="true" />
             {SITE.eyebrow}
@@ -25,7 +27,7 @@ export default function Hero() {
 
           <h1
             id="hero-title"
-            className="mt-8 max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+            className="mt-8 max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[3.75rem] xl:text-[4.25rem]"
           >
             <span className="hero-line">
               <span style={i(0)}>
@@ -52,6 +54,11 @@ export default function Hero() {
             <CtaLink variant="primary">Book a call</CtaLink>
             <CtaLink variant="ghost">Get a free AI visibility audit</CtaLink>
           </div>
+          </div>
+
+          <div className="hero-fade lg:col-span-5" style={i(3)}>
+            <ChatDemo />
+          </div>
         </div>
 
         <div className="relative grid border-t border-line bg-paper md:grid-cols-2">
@@ -65,12 +72,12 @@ export default function Hero() {
                 <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{p.label}</p>
                 <p className="text-[15px] text-ink">{p.body}</p>
               </div>
-              <ul className="flex gap-2">
+              <ul className="flex flex-wrap gap-1.5 sm:gap-2">
                 {p.icons.map((icon, k) => (
                   <li
                     key={icon}
                     title={ICON_LABELS[icon]}
-                    className="hero-fade grid size-10 place-items-center rounded-lg border border-line bg-card text-ink"
+                    className="hero-fade grid size-9 place-items-center rounded-lg border border-line bg-card text-ink sm:size-10"
                     style={i(n * 3 + k + 4)}
                   >
                     <BrandIcon name={icon} className="size-[18px]" />

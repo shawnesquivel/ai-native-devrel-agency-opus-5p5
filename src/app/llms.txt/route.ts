@@ -1,22 +1,21 @@
-import { CAL_URL, FAQ, OFFERS, PYRAMID, SITE, STEPS } from "@/lib/site";
+import { AUDIT, CAL_URL, FAQ, OFFERS, POINTS, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
 
 export const dynamic = "force-static";
 
 export function GET() {
   const body = `# ${SITE.name}
 
-> ${SITE.eyebrow}. ${SITE.tagline} Full-stack developer relations for devtools startups, done for you.
+> ${SITE.eyebrow}. ${SITE.tagline}
 
-${SITE.subline} We work with devtools startups only.
+${SITE.subline}
+
+${POINTS.map((p) => `- ${p.label}: ${p.body}`).join("\n")}
 
 ## Services
 
-${PYRAMID.slice()
-  .reverse()
-  .map((l) => `- ${l.level}: ${l.title}. ${l.body}`)
-  .join("\n")}
-- Add-on: Events. Meetups and hackathons for your developer community.
-- Included: AI visibility tracking, done for you and sent as a monthly report (mentions, citations, competitors, what we ship next).
+${THEME}
+
+${SERVICES.map((s) => `- ${s.label}`).join("\n")}
 
 ## How it works
 
@@ -24,6 +23,7 @@ ${STEPS.map((s, n) => `${n + 1}. ${s.title}: ${s.body}`).join("\n")}
 
 ## Ways to work with us
 
+- ${AUDIT.title}: ${AUDIT.body} Free.
 ${OFFERS.map((o) => `- ${o.title}: ${o.items.join(", ")}. ${o.pricing}.`).join("\n")}
 
 ## FAQ

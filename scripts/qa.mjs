@@ -40,8 +40,15 @@ function audit(rootSelector) {
     return { left: r.left, right: r.right, top: baseline - m.actualBoundingBoxAscent, bottom: baseline + m.actualBoundingBoxDescent };
   };
 
+  // Mid-fade text (cross-fades in the demos) is transient, so only fully opaque text counts.
+  const opaque = (el) => {
+    let o = 1;
+    for (let p = el; p; p = p.parentElement) o *= parseFloat(getComputedStyle(p).opacity);
+    return o > 0.95;
+  };
   const visible = (el) =>
     el.checkVisibility({ opacityProperty: true, visibilityProperty: true }) &&
+    opaque(el) &&
     !el.closest(".sr-only, [hidden], [aria-hidden='true'] .invisible");
 
   // Sticky/fixed UI (the nav) floats over scrolled content by design; only compare text within the same layer.
@@ -136,13 +143,13 @@ for (const vp of VIEWPORTS) {
     }
     // Step through each chapter of the scroll-driven scene and audit every state.
     const storyProblems = [];
-    const steps = await page.$$eval("[data-scrolly]", (els) => els.length && 4);
+    const steps = await page.$$eval("[data-scrolly]", (els) => (els.length ? Number(els[0].dataset.scrolly) : 0));
     for (let n = 0; n < steps; n++) {
       await page.evaluate((n) => {
         const el = document.querySelector("[data-scrolly]");
         const range = el.offsetHeight - el.firstElementChild.offsetHeight;
         const top = el.getBoundingClientRect().top + scrollY;
-        window.scrollTo({ top: top + ((n + 0.5) / 4) * range, behavior: "instant" });
+        window.scrollTo({ top: top + ((n + 0.5) / Number(el.dataset.scrolly)) * range, behavior: "instant" });
       }, n);
       await page.waitForTimeout(1800);
       await page.screenshot({ path: `${OUT}/${vp.name}-${slug}-story-${n + 1}.png` });

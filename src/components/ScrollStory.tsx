@@ -2,74 +2,68 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
-import BrandIcon, { type IconName } from "./BrandIcon";
+import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 import { Mark } from "./Brand";
 
-/* Stage coordinates are percentages of a square stage (0–100 on both axes). */
-type Pt = [number, number];
-
-const CHAPTERS = [
-  { title: "Audit", body: "We ask the assistants your buyers ask." },
-  { title: "Build", body: "Engineers build a real project with your product." },
-  { title: "Ship", body: "One build becomes every channel." },
-  { title: "Track", body: "A monthly AI visibility report. Done for you." },
+const CHAPTERS: { title: string; body: string; icons: IconName[] }[] = [
+  {
+    title: "Audit",
+    body: "We ask the assistants your buyers ask. You get your score.",
+    icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "reddit"],
+  },
+  {
+    title: "Ship",
+    body: "Everything that gets you recommended, shipped every week.",
+    icons: ["markdown", "aeo", "youtube", "tutorial", "github", "mcp", "x", "calendar"],
+  },
+  { title: "Measure", body: "A monthly report: what moved and what ships next.", icons: ["chart"] },
+  { title: "Repeat", body: "The engine runs again. Every month you show up in more answers.", icons: [] },
 ];
 
-const BLOB: Pt[] = [
-  [15, 50],
-  [50, 50],
-  [50, 50],
-  [50, 24],
+/* Illustrative score curve, not client data: [scroll progress, score]. */
+const CURVE: [number, number][] = [
+  [0, 34],
+  [0.25, 34],
+  [0.5, 51],
+  [0.75, 68],
+  [0.95, 86],
+  [1, 86],
 ];
-const BLOB_SCALE = [0.5, 1, 0.92, 0.62];
+const NAMED_AT = 50;
 
-type Node = {
-  icon: IconName;
-  label?: string;
-  at: Partial<Record<number, Pt>>;
-  /** Beam direction per step: out = from the studio, in = into it. */
-  flow: "in" | "out";
-  /** Reveal delay in seconds, for left-to-right sequencing. */
-  delay?: number;
-};
+/* Sparkline points: week 1, month 1, month 3, month 6. x and y are stage percentages. */
+const SPARK = [
+  { label: "Wk 1", score: 34, x: 31 },
+  { label: "Mo 1", score: 51, x: 44 },
+  { label: "Mo 3", score: 68, x: 57 },
+  { label: "Mo 6", score: 86, x: 70 },
+];
+const sparkY = (score: number) => 75 - ((score - 30) / 60) * 11;
+const SPARK_PATH = SPARK.map((pt, n) => `${n ? "L" : "M"}${pt.x} ${sparkY(pt.score).toFixed(2)}`).join(" ");
 
-const NODES: Node[] = [
-  { icon: "chatgpt", at: { 0: [50, 28] }, flow: "out", delay: 0.15 },
-  { icon: "claude", at: { 0: [50, 50] }, flow: "out", delay: 0.3 },
-  { icon: "gemini", at: { 0: [50, 72] }, flow: "out", delay: 0.45 },
-  { icon: "cursor", at: { 1: [15, 32] }, flow: "in" },
-  { icon: "codex", at: { 1: [15, 68] }, flow: "in" },
-  { icon: "github", at: { 1: [85, 50] }, flow: "in" },
-  { icon: "youtube", label: "video", at: { 2: [15, 28] }, flow: "out" },
-  { icon: "article", label: "blog", at: { 2: [15, 66] }, flow: "out" },
-  { icon: "markdown", label: "docs", at: { 2: [50, 84] }, flow: "out" },
-  { icon: "x", label: "posts", at: { 2: [85, 28] }, flow: "out" },
-  { icon: "linkedin", label: "posts", at: { 2: [85, 66] }, flow: "out" },
+const STATIONS: [number, number][] = [
+  [50, 12],
+  [88, 50],
+  [50, 88],
+  [12, 50],
 ];
 
-/* Audit answers, revealed after the question reaches each assistant. Illustrative, not real results. */
-const ANSWERS: { y: number; you?: boolean }[] = [{ y: 28 }, { y: 50, you: true }, { y: 72 }];
-
-const REPORT: { icon: IconName; name: string; w: number }[] = [
-  { icon: "chatgpt", name: "ChatGPT", w: 42 },
-  { icon: "claude", name: "Claude", w: 68 },
-  { icon: "gemini", name: "Gemini", w: 55 },
-];
-
-const nearest = (at: Node["at"], step: number): Pt => {
-  for (let d = 0; d < 4; d++) {
-    if (at[step - d]) return at[step - d]!;
-    if (at[step + d]) return at[step + d]!;
+const lerpCurve = (p: number) => {
+  for (let k = 1; k < CURVE.length; k++) {
+    const [p1, s1] = CURVE[k];
+    const [p0, s0] = CURVE[k - 1];
+    if (p <= p1) return s0 + ((p - p0) / (p1 - p0 || 1)) * (s1 - s0);
   }
-  return [50, 50];
+  return CURVE[CURVE.length - 1][1];
 };
-
-const pos = ([x, y]: Pt, s = 1, delay?: number) =>
-  ({ "--x": x, "--y": y, "--s": s, ...(delay !== undefined && { "--delay": `${delay}s` }) }) as CSSProperties;
 
 export default function ScrollStory() {
   const wrap = useRef<HTMLDivElement>(null);
+  const scoreEl = useRef<HTMLSpanElement>(null);
   const [step, setStep] = useState(0);
+  const [named, setNamed] = useState(false);
+  const [scored, setScored] = useState(false);
+  const [dots, setDots] = useState(0);
 
   useEffect(() => {
     const el = wrap.current;
@@ -81,8 +75,17 @@ export default function ScrollStory() {
       const sticky = el.firstElementChild as HTMLElement;
       const range = r.height - sticky.offsetHeight;
       const p = range > 0 ? Math.min(1, Math.max(0, -r.top / range)) : 0;
+      const score = Math.round(lerpCurve(p));
       el.style.setProperty("--p", p.toFixed(4));
+      el.style.setProperty("--arc", Math.min(1, p / 0.92).toFixed(4));
+      el.style.setProperty("--spark", Math.min(1, Math.max(0, (p - 0.25) / 0.7)).toFixed(4));
+      el.style.setProperty("--score", (score / 100).toFixed(3));
+      if (scoreEl.current) scoreEl.current.textContent = String(score);
       setStep(Math.min(CHAPTERS.length - 1, Math.floor(p * CHAPTERS.length * 0.999)));
+      setNamed(score >= NAMED_AT);
+      setScored(p > 0.1);
+      const spark = Math.min(1, Math.max(0, (p - 0.25) / 0.7));
+      setDots(p > 0.1 ? Math.floor(spark * (SPARK.length - 1) + 0.02) + 1 : 0);
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(update);
@@ -103,184 +106,186 @@ export default function ScrollStory() {
     const sticky = el.firstElementChild as HTMLElement;
     const range = el.offsetHeight - sticky.offsetHeight;
     const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: top + ((n + 0.5) / CHAPTERS.length) * range, behavior: "smooth" });
+    window.scrollTo({ top: top + ((n + 0.6) / CHAPTERS.length) * range, behavior: "smooth" });
   }, []);
 
-  const blob = BLOB[step];
+  const looping = step === CHAPTERS.length - 1;
 
   return (
-    <div ref={wrap} data-scrolly className="relative h-[320svh]" style={{ "--p": 0 } as CSSProperties}>
+    <div
+      ref={wrap}
+      data-scrolly={CHAPTERS.length}
+      className="engine relative h-[340svh]"
+      style={{ "--p": 0, "--arc": 0, "--spark": 0, "--score": 0.34 } as CSSProperties}
+    >
       <div className="sticky top-16 flex h-[calc(100svh-4rem)] flex-col justify-center gap-6 py-6 lg:grid lg:grid-cols-12 lg:items-center lg:gap-8">
-        {/* Chapters: full list on desktop, the active one on mobile */}
+        {/* Chapters: each finished step stays checked, so the steps stack up */}
         <div className="order-2 lg:order-1 lg:col-span-5">
           <ol className="hidden lg:block">
-            {CHAPTERS.map((c, n) => (
-              <li key={c.title}>
-                <button
-                  type="button"
-                  onClick={() => goTo(n)}
-                  aria-current={n === step ? "step" : undefined}
-                  className="group grid w-full grid-cols-[2rem_1fr] items-baseline gap-x-3 border-t border-line py-5 text-left"
-                >
-                  <span className={`font-mono text-xs transition-colors duration-500 ${n === step ? "text-ink" : "text-muted"}`}>
-                    {String(n + 1).padStart(2, "0")}
-                  </span>
-                  <span>
+            {CHAPTERS.map((c, n) => {
+              const state = n < step ? "done" : n === step ? "now" : "next";
+              return (
+                <li key={c.title}>
+                  <button
+                    type="button"
+                    onClick={() => goTo(n)}
+                    aria-current={state === "now" ? "step" : undefined}
+                    className="group grid w-full grid-cols-[2rem_1fr] items-start gap-x-3 border-t border-line py-4 text-left"
+                  >
                     <span
-                      className={`block text-2xl font-semibold tracking-[-0.03em] transition-colors duration-500 ${
-                        n === step ? "text-ink" : "text-line-strong group-hover:text-muted"
+                      className={`mt-0.5 grid size-6 place-items-center rounded-full border font-mono text-[11px] transition-colors duration-500 ${
+                        state === "done"
+                          ? "border-ink bg-ink text-paper"
+                          : state === "now"
+                            ? "border-ink bg-accent text-ink"
+                            : "border-line-strong text-muted"
                       }`}
                     >
-                      {c.title}
+                      {state === "done" ? <Check /> : n + 1}
                     </span>
-                    <span
-                      className={`grid transition-[grid-template-rows,opacity] ease-out ${
-                        n === step ? "grid-rows-[1fr] opacity-100 duration-500" : "grid-rows-[0fr] opacity-0 duration-300"
-                      }`}
-                    >
-                      <span className="overflow-hidden">
-                        <span className="block pt-2 text-[15px] leading-relaxed text-muted">{c.body}</span>
+                    <span>
+                      <span
+                        className={`block text-2xl font-semibold tracking-[-0.03em] transition-colors duration-500 ${
+                          state === "next" ? "text-line-strong group-hover:text-muted" : "text-ink"
+                        }`}
+                      >
+                        {c.title}
+                      </span>
+                      <span
+                        className={`grid transition-[grid-template-rows,opacity] duration-500 ease-out ${
+                          state === "now" ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                        }`}
+                      >
+                        <span className="overflow-hidden">
+                          <span className="block pt-2 text-[15px] leading-relaxed text-muted">{c.body}</span>
+                          {c.icons.length > 0 && <IconRow icons={c.icons} />}
+                        </span>
                       </span>
                     </span>
-                  </span>
-                </button>
-              </li>
-            ))}
+                  </button>
+                </li>
+              );
+            })}
           </ol>
 
           <div className="lg:hidden">
             <div className="flex gap-1.5" aria-hidden="true">
               {CHAPTERS.map((c, n) => (
                 <span key={c.title} className="h-0.5 flex-1 overflow-hidden bg-line">
-                  <span
-                    className={`block h-full origin-left bg-ink transition-transform duration-500 ${n <= step ? "scale-x-100" : "scale-x-0"}`}
-                  />
+                  <span className={`block h-full origin-left bg-ink transition-transform duration-500 ${n <= step ? "scale-x-100" : "scale-x-0"}`} />
                 </span>
               ))}
             </div>
-            <div className="mt-5 grid">
+            <div className="mt-4 grid">
               {CHAPTERS.map((c, n) => (
                 <div
                   key={c.title}
                   aria-hidden={n !== step}
-                  className={`col-start-1 row-start-1 transition-[opacity,transform] ease-out ${
-                    n === step ? "opacity-100 delay-200 duration-500" : "pointer-events-none translate-y-2 opacity-0 duration-150"
+                  className={`col-start-1 row-start-1 transition-[opacity,transform] duration-500 ease-out ${
+                    n === step ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
                   }`}
                 >
                   <p className="font-mono text-xs text-muted">{String(n + 1).padStart(2, "0")}</p>
                   <p className="mt-1 text-2xl font-semibold tracking-[-0.03em]">{c.title}</p>
                   <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{c.body}</p>
+                  {c.icons.length > 0 && <IconRow icons={c.icons} />}
                 </div>
               ))}
             </div>
           </div>
         </div>
 
-        {/* Stage */}
+        {/* The engine */}
         <div className="order-1 lg:order-2 lg:col-span-7">
           <div
-            className="stage relative mx-auto aspect-square w-full max-w-[min(100%,calc(100svh-17rem))] lg:max-w-[min(100%,calc(100svh-9rem))]"
+            className="stage relative mx-auto aspect-square w-full max-w-[min(100%,calc(100svh-19rem))] lg:max-w-[min(100%,calc(100svh-9rem))]"
             role="img"
-            aria-label={`${CHAPTERS[step].title}: ${CHAPTERS[step].body}`}
+            aria-label={`${CHAPTERS[step].title}. ${CHAPTERS[step].body} Example visibility score shown, rising over six months.`}
           >
             <div aria-hidden="true" className="absolute inset-0">
-              <span className={`orbit ${step === 0 ? "opacity-0" : ""} absolute left-1/2 top-1/2 size-[64%] rounded-full border border-dashed border-line-strong transition-opacity duration-500`} />
-
               <svg viewBox="0 0 100 100" className="absolute inset-0 size-full overflow-visible" fill="none">
-                {NODES.map((node) =>
-                  Object.entries(node.at).map(([s, p]) => (
-                    <line
-                      key={`${node.icon}-${s}`}
-                      x1={BLOB[+s][0]}
-                      y1={BLOB[+s][1]}
-                      x2={p![0]}
-                      y2={p![1]}
-                      className={`beam ${node.flow === "in" ? "beam-in" : ""} ${+s === step ? "on" : ""}`}
-                      style={node.delay !== undefined ? ({ "--delay": `${node.delay}s` } as CSSProperties) : undefined}
-                    />
-                  )),
-                )}
-                {ANSWERS.map((a, n) => (
-                  <line
-                    key={`answer-${a.y}`}
-                    x1="50"
-                    y1={a.y}
-                    x2="82"
-                    y2={a.y}
-                    className={`beam ${step === 0 ? "on" : ""}`}
-                    style={{ "--delay": `${0.6 + n * 0.15}s` } as CSSProperties}
+                <circle cx="50" cy="50" r="38" className="ring-track" />
+                <circle cx="50" cy="50" r="38" pathLength={1} className="ring-arc" />
+                <g className={`ring-comet ${looping ? "on" : ""}`}>
+                  <circle cx="50" cy="12" r="1.3" className="fill-accent" />
+                </g>
+
+                <path d={SPARK_PATH} pathLength={1} className="spark" />
+                {SPARK.map((pt, n) => (
+                  <circle
+                    key={pt.label}
+                    cx={pt.x}
+                    cy={sparkY(pt.score)}
+                    r="1.1"
+                    className={`spark-dot ${n < dots ? "on" : ""}`}
                   />
                 ))}
-                <line x1="50" y1="24" x2="50" y2="44" className={`beam ${step === 3 ? "on" : ""}`} />
               </svg>
 
-              <div className="blob-wrap" style={pos(blob, BLOB_SCALE[step])}>
-                <div className="blob" />
-                <Mark className="relative size-[11cqw] text-ink" accent="var(--color-paper)" />
-              </div>
-
-              {NODES.map((node) => {
-                const on = node.at[step] !== undefined;
+              {STATIONS.map(([x, y], n) => {
+                const state = n < step || (looping && n === 0) ? "done" : n === step ? "now" : "next";
                 return (
-                  <div key={node.icon} className={`node ${on ? "on" : ""}`} style={pos(nearest(node.at, step), on ? 1 : 0.6, node.delay)}>
-                    <span className="relative grid size-[clamp(2.5rem,12cqw,3.75rem)] place-items-center rounded-xl border border-line bg-card text-ink shadow-[0_1px_0_rgb(255_255_255)_inset,0_6px_16px_-10px_rgb(18_18_17/0.35)]">
-                      <BrandIcon name={node.icon} className="size-[45%]" />
-                    </span>
-                    {node.label && (
-                      <span className="absolute left-1/2 top-full mt-1.5 -translate-x-1/2 font-mono text-[11px] text-muted">
-                        {node.label}
-                      </span>
-                    )}
-                  </div>
+                  <span key={n} className={`station ${state}`} style={{ "--x": x, "--y": y } as CSSProperties}>
+                    {state === "done" ? <Check /> : n + 1}
+                  </span>
                 );
               })}
 
-              <div className={`chip ${step === 0 ? "on" : ""}`} style={pos([50, 11], 1, 0)}>
-                <span className="text-muted">ask</span> &quot;best auth sdk for next.js?&quot;
-              </div>
-              {ANSWERS.map((a, n) => (
-                <div
-                  key={`answer-${a.y}`}
-                  className={`chip ${a.you ? "chip-you" : ""} ${step === 0 ? "on" : ""}`}
-                  style={pos([82, a.y], 1, 0.75 + n * 0.15)}
+              <div className="blob-wrap" style={{ "--x": 50, "--y": 37 } as CSSProperties}>
+                <svg viewBox="0 0 100 100" className="gauge absolute -inset-[16%]" fill="none">
+                  <circle cx="50" cy="50" r="46" className="gauge-track" />
+                  <circle cx="50" cy="50" r="46" pathLength={1} className="gauge-arc" />
+                </svg>
+                <div className="blob" />
+                <Mark className={`relative size-[8cqw] text-ink transition-opacity duration-500 ${scored ? "opacity-0" : ""}`} accent="var(--color-paper)" />
+                <span
+                  className={`absolute inset-0 grid place-items-center content-center text-ink transition-opacity duration-500 ${scored ? "opacity-100" : "opacity-0"}`}
                 >
-                  {a.you ? "you" : "competitor"}
-                </div>
-              ))}
-              <p className={`chip chip-bare ${step === 0 ? "on" : ""}`} style={pos([50, 90], 1, 1.3)}>
-                named by 1 of 3
-              </p>
-              <div className={`chip ${step === 1 ? "on" : ""}`} style={pos([50, 86])}>
-                quickstart.ts <span className="size-1.5 rounded-full bg-accent" /> tested
-              </div>
-              <div className={`chip chip-dashed ${step === 2 ? "on" : ""}`} style={pos([50, 13])}>
-                <BrandIcon name="calendar" className="size-3.5" /> events
+                  <span ref={scoreEl} className="text-[9cqw] font-semibold leading-none tracking-[-0.04em] tabular-nums">
+                    34
+                  </span>
+                  <span className="mt-1 whitespace-nowrap font-mono text-[max(9px,2.1cqw)] uppercase tracking-[0.06em]">Example score</span>
+                </span>
               </div>
 
-              <div className={`report ${step === 3 ? "on" : ""}`}>
-                <div className="flex items-center justify-between border-b border-line pb-3 font-mono text-[11px] uppercase tracking-[0.12em] text-muted">
-                  <span>Monthly report</span>
-                  <span className="rounded border border-line px-1.5 py-px normal-case tracking-normal">example</span>
-                </div>
-                <ul className="mt-3 space-y-3">
-                  {REPORT.map((r, n) => (
-                    <li key={r.name} className="grid grid-cols-[1.25rem_4.5rem_1fr] items-center gap-2.5 text-sm">
-                      <BrandIcon name={r.icon} className="size-4" />
-                      <span>{r.name}</span>
-                      <span className="h-1.5 overflow-hidden rounded-full bg-line">
-                        <span
-                          className="bar block h-full rounded-full bg-ink"
-                          style={{ "--w": `${r.w}%`, "--d": `${n * 120 + 250}ms` } as CSSProperties}
-                        />
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <span
+                className={`named-chip ${scored ? "on" : ""} ${named ? "is-named" : ""}`}
+                style={{ "--x": 50, "--y": 59 } as CSSProperties}
+              >
+                <span className="named-dot" />
+                {named ? "named in answers" : "not named"}
+              </span>
+
+              {SPARK.map((pt, n) => (
+                <span key={pt.label} className={`spark-label ${n < dots ? "on" : ""}`} style={{ "--x": pt.x, "--y": 79 } as CSSProperties}>
+                  {pt.label}
+                </span>
+              ))}
             </div>
           </div>
         </div>
       </div>
     </div>
+  );
+}
+
+function Check() {
+  return (
+    <svg viewBox="0 0 16 16" className="size-3" aria-hidden="true" fill="none">
+      <path d="M3.5 8.5 6.5 11.5 12.5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function IconRow({ icons }: { icons: IconName[] }) {
+  return (
+    <span className="mt-3 flex flex-wrap gap-1.5">
+      {icons.map((icon) => (
+        <span key={icon} title={ICON_LABELS[icon]} className="grid size-8 place-items-center rounded-lg border border-line bg-card text-ink">
+          <BrandIcon name={icon} className="size-4" />
+          <span className="sr-only">{ICON_LABELS[icon]}</span>
+        </span>
+      ))}
+    </span>
   );
 }

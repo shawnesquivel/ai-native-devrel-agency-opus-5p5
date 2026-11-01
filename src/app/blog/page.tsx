@@ -4,7 +4,7 @@ import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: `Notes from ${SITE.name} on DevRel for devtools: docs for AI agents, explainer videos and technical content.`,
+  description: `Notes from ${SITE.name} on DevRel for AI agents and the developers behind them.`,
   alternates: { canonical: "/blog" },
 };
 
