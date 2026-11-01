@@ -1,63 +1,24 @@
-"use client";
-
-import { useState } from "react";
-import { Section, SectionHeading, Serif } from "@/components/Section";
 import { FAQ } from "@/lib/site";
+import { Section, i } from "./ui";
 
 export default function Faq() {
-  const [open, setOpen] = useState<number | null>(0);
-
   return (
-    <Section id="faq" className="border-t border-line">
-      <SectionHeading
-        eyebrow="FAQ"
-        title={
-          <>
-            Questions, <Serif>answered.</Serif>
-          </>
-        }
-      />
-      <div className="mx-auto max-w-3xl divide-y divide-line border-y border-line">
-        {FAQ.map((item, i) => {
-          const isOpen = open === i;
-          return (
-            <div key={item.q}>
-              <h3>
-                <button
-                  type="button"
-                  id={`faq-q-${i}`}
-                  aria-expanded={isOpen}
-                  aria-controls={`faq-a-${i}`}
-                  onClick={() => setOpen(isOpen ? null : i)}
-                  className="group flex w-full items-center justify-between gap-6 py-5 text-left text-lg font-medium transition-colors hover:text-accent"
-                >
-                  {item.q}
-                  <span
-                    className={`grid size-7 shrink-0 place-items-center rounded-full border border-line-strong text-muted transition-all duration-300 group-hover:border-accent/50 group-hover:text-accent ${
-                      isOpen ? "rotate-45 border-accent/50 text-accent" : ""
-                    }`}
-                  >
-                    <svg viewBox="0 0 12 12" className="size-3" fill="none" stroke="currentColor" strokeWidth="1.8">
-                      <path d="M6 1.5v9M1.5 6h9" />
-                    </svg>
-                  </span>
-                </button>
-              </h3>
-              <div
-                id={`faq-a-${i}`}
-                role="region"
-                aria-labelledby={`faq-q-${i}`}
-                className={`grid transition-[grid-template-rows,opacity] duration-300 ease-out ${
-                  isOpen ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
-                }`}
-              >
-                <div className="overflow-hidden">
-                  <p className="pb-6 pr-12 leading-relaxed text-muted">{item.a}</p>
-                </div>
-              </div>
-            </div>
-          );
-        })}
+    <Section id="faq" index="07" label="FAQ" title="Questions, answered.">
+      <div className="md:grid md:grid-cols-12 md:gap-8">
+        <div className="faq border-t border-line md:col-span-9 md:col-start-4">
+          {FAQ.map((item, n) => (
+            <details key={item.q} data-reveal style={i(n)} className="group border-b border-line" name="faq">
+              <summary className="flex cursor-pointer list-none items-start justify-between gap-6 py-5 text-lg font-medium tracking-[-0.015em] transition-colors duration-200 hover:text-ink-2 md:py-6">
+                <span className="text-pretty">{item.q}</span>
+                <span aria-hidden="true" className="plus relative mt-1.5 size-3.5 shrink-0">
+                  <span className="absolute inset-x-0 top-1/2 h-[1.5px] -translate-y-1/2 bg-current" />
+                  <span className="absolute inset-y-0 left-1/2 w-[1.5px] -translate-x-1/2 bg-current" />
+                </span>
+              </summary>
+              <p className="max-w-[60ch] text-pretty pb-6 pr-10 text-[15px] leading-relaxed text-muted">{item.a}</p>
+            </details>
+          ))}
+        </div>
       </div>
     </Section>
   );

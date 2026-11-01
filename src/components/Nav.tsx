@@ -1,34 +1,36 @@
 import Link from "next/link";
-import CTAButton from "@/components/CTAButton";
-import Logo from "@/components/Logo";
-
-const LINKS = [
-  { label: "How it works", href: "/#how-it-works" },
-  { label: "API", href: "/#api" },
-  { label: "MCP", href: "/mcp" },
-  { label: "Compare", href: "/#compare" },
-  { label: "Work", href: "/work" },
-  { label: "FAQ", href: "/#faq" },
-];
+import { NAV } from "@/lib/site";
+import { Wordmark } from "./Brand";
+import MobileMenu from "./MobileMenu";
+import { CtaLink } from "./ui";
 
 export default function Nav() {
   return (
-    <header className="sticky top-0 z-50 border-b border-line bg-bg/70 backdrop-blur-xl">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <Logo />
-        <nav className="hidden items-center gap-7 text-sm text-muted md:flex">
-          {LINKS.map((l) => (
-            <Link key={l.href} href={l.href} className="transition-colors hover:text-fg">
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-        <div className="hidden sm:block">
-          <CTAButton />
-        </div>
-        <Link href="/work" className="text-sm text-muted hover:text-fg sm:hidden">
-          Work
+    <header className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-md backdrop-saturate-150">
+      <div className="frame flex h-16 items-center justify-between gap-4 px-4 sm:px-8 md:px-12">
+        <Link href="/" aria-label="Home" className="-m-2 rounded p-2 text-[15px]">
+          <Wordmark />
         </Link>
+        <nav aria-label="Main" className="hidden md:block">
+          <ul className="flex items-center gap-1">
+            {NAV.map((item) => (
+              <li key={item.href}>
+                <a
+                  href={item.href}
+                  className="rounded-md px-3 py-2 text-sm text-ink-2 transition-colors duration-200 hover:bg-ink/[0.05] hover:text-ink"
+                >
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="flex items-center gap-2">
+          <CtaLink size="sm" arrow={false} className="hidden min-[360px]:inline-flex">
+            Book a call
+          </CtaLink>
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );

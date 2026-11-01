@@ -1,25 +1,49 @@
-import About from "@/components/About";
-import ApiSection from "@/components/ApiSection";
-import Comparison from "@/components/Comparison";
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import Hero from "@/components/Hero";
 import HowItWorks from "@/components/HowItWorks";
-import LogoMarquee from "@/components/LogoMarquee";
+import Offers from "@/components/Offers";
+import Problem from "@/components/Problem";
 import Services from "@/components/Services";
-import WorkPreview from "@/components/WorkPreview";
+import Team from "@/components/Team";
+import Work from "@/components/Work";
+import { FAQ, SITE } from "@/lib/site";
+
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: FAQ.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: SITE.name,
+    description: SITE.description,
+    url: SITE.url,
+    email: SITE.email,
+    slogan: SITE.tagline,
+  },
+];
 
 export default function Home() {
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       <Hero />
-      <LogoMarquee />
+      <Problem />
       <HowItWorks />
       <Services />
-      <ApiSection />
-      <Comparison />
-      <WorkPreview />
-      <About />
+      <Offers />
+      <Team />
+      <Work />
       <Faq />
       <FinalCta />
     </>

@@ -1,55 +1,60 @@
-import type { ReactNode } from "react";
-import Reveal from "@/components/Reveal";
-import { Section, SectionHeading, Serif } from "@/components/Section";
-import { REQUEST_TYPES, type RequestType } from "@/lib/request-types";
+import { PYRAMID } from "@/lib/site";
+import { Section, i } from "./ui";
 
-const ICONS: Record<RequestType, ReactNode> = {
-  blog: <path d="M5 3h9l5 5v13H5z M14 3v5h5 M8 12h8 M8 16h6" />,
-  article: <path d="M4 5h16 M4 10h16 M4 15h10 M4 20h7" />,
-  shortform: <path d="M8 2h8a2 2 0 012 2v16a2 2 0 01-2 2H8a2 2 0 01-2-2V4a2 2 0 012-2z M10 9l5 3-5 3z" />,
-  longform: <path d="M2 6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2z M10 9l5 3-5 3z" />,
-  thread: <path d="M4 4l7 9-7 7h2l6-6 4 6h4l-7-10 6-6h-2l-5 5-3-5z" />,
-  cookbook: <path d="M8 6l-6 6 6 6 M16 6l6 6-6 6 M14 4l-4 16" />,
-};
+const WIDTHS = ["w-[74%] sm:w-[62%]", "w-[87%] sm:w-[81%]", "w-full"];
 
 export default function Services() {
   return (
-    <Section id="services" className="border-t border-line">
-      <SectionHeading
-        eyebrow="What you can request"
-        title={
-          <>
-            Every format developers <Serif>actually consume.</Serif>
-          </>
-        }
-        description="No video editor, ghostwriter, or sample-app contractor to manage. It's all one queue."
-      />
-      <div className="grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-3">
-        {(Object.entries(REQUEST_TYPES) as [RequestType, (typeof REQUEST_TYPES)[RequestType]][]).map(([type, spec], i) => (
-          <Reveal key={type} delay={i * 60} className="bg-bg">
-            <div className="group flex h-full flex-col gap-4 p-7 transition-colors hover:bg-surface">
-              <div className="flex items-center justify-between">
-                <span className="grid size-10 place-items-center rounded-xl bg-accent-soft text-accent ring-1 ring-accent/20 transition-transform group-hover:scale-105">
-                  <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round">
-                    {ICONS[type]}
-                  </svg>
-                </span>
-                <code className="font-mono text-xs text-subtle">type: &quot;{type}&quot;</code>
-              </div>
-              <div className="space-y-1.5">
-                <h3 className="text-lg font-semibold">{spec.label}</h3>
-                <p className="text-sm text-muted">{spec.description}</p>
-              </div>
-              <ul className="mt-auto space-y-1.5 pt-2 text-sm text-subtle">
-                {spec.deliverables.map((d) => (
-                  <li key={d} className="flex items-center gap-2">
-                    <span className="text-accent">✓</span> {d}
-                  </li>
-                ))}
-              </ul>
+    <Section
+      id="services"
+      index="03"
+      label="Services"
+      title="Built for agents first. Driven by humans."
+    >
+      <div className="grid gap-8 lg:grid-cols-12">
+        <div data-observe className="flex flex-col items-center gap-2 lg:col-span-8">
+          {PYRAMID.map((layer, n) => (
+            <div
+              key={layer.title}
+              style={i(PYRAMID.length - 1 - n)}
+              className={`layer ${WIDTHS[n]} rounded-lg border p-5 text-center sm:p-6 ${
+                layer.core ? "border-ink bg-accent text-ink" : "border-line bg-card"
+              } ${layer.core ? "py-8 sm:py-10" : ""}`}
+            >
+              <p className={`font-mono text-[11px] uppercase tracking-[0.14em] ${layer.core ? "text-ink" : "text-muted"}`}>
+                {layer.level}
+              </p>
+              <h3
+                className={`mt-2 text-balance font-semibold tracking-[-0.02em] ${
+                  layer.core ? "text-2xl sm:text-[1.75rem]" : "text-lg sm:text-xl"
+                }`}
+              >
+                {layer.title}
+              </h3>
+              <p className={`mx-auto mt-1.5 max-w-[40ch] text-pretty text-sm leading-relaxed ${layer.core ? "text-ink" : "text-muted"}`}>
+                {layer.body}
+              </p>
             </div>
-          </Reveal>
-        ))}
+          ))}
+        </div>
+
+        <div className="grid gap-2 sm:grid-cols-2 lg:col-span-4 lg:grid-cols-1 lg:content-end">
+          <div data-reveal style={i(2)} className="rounded-lg border border-ink bg-ink p-6 text-paper">
+            <div className="flex items-center justify-between gap-3">
+              <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-[#bdbbb2]">Every layer</p>
+              <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink">
+                Included
+              </span>
+            </div>
+            <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em]">AI visibility tracking</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-[#d9d7cf]">Done for you. A report lands in your inbox every month.</p>
+          </div>
+          <div data-reveal style={i(3)} className="rounded-lg border border-dashed border-line-strong p-6">
+            <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Add-on</p>
+            <h3 className="mt-4 text-lg font-semibold tracking-[-0.02em]">Events</h3>
+            <p className="mt-1.5 text-sm leading-relaxed text-muted">Meetups and hackathons for your developer community.</p>
+          </div>
+        </div>
       </div>
     </Section>
   );
