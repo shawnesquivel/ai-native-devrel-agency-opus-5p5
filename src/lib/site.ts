@@ -107,7 +107,7 @@ export const LOGOS: { id: LogoId; name: string; show: boolean }[] = [
   { id: "chat2db", name: "Chat2DB", show: false },
 ];
 
-export const STATS = [
+export const STATS: { value: number; suffix: string; label: string; href?: string }[] = [
   {
     value: 500,
     suffix: "K+",
@@ -121,7 +121,7 @@ export const STATS = [
     label: "impressions on a startup explainer",
     href: "https://x.com/AlexanderTw33ts/status/2032550830042394979",
   },
-  { value: 5000, suffix: "+", label: "developers taught", href: "https://www.udemy.com/user/shawn-esquivel-2/" },
+  { value: 5000, suffix: "+", label: "developers taught" },
 ];
 
 export const VIDEOS = [

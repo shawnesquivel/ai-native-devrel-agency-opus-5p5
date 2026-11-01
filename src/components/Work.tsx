@@ -21,26 +21,35 @@ export default function Work() {
       <Logos />
 
       <ul className="mt-16 grid grid-cols-2 border-l border-t border-line md:mt-20 lg:grid-cols-4">
-        {STATS.map((s, n) => (
-          <li key={s.label} data-reveal style={i(n)} className="border-b border-r border-line">
-            <a
-              href={s.href}
-              target="_blank"
-              rel="noopener"
-              className="group flex h-full flex-col gap-3 p-5 transition-colors duration-300 hover:bg-card md:p-7"
-            >
+        {STATS.map((s, n) => {
+          const body = (
+            <>
               <span className="block text-[2.125rem] font-semibold leading-none tracking-[-0.045em] sm:text-5xl md:text-[3.5rem]">
                 <CountUp value={s.value} suffix={s.suffix} />
               </span>
               <span className="flex items-start justify-between gap-2 text-pretty text-sm leading-snug text-muted">
                 <span>{s.label}</span>
-                <span className="mt-0.5 text-line-strong transition-colors duration-300 group-hover:text-ink">
-                  <External />
-                </span>
+                {s.href && (
+                  <span className="mt-0.5 text-line-strong transition-colors duration-300 group-hover:text-ink">
+                    <External />
+                  </span>
+                )}
               </span>
-            </a>
-          </li>
-        ))}
+            </>
+          );
+          const cell = "flex h-full flex-col gap-3 p-5 md:p-7";
+          return (
+            <li key={s.label} data-reveal style={i(n)} className="border-b border-r border-line">
+              {s.href ? (
+                <a href={s.href} target="_blank" rel="noopener" className={`group ${cell} transition-colors duration-300 hover:bg-card`}>
+                  {body}
+                </a>
+              ) : (
+                <div className={cell}>{body}</div>
+              )}
+            </li>
+          );
+        })}
       </ul>
 
       <ul className="mt-16 grid gap-x-4 gap-y-8 sm:grid-cols-2 md:mt-20 lg:grid-cols-3">
