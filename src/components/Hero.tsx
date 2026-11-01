@@ -1,65 +1,87 @@
-import Link from "next/link";
-import CTAButton from "@/components/CTAButton";
-import HeroGraphic from "@/components/HeroGraphic";
-import { Serif } from "@/components/Section";
-import { STATS } from "@/lib/site";
+import { SITE } from "@/lib/site";
+import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
+import { CtaLink, i } from "./ui";
+
+const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
+  { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "cursor", "codex"] },
+  { label: "For humans", body: "Engineers on video and in posts.", icons: ["youtube", "x", "linkedin", "article"] },
+];
 
 export default function Hero() {
   return (
-    <section className="relative overflow-hidden px-5 pb-16 pt-14 md:pb-24 md:pt-20">
-      <div className="bg-grid mask-fade-y pointer-events-none absolute inset-0" />
-      <div className="relative mx-auto grid max-w-6xl items-center gap-14 lg:grid-cols-[1.05fr_1fr]">
-        <div className="flex flex-col items-start gap-7">
-          <a
-            href="#api"
-            className="group inline-flex items-center gap-2 rounded-full border border-line-strong bg-surface/60 py-1 pl-1 pr-3 text-xs text-muted backdrop-blur transition-colors hover:text-fg"
-          >
-            <span className="rounded-full bg-violet/20 px-2 py-0.5 font-mono text-[10px] text-violet">NEW</span>
-            Official MCP server: request content from your agent
-            <span className="transition-transform group-hover:translate-x-0.5">→</span>
-          </a>
-
-          <h1 className="text-gradient text-5xl font-semibold leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
-            Your DevRel team, <Serif>as an API.</Serif>
-          </h1>
-
-          <p className="max-w-xl text-lg leading-relaxed text-muted">
-            Send a request in Slack or let your agent file one over MCP. Get blogs, long-form YouTube, X content, and
-            cookbooks built by a developer who ships with Cursor, Claude Code, and Codex every day.
-          </p>
-
-          <div className="flex flex-wrap items-center gap-4">
-            <CTAButton />
-            <Link
-              href="/work"
-              className="group inline-flex items-center gap-1.5 rounded-full px-4 py-2.5 text-sm font-medium text-fg ring-1 ring-line-strong transition-colors hover:bg-white/5"
-            >
-              See the work
-              <span className="transition-transform group-hover:translate-x-0.5">→</span>
-            </Link>
-          </div>
-
-          <ul className="flex flex-wrap gap-x-5 gap-y-2 font-mono text-xs text-subtle">
-            {["Unlimited requests", "One flat monthly fee", "Cancel anytime"].map((t) => (
-              <li key={t} className="flex items-center gap-2">
-                <span className="size-1 rounded-full bg-accent" />
-                {t}
-              </li>
-            ))}
-          </ul>
+    <section aria-labelledby="hero-title" className="relative">
+      <div className="frame overflow-hidden">
+        <div aria-hidden="true" className="pointer-events-none absolute inset-0">
+          {[25, 50, 75].map((x, n) => (
+            <span key={x} className="grid-v hidden md:block" style={{ left: `${x}%`, ...i(n) }} />
+          ))}
         </div>
 
-        <HeroGraphic />
-      </div>
+        <div className="relative px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-32">
+          <p className="hero-fade inline-flex items-center gap-2.5 border border-line bg-card py-1.5 pl-2 pr-3 font-mono text-xs uppercase tracking-[0.12em] text-ink-2" style={i(0)}>
+            <span className="size-2 bg-accent" aria-hidden="true" />
+            {SITE.eyebrow}
+          </p>
 
-      <dl className="relative mx-auto mt-16 grid max-w-6xl grid-cols-2 gap-px overflow-hidden rounded-2xl border border-line bg-line md:grid-cols-4 [&>div]:bg-bg">
-        {STATS.map((s) => (
-          <div key={s.label} className="flex flex-col gap-1 px-6 py-5">
-            <dt className="order-2 text-sm text-subtle">{s.label}</dt>
-            <dd className="text-3xl font-semibold tracking-tight">{s.value}</dd>
+          <h1
+            id="hero-title"
+            className="mt-8 max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[5.25rem]"
+          >
+            <span className="hero-line">
+              <span style={i(0)}>
+                You built something{" "}
+                <span className="relative isolate inline-block">
+                  agents
+                  <span className="underline-draw" aria-hidden="true" />
+                </span>{" "}
+                want.
+              </span>
+            </span>
+            <span className="hero-line">
+              <span style={i(1)} className="text-muted">
+                Now make sure they can find it.
+              </span>
+            </span>
+          </h1>
+
+          <p className="hero-fade mt-8 max-w-[46ch] text-pretty text-lg leading-relaxed text-ink-2 md:text-xl" style={i(1)}>
+            {SITE.subline}
+          </p>
+
+          <div className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={i(2)}>
+            <CtaLink variant="primary">Book a call</CtaLink>
+            <CtaLink variant="ghost">Get a free AI visibility audit</CtaLink>
           </div>
-        ))}
-      </dl>
+        </div>
+
+        <div className="relative grid border-t border-line bg-paper md:grid-cols-2">
+          {PILLARS.map((p, n) => (
+            <div
+              key={p.label}
+              className={`hero-fade flex flex-col gap-4 px-5 py-6 sm:px-8 md:px-12 md:py-8 ${n ? "border-t border-line md:border-l md:border-t-0" : ""}`}
+              style={i(n + 3)}
+            >
+              <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1">
+                <p className="font-mono text-xs uppercase tracking-[0.14em] text-muted">{p.label}</p>
+                <p className="text-[15px] text-ink">{p.body}</p>
+              </div>
+              <ul className="flex gap-2">
+                {p.icons.map((icon, k) => (
+                  <li
+                    key={icon}
+                    title={ICON_LABELS[icon]}
+                    className="hero-fade grid size-10 place-items-center rounded-lg border border-line bg-card text-ink"
+                    style={i(n * 3 + k + 4)}
+                  >
+                    <BrandIcon name={icon} className="size-[18px]" />
+                    <span className="sr-only">{ICON_LABELS[icon]}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      </div>
     </section>
   );
 }
