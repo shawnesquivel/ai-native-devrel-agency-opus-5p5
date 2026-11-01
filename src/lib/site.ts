@@ -5,6 +5,9 @@ const VERCEL_HOST = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || pro
 /** The studio name. Change it here and it updates the wordmark, metadata, OG image and llms.txt. */
 export const BRAND_NAME = "Lode";
 
+/** The one line every section comes back to. */
+export const THEME = "Everything that gets you recommended.";
+
 export const SITE = {
   name: BRAND_NAME,
   url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
@@ -12,9 +15,9 @@ export const SITE = {
   tagline: "You built something agents want. Now make sure they can find it.",
   eyebrow: "Your full-stack DevRel studio",
   subline:
-    "AI solved coding, not distribution. We make written and video content so ChatGPT and Claude recommend your product, not your competitors.",
+    "AI solved coding, not distribution. We do everything that gets you recommended by ChatGPT, Claude and developers.",
   description:
-    "AI solved coding, not distribution. A full-stack DevRel studio for devtools startups: engineers make written and video content so ChatGPT and Claude recommend your product, not your competitors.",
+    `AI solved coding, not distribution. ${BRAND_NAME} is an AI-native, full-stack DevRel studio that does everything that gets you recommended by ChatGPT, Claude and developers.`,
 };
 
 export const CAL_URL = "https://cal.com/shawn-ai/30min";
@@ -25,53 +28,95 @@ export const NAV = [
   { label: "FAQ", href: "/#faq" },
 ];
 
-export const PROBLEMS: { title: string; icons: IconName[] }[] = [
-  { title: "Your blog reads like AI slop.", icons: ["article"] },
-  { title: "ChatGPT recommends your competitor.", icons: ["chatgpt"] },
-  { title: "Your docs confuse coding agents.", icons: ["cursor", "codex"] },
-  { title: "Hiring a DevRel takes months.", icons: ["calendar"] },
+export type ProblemArt = "answer" | "docs" | "hire";
+
+export const PROBLEMS: { outcome: string; title: string; body: string; art: ProblemArt }[] = [
+  {
+    outcome: "AI recommendations",
+    title: "AI recommends your competitor.",
+    body: "Buyers ask ChatGPT or Claude, and someone else gets named.",
+    art: "answer",
+  },
+  {
+    outcome: "Customers",
+    title: "Agents can't use your docs.",
+    body: "Coding agents fail on them, so developers pick a tool that works.",
+    art: "docs",
+  },
+  {
+    outcome: "Speed",
+    title: "A DevRel hire takes months.",
+    body: "And one person can't cover docs, video, posts and events.",
+    art: "hire",
+  },
 ];
+
+/** Verified against OpenAI's DevDay 2026 recap (Sep 29, 2026): "our collective 1.2B weekly users". */
+export const HOOK_STAT = {
+  value: "1.2B",
+  label: "people use ChatGPT every week. Your buyers are asking it.",
+  source: "OpenAI, DevDay 2026",
+  href: "https://openai.com/index/devday-2026-recap/",
+};
 
 export const STEPS = [
   {
     title: "Audit",
-    body: "We ask ChatGPT, Claude and Gemini your buyers' questions and see who gets named.",
-  },
-  {
-    title: "Build",
-    body: "Engineers build a real project with your product.",
+    body: "We ask ChatGPT, Claude, Gemini, Grok and Hermes your buyers' questions and check your socials. You see the before.",
   },
   {
     title: "Ship",
-    body: "One build becomes an explainer video, a technical blog post, a tested docs example and founder posts.",
+    body: "Everything that gets you recommended, on every channel: docs, AEO fixes, videos, tutorials, starter code, MCP plugins, founder posts and events.",
   },
   {
-    title: "Track",
-    body: "A monthly, done-for-you AI visibility report: mentions, citations, competitors and what we ship next.",
+    title: "Measure",
+    body: "A monthly, done-for-you visibility report: your score, before vs. after, citations, competitors and what we ship next.",
+  },
+  {
+    title: "Repeat",
+    body: "The engine runs again every week. Every month you show up in more answers, ahead of your competitors.",
   },
 ];
 
-export const PYRAMID = [
-  { level: "Top", title: "Founder-led content", body: "Ghostwritten posts in your founders' voice." },
-  { level: "Core", title: "Explainer videos + technical blogs", body: "Built from a real project, so the code runs.", core: true },
-  { level: "Base", title: "Docs for AI agents", body: "Docs and examples coding agents can read and use." },
+export const SERVICES: { label: string; icon: IconName }[] = [
+  { label: "Agent-ready docs", icon: "markdown" },
+  { label: "AEO fixes for your site, blog and docs", icon: "aeo" },
+  { label: "Explainer videos and blogs", icon: "youtube" },
+  { label: "Tutorials", icon: "tutorial" },
+  { label: "Boilerplate starter code", icon: "github" },
+  { label: "MCP plugins for ChatGPT and Claude", icon: "mcp" },
+  { label: "Founder-led content", icon: "x" },
+  { label: "Events", icon: "calendar" },
+  { label: "Monthly visibility tracking", icon: "chart" },
 ];
 
-export const OFFERS: { title: string; icons?: IconName[]; items: string[]; pricing: string }[] = [
+export const AUDIT = {
+  title: "Free AI visibility audit",
+  body: "Your before: everything holding you back on AI platforms and socials.",
+  icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "reddit"] as IconName[],
+};
+
+export const OFFERS: { title: string; tag?: string; icons?: IconName[]; items: string[]; pricing: string }[] = [
   {
-    title: "Free AI visibility audit",
-    icons: ["chatgpt", "claude", "gemini"],
-    items: ["Answers from three assistants", "Who gets cited, and from where", "What to fix first"],
-    pricing: "Free",
+    title: "AI visibility sprint",
+    tag: "Start here",
+    items: ["Biggest AEO gaps, found and fixed", "Site, blog and docs updates in shared Slack", "Every change measured against your before"],
+    pricing: "Pricing on a call",
+  },
+  {
+    title: "MCP apps",
+    icons: ["chatgpt", "claude"],
+    items: ["Your MCP server and plugin", "Used natively in ChatGPT and Claude", "Built to pass review the first time"],
+    pricing: "Pricing on a call",
   },
   {
     title: "Launch kit",
-    items: ["Explainer video", "Shorts", "Launch posts"],
+    items: ["Explainer video", "Shorts", "Launch posts, timed to your launch"],
     pricing: "Pricing on a call",
   },
   {
     title: "Monthly DevRel retainer",
-    items: ["Docs, videos and blogs every month", "Founder-led posts", "Monthly AI visibility report"],
+    items: ["Videos, tutorials and blogs", "Starter repos and docs", "Founder-led posts", "Monthly AI visibility report"],
     pricing: "Pricing on a call",
   },
 ];
@@ -79,10 +124,16 @@ export const OFFERS: { title: string; icons?: IconName[]; items: string[]; prici
 export const TEAM = [
   { role: "Full-stack engineer", creds: ["Ex-DevRel at Composio", "Cursor Ambassador", "Codex Ambassador"] },
   { role: "Full-stack engineer", creds: ["Founding DevRel at LiteLLM"] },
-  { role: "Vetted writers", creds: ["Technical writers with real dev backgrounds", "Including university students"] },
+  { role: "Writers", creds: ["Vetted technical writers"] },
 ];
 
-export type LogoId = "composio" | "litellm" | "treg" | "freecodecamp" | "cursor" | "codex" | "chat2db";
+export const POINTS = [
+  { label: "AI native", body: "Agents in every step. Engineers on every review." },
+  { label: "Weekly", body: "Our content engine ships every week." },
+  { label: "Any stage", body: "Pre-revenue teams to YC startups to enterprises." },
+];
+
+export type LogoId = "composio" | "litellm" | "treg" | "freecodecamp" | "cursor" | "grokbot" | "codex" | "chat2db";
 
 /** Order and visibility of the "Our team has worked with" row. Flip `show` to toggle a logo. */
 export const LOGOS: { id: LogoId; name: string; show: boolean }[] = [
@@ -91,6 +142,7 @@ export const LOGOS: { id: LogoId; name: string; show: boolean }[] = [
   { id: "treg", name: "Treg", show: true },
   { id: "freecodecamp", name: "freeCodeCamp", show: true },
   { id: "cursor", name: "Cursor", show: true },
+  { id: "grokbot", name: "Grok Bot", show: true },
   { id: "codex", name: "Codex", show: false },
   { id: "chat2db", name: "Chat2DB", show: false },
 ];
@@ -111,6 +163,18 @@ export const STATS: { value: number; suffix: string; label: string; href?: strin
   },
   { value: 5000, suffix: "+", label: "developers taught" },
 ];
+
+/* Hero demo. Placeholders only: no real names or results. */
+export const DEMO = {
+  question: "What's the best [category] tool for [use case]?",
+  before: ["[Competitor A]", "[Competitor B]", "[Competitor C]"],
+  after: {
+    pick: "[Your product]",
+    reason: "Recommended for [use case]",
+    cites: ["your docs", "your tutorial"],
+    rest: ["[Competitor A]", "[Competitor B]"],
+  },
+};
 
 export const VIDEOS = [
   {
@@ -145,16 +209,24 @@ export const POSTS = [
 
 export const FAQ = [
   {
+    q: `What is ${BRAND_NAME}?`,
+    a: "An AI-native, full-stack DevRel studio. We do everything that gets you recommended: agent-ready docs, AEO fixes, videos, tutorials, starter code, MCP plugins, founder content and events, tracked monthly. Our content engine ships every week.",
+  },
+  {
     q: "How is this different from an AI content agency?",
-    a: "We're engineers. We build a real project with your product first, then write and film from it. Code gets tested, and an engineer reviews every piece.",
+    a: "We're engineers. We build with your product, so the code in every tutorial, starter and docs example runs. Every piece is reviewed.",
   },
   {
     q: "Who writes the content?",
-    a: "We do, with a small network of vetted technical writers who have real dev backgrounds. An engineer reviews everything before it ships.",
+    a: "We do, with vetted technical writers. Every piece is reviewed by an engineer and by our own review agents.",
+  },
+  {
+    q: "Can you build an MCP app for ChatGPT and Claude?",
+    a: "Yes. We build your MCP server and plugin so your product works natively inside ChatGPT and Claude. We follow the platforms' best practices, because approval can take months when teams don't. We've done this at Composio.",
   },
   {
     q: "How do you measure AI visibility?",
-    a: "Each month we ask ChatGPT, Claude and Gemini the questions your buyers ask, and record who gets mentioned and which pages get cited. You get it as a report, with competitors and what we ship next.",
+    a: "Each month we ask the major AI assistants the questions your buyers ask, and record who gets mentioned and which pages get cited. You get it as a report, with competitors and what we ship next.",
   },
   {
     q: "How fast will we see results?",
@@ -162,14 +234,14 @@ export const FAQ = [
   },
   {
     q: "How long is the contract?",
-    a: "The retainer is month-to-month. A launch kit is a one-off project. The audit is free.",
+    a: "The retainer is month-to-month. The sprint, launch kits and MCP apps are projects. The audit is free.",
   },
   {
     q: "What do you need from us?",
     a: "Product access, one technical point of contact, and time to review drafts. For founder posts, a short call so we get your voice right.",
   },
   {
-    q: "Do you work outside devtools?",
-    a: "Not for now. We only work with devtools startups.",
+    q: "Who do you work with?",
+    a: "Everyone from small pre-revenue teams to YC startups to enterprises.",
   },
 ];

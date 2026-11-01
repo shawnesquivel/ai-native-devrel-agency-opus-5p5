@@ -1,4 +1,5 @@
 import { Mark } from "./Brand";
+import { THEME } from "@/lib/site";
 import { CtaLink, i } from "./ui";
 
 export default function FinalCta() {
@@ -13,10 +14,13 @@ export default function FinalCta() {
               data-reveal
               className="mt-8 max-w-[14ch] text-balance text-[2.5rem] font-semibold leading-none tracking-[-0.045em] sm:text-6xl md:text-7xl"
             >
-              Make sure agents can find it.
+              Make sure agents can find you.
             </h2>
+            <p data-reveal style={i(1)} className="mt-4 text-lg text-[#bdbbb2]">
+              {THEME}
+            </p>
           </div>
-          <div data-reveal style={i(1)}>
+          <div data-reveal style={i(2)}>
             <CtaLink variant="accent">Book a call</CtaLink>
           </div>
         </div>

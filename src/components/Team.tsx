@@ -1,4 +1,4 @@
-import { TEAM } from "@/lib/site";
+import { POINTS, TEAM } from "@/lib/site";
 import { Section, i } from "./ui";
 
 export default function Team() {
@@ -27,8 +27,17 @@ export default function Team() {
       </ul>
       <p data-reveal className="mt-6 flex items-center gap-3 text-[15px] text-ink-2">
         <span aria-hidden="true" className="size-2 shrink-0 bg-accent" />
-        Every piece is reviewed by an engineer before it ships.
+        Every piece is reviewed by an engineer and by our own review agents.
       </p>
+
+      <ul className="mt-12 grid border-t border-line md:grid-cols-3">
+        {POINTS.map((p, n) => (
+          <li key={p.label} data-reveal style={i(n)} className={`py-6 md:px-6 md:first:pl-0 ${n ? "border-t border-line md:border-l md:border-t-0" : ""}`}>
+            <p className="text-2xl font-semibold tracking-[-0.03em]">{p.label}</p>
+            <p className="mt-1.5 text-[15px] leading-relaxed text-muted">{p.body}</p>
+          </li>
+        ))}
+      </ul>
     </Section>
   );
 }

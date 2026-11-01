@@ -13,7 +13,7 @@ export default function Footer() {
             <Link href="/" aria-label="Home" className="text-[15px]">
               <Wordmark />
             </Link>
-            <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-muted">{SITE.eyebrow}. Devtools only.</p>
+            <p className="mt-4 max-w-[30ch] text-sm leading-relaxed text-muted">{SITE.eyebrow}.</p>
           </div>
           <nav aria-label="Footer">
             <ul className="grid grid-cols-2 gap-x-12 gap-y-3 text-sm sm:grid-cols-3">

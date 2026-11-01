@@ -23,6 +23,12 @@ const ART: Record<LogoId, ReactNode> = {
       <Image src="/logos/codex-wordmark.svg" alt="" width={88} height={22} unoptimized className={img} />
     </span>
   ),
+  grokbot: (
+    <span className="flex items-center gap-2">
+      <Image src="/logos/grokbot-mark.svg" alt="" width={24} height={24} unoptimized className={img} />
+      <span className="text-[19px] font-semibold leading-none tracking-[-0.02em] text-black">Grok Bot</span>
+    </span>
+  ),
   chat2db: <Image src="/logos/chat2db.svg" alt="" width={137} height={24} unoptimized className={img} />,
 };
 
