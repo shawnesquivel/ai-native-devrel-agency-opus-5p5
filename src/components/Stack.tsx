@@ -1,4 +1,4 @@
-import { CMS } from "@/lib/site";
+import { BRAND_NAME, CMS } from "@/lib/site";
 import { Mark } from "./Brand";
 import BrandIcon, { ICON_LABELS } from "./BrandIcon";
 import { Section, i } from "./ui";
@@ -35,7 +35,7 @@ export default function Stack() {
             </span>
           </div>
           <h3 className="mt-3 text-balance text-2xl font-semibold leading-tight tracking-[-0.03em]">
-            Tag our agent when inspiration strikes.
+            Tag {BRAND_NAME} when inspiration strikes.
           </h3>
 
           <div className="mt-8 rounded-lg border border-line bg-paper text-[14px]" aria-label="Example Slack thread">
@@ -48,7 +48,7 @@ export default function Stack() {
                 <div className="min-w-0">
                   <p className="text-[13px] font-semibold">You</p>
                   <p className="leading-snug text-ink-2">
-                    <span className="rounded bg-accent/25 px-1 font-medium text-ink">@[agent]</span> turn this launch into a thread + tutorial
+                    <span className="rounded bg-accent/25 px-1 font-medium text-ink">@{BRAND_NAME}</span> turn this launch into a thread + tutorial
                   </p>
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function Stack() {
                 </span>
                 <div className="min-w-0">
                   <p className="flex items-center gap-1.5 text-[13px] font-semibold">
-                    [agent]
+                    {BRAND_NAME}
                     <span className="rounded border border-line px-1 font-mono text-[10px] font-normal text-muted">APP</span>
                   </p>
                   <p className="leading-snug text-ink-2">On it. Drafts land in your CMS for review.</p>

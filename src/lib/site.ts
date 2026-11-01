@@ -118,7 +118,7 @@ export const PACKAGES = {
     items: [
       "Dedicated Slack channel with priority turnaround",
       "Direct line to our founders",
-      "Tag-the-agent requests in Slack or MCP",
+      `Tag ${BRAND_NAME} in Slack or MCP for requests`,
       "Explainer videos, tutorials and starter code",
       "MCP apps for ChatGPT and Claude",
       "Ghostwritten founder content",
@@ -240,7 +240,7 @@ export const FAQ = [
   },
   {
     q: "Can we request content ourselves?",
-    a: "Yes. On white-glove, tag our agent in your Slack channel or through MCP when inspiration strikes, and the request goes into the engine. On Basic, ask us in your dedicated Slack channel.",
+    a: `Yes. On white-glove, tag ${BRAND_NAME} in your Slack channel or through MCP when inspiration strikes, and the request goes into the engine. On Basic, ask us in your dedicated Slack channel.`,
   },
   {
     q: "How do you measure AI visibility?",
@@ -252,7 +252,7 @@ export const FAQ = [
   },
   {
     q: "What's the difference between Basic and white-glove?",
-    a: "Basic covers core AEO fixes, agent-ready docs, steady content, a dedicated Slack channel and the monthly report. White-glove adds priority turnaround in Slack, a direct line to our founders, tag-the-agent requests, videos, tutorials, starter code, MCP apps, founder content and events.",
+    a: `Basic covers core AEO fixes, agent-ready docs, steady content, a dedicated Slack channel and the monthly report. White-glove adds priority turnaround in Slack, a direct line to our founders, requests by tagging ${BRAND_NAME}, videos, tutorials, starter code, MCP apps, founder content and events.`,
   },
   {
     q: "How long is the contract?",

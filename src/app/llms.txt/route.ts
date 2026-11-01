@@ -31,7 +31,7 @@ ${STEPS.map((s, n) => `${n + 1}. ${s.title}: ${s.body}`).join("\n")}
 ## Works with your stack
 
 - We publish straight into your blog CMS: ${CMS.map((c) => ICON_LABELS[c]).join(", ")}.
-- Tag our agent in your Slack channel or through MCP to request content.
+- Tag ${SITE.name} in your Slack channel or through MCP to request content.
 
 ## FAQ
 
