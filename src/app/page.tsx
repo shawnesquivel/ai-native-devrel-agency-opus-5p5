@@ -4,6 +4,7 @@ import Hero from "@/components/Hero";
 import Offers from "@/components/Offers";
 import Problem from "@/components/Problem";
 import Process from "@/components/Process";
+import Stack from "@/components/Stack";
 import Team from "@/components/Team";
 import Work from "@/components/Work";
 import { FAQ, SITE } from "@/lib/site";
@@ -39,6 +40,7 @@ export default function Home() {
       <Hero />
       <Problem />
       <Process />
+      <Stack />
       <Offers />
       <Team />
       <Work />

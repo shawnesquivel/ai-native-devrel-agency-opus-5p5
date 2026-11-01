@@ -3,7 +3,7 @@ import { Section, i } from "./ui";
 
 export default function Faq() {
   return (
-    <Section id="faq" index="06" label="FAQ" title="Questions, answered.">
+    <Section id="faq" index="07" label="FAQ" title="Questions, answered.">
       <div className="md:grid md:grid-cols-12 md:gap-8">
         <div className="faq border-t border-line md:col-span-9 md:col-start-4">
           {FAQ.map((item, n) => (

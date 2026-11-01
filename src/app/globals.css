@@ -262,6 +262,22 @@ body {
   transform: translateX(3px);
 }
 
+/* ---------- Problem: buyers flowing into one assistant ---------- */
+
+.flow-static {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-moving {
+    display: none;
+  }
+
+  .flow-static {
+    display: inline;
+  }
+}
+
 /* ---------- Hero chat demo ---------- */
 
 .js .demo[data-init] .demo-body {
@@ -390,20 +406,52 @@ body {
   transition: transform 0.3s linear;
 }
 
-@keyframes score-in {
-  from {
-    opacity: 0;
-    transform: translateY(0.12em);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+.graph-label {
+  position: absolute;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1;
+  color: var(--color-muted);
+  white-space: nowrap;
 }
 
-.score-num {
-  display: inline-block;
-  animation: score-in 0.5s var(--ease-out-expo) both;
+.graph-tip {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.graph-dot {
+  position: absolute;
+  left: -5px;
+  top: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  border: 1.5px solid var(--color-ink);
+  box-shadow: 0 0 0 4px var(--color-paper);
+}
+
+.graph-value {
+  position: absolute;
+  bottom: 8px;
+  font-size: 1.75rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- Mobile carousels ---------- */
+
+.snap-row {
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.snap-row::-webkit-scrollbar {
+  display: none;
 }
 
 /* ---------- FAQ ---------- */
