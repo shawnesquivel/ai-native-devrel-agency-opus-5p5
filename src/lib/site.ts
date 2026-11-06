@@ -331,8 +331,8 @@ export const WORK: WorkCase[] = [
     title: "Claude Code Mods + Jev memory harness",
     href: "https://x.com/shawnbuilds/status/2106405013111328977",
     thumb: "/media/x-treg-jev.jpg",
-    /* 9,239 impressions, verified. */
-    deliverables: ["Launch video", "9K+ impressions"],
+    /* Verified totals across Shawn's own Treg posts. */
+    deliverables: ["15 videos + X articles", "49K+ views"],
   },
   {
     company: "Composio",
