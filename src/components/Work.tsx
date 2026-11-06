@@ -14,13 +14,13 @@ function External() {
 
 export default function Work() {
   return (
-    <Section id="work" index="07" label="Proof" title="Our work.">
+    <Section id="work" index="07" label="Proof" title="Results.">
       <h3 data-reveal className="mb-5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
         Our team has worked with
       </h3>
       <Logos />
 
-      <ul className="mt-16 grid grid-cols-2 border-l border-t border-line md:mt-20 lg:grid-cols-4">
+      <ul className="mt-16 grid grid-cols-1 border-l border-t border-line sm:grid-cols-3 md:mt-20">
         {STATS.map((s, n) => {
           const body = (
             <>

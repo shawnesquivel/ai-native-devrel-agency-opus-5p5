@@ -29,6 +29,7 @@ export const NAV = [
   { label: "Services", href: "/#services" },
   { label: "Process", href: "/#process" },
   { label: "FAQ", href: "/#faq" },
+  { label: "Audit", href: "/#contact" },
 ];
 
 export type ProblemArt = "answer" | "docs" | "hire";
@@ -100,9 +101,11 @@ export const AUDIT = {
   icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "reddit"] as IconName[],
 };
 
-/* Contact funnel: share your site (primary) or book a call (secondary). */
+/* Contact funnel: the one form on the page (primary) or book a call (secondary). */
 export const FUNNEL = {
-  title: "Share your site",
+  title: "Get your AI visibility audit",
+  subline: "Share your site. We'll reach out within 48 hours with next steps.",
+  submit: "Share your site",
   success: "Thanks, we'll reach out within 48 hours with next steps.",
   steps: ["Share your site or pick a time", "We audit your AI visibility live on the call", "You leave with your fix list"],
 };
@@ -110,7 +113,6 @@ export const FUNNEL = {
 export const PACKAGES = {
   launch: {
     title: "Launch",
-    tag: "Built for startups",
     badge: "Most popular for startups",
     outcome: "Get recommended by ChatGPT and Claude.",
     items: [
@@ -140,15 +142,30 @@ export const PACKAGES = {
   pricing: "Pricing on a call",
 };
 
-export const TEAM_INTRO =
-  "We're both engineers who've done DevRel at AI startups. Strategy comes from the founders, not a template or a tool.";
+export const TEAM_COPY = {
+  title: "We've done this from the inside.",
+  intro:
+    "Before this studio, we were the DevRel team at fast-growing AI startups. We shipped the launches, wrote the docs, and grew the communities. Now we do it for you.",
+  proof: "We've shipped content for Cursor, Codex, Composio and RentAHuman, including launches that reached 500K+ views.",
+  closer: "Strategy from the founders, not a template.",
+};
 
-export const TEAM = [
+export type TeamChip = { label: string; marks?: ("composio" | "cursor" | "chatgpt")[] };
+
+export const TEAM: { role: string; body: string; chips: TeamChip[] }[] = [
   {
-    role: "Founder",
-    creds: ["Founding engineer and DevRel at Series A startups", "Ex-DevRel and growth at Composio", "Cursor and Codex ambassador"],
+    role: "Shawn · Co-founder",
+    body: "Founding engineer turned DevRel at Series A startups. At Composio he wrote product code as MTS and ran growth, so he knows what actually gets developers to sign up.",
+    chips: [
+      { label: "Ex-DevRel + MTS, Composio", marks: ["composio"] },
+      { label: "Cursor + Codex Ambassador", marks: ["cursor", "chatgpt"] },
+    ],
   },
-  { role: "Founder", creds: ["Founding DevRel at LiteLLM"] },
+  {
+    role: "Misbah · Co-founder",
+    body: "Founding DevRel at LiteLLM. He built the developer motion from zero: the docs, the tutorials and the community.",
+    chips: [{ label: "Founding DevRel, LiteLLM" }],
+  },
 ];
 
 
@@ -181,12 +198,6 @@ export const STATS: { value: number; suffix: string; label: string; href?: strin
     suffix: "K+",
     label: "impressions on a startup explainer",
     href: "https://x.com/AlexanderTw33ts/status/2032550830042394979",
-  },
-  {
-    value: 3300,
-    suffix: "+",
-    label: "students",
-    href: "https://www.udemy.com/course/langchain-develop-ai-web-apps-with-javascript-and-langchain/",
   },
 ];
 
