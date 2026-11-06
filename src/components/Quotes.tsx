@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { QUOTES } from "@/lib/site";
-import BrandIcon from "./BrandIcon";
+import Image from "next/image";
 import { Section } from "./ui";
 
 const INTERVAL = 7000;
@@ -50,12 +50,16 @@ export default function Quotes() {
                 &ldquo;{q.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-3 text-[15px] sm:mt-8">
-                <span className="grid size-9 place-items-center overflow-hidden rounded-lg border border-line bg-paper text-ink">
-                  <BrandIcon name={q.icon} className={q.icon === "ycombinator" ? "size-9" : "size-4"} />
-                </span>
-                <span>
+                <Image
+                  src={q.avatar}
+                  alt=""
+                  width={44}
+                  height={44}
+                  className="size-11 shrink-0 rounded-full border border-line bg-paper object-cover"
+                />
+                <span className="min-w-0 text-pretty leading-snug">
                   <span className="font-semibold">{q.name}</span>
-                  {q.org && <span className="text-muted">, {q.org}</span>}
+                  {q.title && <span className="text-muted">, {q.title}</span>}
                 </span>
                 <a
                   href={q.href}
