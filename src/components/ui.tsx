@@ -1,31 +1,56 @@
+import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { CAL_URL } from "@/lib/site";
 
 type Variant = "primary" | "accent" | "ghost";
 
+/** "Book a call" link to Cal. `location` is sent with the book_call_click event. */
 export function CtaLink({
   children = "Book a call",
   variant = "primary",
   size,
   className = "",
   arrow = true,
+  location,
 }: {
   children?: ReactNode;
   variant?: Variant;
   size?: "sm";
   className?: string;
   arrow?: boolean;
+  location: "nav" | "hero" | "final" | "packages" | "blog";
 }) {
   return (
     <a
       href={CAL_URL}
       target="_blank"
       rel="noopener"
+      data-book-call={location}
       className={`btn btn-${variant} ${size === "sm" ? "btn-sm" : ""} ${className}`}
     >
       {children}
       {arrow && <Arrow />}
     </a>
+  );
+}
+
+/** Primary CTA: jumps to the "Share your site" form. */
+export function ShareLink({
+  children = "Share your site",
+  variant = "primary",
+  size,
+  className = "",
+}: {
+  children?: ReactNode;
+  variant?: Variant;
+  size?: "sm";
+  className?: string;
+}) {
+  return (
+    <Link href="/#contact" className={`btn btn-${variant} ${size === "sm" ? "btn-sm" : ""} ${className}`}>
+      {children}
+      <Arrow />
+    </Link>
   );
 }
 
@@ -62,31 +87,25 @@ export function Section({
       <div className="frame cross">
         <div data-line className="absolute inset-x-0 top-0 h-px bg-line" aria-hidden="true" />
         <div className="px-5 py-20 sm:px-8 md:px-12 md:py-28">
-          <header className="grid gap-6 md:grid-cols-12 md:gap-8">
-            <p data-reveal className="font-mono text-xs uppercase tracking-[0.14em] text-muted md:col-span-3 md:pt-2.5">
+          <header>
+            <p data-reveal className="font-mono text-xs uppercase tracking-[0.14em] text-muted">
               <span className="text-ink">{index}</span>
               <span className="mx-2 text-line-strong">/</span>
               {label}
             </p>
-            <div className="md:col-span-9">
-              <h2
-                id={headingId}
-                data-reveal
-                style={i(1)}
-                className="max-w-[22ch] text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[2.5rem] md:text-5xl"
-              >
-                {title}
-              </h2>
-              {intro && (
-                <p
-                  data-reveal
-                  style={i(2)}
-                  className="mt-5 max-w-[52ch] text-pretty text-lg leading-relaxed text-muted"
-                >
-                  {intro}
-                </p>
-              )}
-            </div>
+            <h2
+              id={headingId}
+              data-reveal
+              style={i(1)}
+              className="mt-5 text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[2.5rem] md:text-pretty md:text-5xl"
+            >
+              {title}
+            </h2>
+            {intro && (
+              <p data-reveal style={i(2)} className="mt-5 max-w-[60ch] text-pretty text-lg leading-relaxed text-muted">
+                {intro}
+              </p>
+            )}
           </header>
           <div className={bodyClassName}>{children}</div>
         </div>

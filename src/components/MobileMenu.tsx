@@ -2,7 +2,7 @@
 
 import { useEffect, useId, useState } from "react";
 import { NAV } from "@/lib/site";
-import { CtaLink } from "./ui";
+import { CtaLink, ShareLink } from "./ui";
 
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
@@ -48,7 +48,12 @@ export default function MobileMenu() {
             </li>
           ))}
         </ul>
-        <CtaLink className="mt-4 w-full">Book a call</CtaLink>
+        <div className="mt-4 grid gap-2" onClick={() => setOpen(false)}>
+          <ShareLink className="w-full" />
+          <CtaLink location="nav" variant="ghost" className="w-full">
+            Ready now? Book a call
+          </CtaLink>
+        </div>
       </div>
     </div>
   );

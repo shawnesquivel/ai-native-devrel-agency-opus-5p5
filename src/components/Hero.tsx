@@ -1,7 +1,8 @@
-import { SITE } from "@/lib/site";
+import { CAL_URL, SITE } from "@/lib/site";
+import LeadForm from "./LeadForm";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 import ChatDemo from "./ChatDemo";
-import { CtaLink, i } from "./ui";
+import { i } from "./ui";
 
 const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
   { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "cursor", "codex"] },
@@ -10,7 +11,7 @@ const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
 
 export default function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative">
+    <section id="hero" aria-labelledby="hero-title" className="relative">
       <div className="frame overflow-hidden">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
           {[25, 50, 75].map((x, n) => (
@@ -18,8 +19,8 @@ export default function Hero() {
           ))}
         </div>
 
-        <div className="relative grid gap-12 px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10">
-          <div className="lg:col-span-7">
+        <div className="relative grid grid-cols-[minmax(0,1fr)] gap-12 px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10">
+          <div className="min-w-0 lg:col-span-7">
           <p className="hero-fade inline-flex items-center gap-2.5 border border-line bg-card py-1.5 pl-2 pr-3 font-mono text-xs uppercase tracking-[0.12em] text-ink-2" style={i(0)}>
             <span className="size-2 bg-accent" aria-hidden="true" />
             {SITE.eyebrow}
@@ -50,13 +51,18 @@ export default function Hero() {
             {SITE.subline}
           </p>
 
-          <div className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={i(2)}>
-            <CtaLink variant="primary">Book a call</CtaLink>
-            <CtaLink variant="ghost">Get a free AI visibility audit</CtaLink>
+          <div className="hero-fade mt-10 max-w-xl" style={i(2)}>
+            <LeadForm location="hero" />
+            <p className="mt-3 text-[14px] text-muted">
+              Ready now?{" "}
+              <a href={CAL_URL} target="_blank" rel="noopener" data-book-call="hero" className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
+                Book a call
+              </a>
+            </p>
           </div>
           </div>
 
-          <div className="hero-fade lg:col-span-5" style={i(3)}>
+          <div className="hero-fade min-w-0 lg:col-span-5" style={i(3)}>
             <ChatDemo />
           </div>
         </div>

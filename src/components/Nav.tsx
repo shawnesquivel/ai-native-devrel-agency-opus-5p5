@@ -2,7 +2,7 @@ import Link from "next/link";
 import { NAV } from "@/lib/site";
 import { Wordmark } from "./Brand";
 import MobileMenu from "./MobileMenu";
-import { CtaLink } from "./ui";
+import { CtaLink, ShareLink } from "./ui";
 
 export default function Nav() {
   return (
@@ -26,9 +26,10 @@ export default function Nav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <CtaLink size="sm" arrow={false} className="hidden min-[360px]:inline-flex">
+          <CtaLink location="nav" variant="ghost" size="sm" arrow={false} className="hidden sm:inline-flex">
             Book a call
           </CtaLink>
+          <ShareLink size="sm" className="hidden min-[360px]:inline-flex" />
           <MobileMenu />
         </div>
       </div>

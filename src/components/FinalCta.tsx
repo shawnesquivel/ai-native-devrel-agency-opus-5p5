@@ -1,18 +1,19 @@
+import { FUNNEL, HOOK_STAT } from "@/lib/site";
 import { Mark } from "./Brand";
-import { HOOK_STAT } from "@/lib/site";
+import LeadForm from "./LeadForm";
 import { CtaLink, i } from "./ui";
 
 export default function FinalCta() {
   return (
-    <section aria-labelledby="cta-title" className="relative">
+    <section id="contact" aria-labelledby="cta-title" className="relative scroll-mt-16">
       <div className="frame cross bg-ink text-paper">
-        <div className="flex flex-col gap-10 px-5 py-20 sm:px-8 md:flex-row md:items-end md:justify-between md:px-12 md:py-28">
-          <div>
+        <div className="grid gap-12 px-5 py-20 sm:px-8 md:px-12 md:py-28 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-5">
             <Mark className="size-8 text-paper" />
             <h2
               id="cta-title"
               data-reveal
-              className="mt-8 max-w-[14ch] text-balance text-[2.5rem] font-semibold leading-none tracking-[-0.045em] sm:text-6xl md:text-7xl"
+              className="mt-8 text-balance text-[2.5rem] font-semibold leading-none tracking-[-0.045em] sm:text-6xl lg:text-[3.5rem]"
             >
               Make sure agents can find you.
             </h2>
@@ -28,9 +29,32 @@ export default function FinalCta() {
               </a>
               . Win your competitors&apos; customers back with AEO-optimized content.
             </p>
+            <ol className="mt-10 space-y-4">
+              {FUNNEL.steps.map((step, n) => (
+                <li key={step} data-reveal style={i(n + 2)} className="flex items-start gap-3.5">
+                  <span className="grid size-7 shrink-0 place-items-center rounded-full border border-white/20 font-mono text-[12px] text-paper">
+                    {n + 1}
+                  </span>
+                  <span className="pt-0.5 text-[16px] leading-snug text-paper">{step}</span>
+                </li>
+              ))}
+            </ol>
           </div>
-          <div data-reveal style={i(2)}>
-            <CtaLink variant="accent">Book a call</CtaLink>
+
+          <div className="lg:col-span-7 lg:pt-16">
+            <div data-reveal style={i(2)} className="rounded-xl border border-white/15 bg-white/[0.04] p-5 sm:p-7">
+              <h3 className="text-xl font-semibold tracking-[-0.02em]">{FUNNEL.title}</h3>
+              <p className="mt-1.5 text-[15px] text-[#bdbbb2]">We&apos;ll look at your AI visibility before we talk.</p>
+              <div className="mt-6">
+                <LeadForm location="final" dark />
+              </div>
+            </div>
+            <div data-reveal style={i(3)} className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
+              <span className="text-[15px] text-[#bdbbb2]">Ready now?</span>
+              <CtaLink location="final" variant="accent">
+                Book a call
+              </CtaLink>
+            </div>
           </div>
         </div>
       </div>

@@ -1,18 +1,43 @@
 # Lode
 
-Landing page for a full-stack DevRel studio for devtools startups. Next.js 16 (App Router), React 19, Tailwind CSS v4, Geist + Geist Mono.
+Landing page for Lode, a full-stack DevRel studio. Next.js 16 (App Router), React 19, Tailwind CSS v4, Geist + Geist Mono.
 
-- The studio name (currently "Lode") lives in `BRAND_NAME` in `src/lib/site.ts`. It drives the wordmark, metadata, OG image and `/llms.txt`.
-- All copy, logos (toggle with `show`), stats, videos and FAQ are in `src/lib/site.ts`.
-- Routes: `/`, `/blog`, `/llms.txt`, `/sitemap.xml`, `/robots.txt`, `/opengraph-image`.
-- Logo sources: `public/logos/` (Composio, Cursor, Codex, Chat2DB and Treg from the brand kit; freeCodeCamp from freeCodeCamp/design-style-guide; LiteLLM rasterized from the official lockup on litellm.ai).
+- The studio name (currently "Lode") lives in `BRAND_NAME` in `src/lib/site.ts`. It drives the wordmark, the agent's name, metadata, the OG image and `/llms.txt`.
+- All copy, logos (toggle with `show`), stats, case cards, quotes and FAQ are in `src/lib/site.ts`.
+- Routes: `/`, `/blog`, `/llms.txt`, `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `POST /api/lead`.
+- Logo sources: `public/logos/` (Composio, Cursor, Codex, Chat2DB, Treg and Grok Bot from the brand kit; freeCodeCamp from freeCodeCamp/design-style-guide; LiteLLM rasterized from the official lockup on litellm.ai; Hermes Agent from NousResearch/hermes-agent). Inline marks come from Simple Icons.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Layout QA (needs a running server and Chrome): screenshots every section at 1440x900 and 390x844 and fails on overlapping or clipped text, or horizontal scroll.
+## Lead form
+
+The "Share your site" form posts to `/api/lead`. The route validates the email and website, drops submissions that fill the hidden honeypot field, rate-limits each IP (5 per 10 minutes, per server instance), and emails the founders through [Resend](https://resend.com).
+
+| Variable | Required | Default | Purpose |
+| --- | --- | --- | --- |
+| `RESEND_API_KEY` | No | none | Resend API key. Without it, leads are logged server-side and the visitor still sees the success message. |
+| `LEAD_NOTIFY_TO` | No | `shawnesquivel24@gmail.com` | Who gets lead emails. Comma-separated, e.g. `shawn@…,misbah@…`. |
+| `LEAD_FROM` | No | `Lode leads <onboarding@resend.dev>` | Sender. The Resend sandbox sender only delivers to your own Resend account's email; set a verified domain sender to email anyone else. |
+
+Set them in Vercel under Project Settings → Environment Variables, then redeploy.
+
+## Analytics
+
+`@vercel/analytics` and `@vercel/speed-insights` are mounted in the root layout. Custom events (sent with `track()`):
+
+- `cta_form_view` (`location`: hero, final), `cta_form_submit` (`location`, `status`: success or fail)
+- `book_call_click` (`location`: nav, hero, final, packages, blog)
+- `section_view` (`section`: hero, problem, how-it-works, packages, work, faq), once per session
+- `demo_toggle` (`phase`: before, after)
+
+Custom events only show in the Vercel dashboard on plans that include them (Pro and up).
+
+## QA
+
+Layout QA (needs a running server and Chrome) screenshots every section at 1440x900 and 390x844. It fails on overlapping or clipped text, horizontal scroll, or any size change in the hero chat.
 
 ```bash
 npm run build && npm start
