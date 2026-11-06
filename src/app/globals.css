@@ -488,26 +488,6 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
-/* ---------- Quotes ---------- */
-
-@keyframes quote-timer {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
-}
-
-.quote-timer {
-  position: absolute;
-  inset: auto 0 0 0;
-  height: 2px;
-  background: var(--color-accent);
-  transform-origin: left;
-  animation: quote-timer 7s linear both;
-}
-
 /* ---------- Mobile carousels ---------- */
 
 .snap-row {
@@ -568,10 +548,6 @@ body {
 
   .pa {
     animation: none !important;
-  }
-
-  .quote-timer {
-    display: none;
   }
 
   .js [data-reveal],

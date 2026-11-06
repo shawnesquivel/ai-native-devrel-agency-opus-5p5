@@ -7,6 +7,7 @@ const LOGO = "h-4 w-auto brightness-0";
 
 function ChipMark({ mark }: { mark: NonNullable<TeamChip["marks"]>[number] }) {
   if (mark === "composio") return <Image src="/logos/composio-mark.svg" alt="" width={14} height={16} unoptimized className={LOGO} />;
+  if (mark === "litellm") return <Image src="/logos/litellm-mark.png" alt="" width={16} height={16} unoptimized className="size-4 rounded-[3px]" />;
   return <BrandIcon name={mark} className="size-3.5" />;
 }
 

@@ -25,7 +25,7 @@ function Answer() {
   return (
     <div className="flex h-full flex-col justify-center gap-2 px-4 py-6">
       <p className="pa-at self-end rounded-lg rounded-br-sm bg-ink px-2.5 py-1 font-mono text-[11px] text-paper" style={at(0)}>
-        best Postgres for Next.js?
+        best database for my nextjs app
       </p>
       <p className="pa-at flex items-center gap-1.5 font-mono text-[11px] text-muted" style={at(0.1)}>
         <span className="flex gap-0.5" aria-hidden="true">

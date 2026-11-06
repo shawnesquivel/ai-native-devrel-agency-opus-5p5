@@ -15,7 +15,12 @@ const ART: Record<LogoId, ReactNode> = {
       <span className="font-mono text-[22px] font-bold leading-none tracking-[-0.04em] text-black">treg</span>
     </span>
   ),
-  freecodecamp: <Image src="/logos/freecodecamp.svg" alt="" width={158} height={18} unoptimized className={img} />,
+  rentahuman: (
+    <span className="flex items-center gap-2">
+      <Image src="/logos/rentahuman.svg" alt="" width={24} height={24} unoptimized className={img} />
+      <span className="text-[19px] font-semibold leading-none tracking-[-0.02em] text-black">RentAHuman</span>
+    </span>
+  ),
   cursor: <Image src="/logos/cursor.svg" alt="" width={110} height={26} unoptimized className={img} />,
   codex: (
     <span className="flex items-center gap-2">

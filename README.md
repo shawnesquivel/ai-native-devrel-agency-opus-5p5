@@ -5,7 +5,7 @@ Landing page for Lode, a full-stack DevRel studio. Next.js 16 (App Router), Reac
 - The studio name (currently "Lode") lives in `BRAND_NAME` in `src/lib/site.ts`. It drives the wordmark, the agent's name, metadata, the OG image and `/llms.txt`.
 - All copy, logos (toggle with `show`), stats, case cards, quotes and FAQ are in `src/lib/site.ts`.
 - Routes: `/`, `/blog`, `/llms.txt`, `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `POST /api/lead`.
-- Logo sources: `public/logos/` (Composio, Cursor, Codex, Chat2DB, Treg and Grok Bot from the brand kit; freeCodeCamp from freeCodeCamp/design-style-guide; LiteLLM rasterized from the official lockup on litellm.ai; Hermes Agent from NousResearch/hermes-agent). Inline marks come from Simple Icons.
+- Logo sources: `public/logos/` (Composio, Cursor, Codex, Chat2DB, Treg and Grok Bot from the brand kit; RentAHuman from rentahuman.ai; LiteLLM rasterized from the official lockup on litellm.ai, and its monogram from `litellm/proxy/logo_monogram.png` in BerriAI/litellm; Hermes Agent from NousResearch/hermes-agent). Inline marks come from Simple Icons.
 
 ```bash
 npm install

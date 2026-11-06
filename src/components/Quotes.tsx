@@ -33,12 +33,12 @@ export default function Quotes() {
         onBlurCapture={() => setPaused(false)}
         className="rounded-xl border border-line bg-card p-6 sm:p-8 md:p-12"
       >
-        <div className="grid" aria-live="polite">
+        <div className="grid">
           {QUOTES.map((q, n) => (
             <figure
               key={q.href}
               aria-hidden={n !== active}
-              className={`col-start-1 row-start-1 flex flex-col justify-end transition-[opacity,transform] duration-700 ease-out ${
+              className={`col-start-1 row-start-1 flex flex-col justify-center transition-[opacity,transform] duration-700 ease-out ${
                 n === active ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
               }`}
             >
@@ -76,23 +76,6 @@ export default function Quotes() {
                 </a>
               </figcaption>
             </figure>
-          ))}
-        </div>
-
-        <div role="group" aria-label="Choose a quote" className="mt-6 flex flex-wrap gap-2 border-t border-line pt-5 sm:mt-10 sm:pt-6">
-          {QUOTES.map((q, n) => (
-            <button
-              key={q.href}
-              type="button"
-              aria-pressed={n === active}
-              onClick={() => setActive(n)}
-              className={`relative overflow-hidden rounded-full border px-3 py-1.5 text-[13px] transition-colors duration-300 ${
-                n === active ? "border-ink text-ink" : "border-line text-muted hover:border-line-strong hover:text-ink"
-              }`}
-            >
-              {n === active && !paused && <span key={active} aria-hidden="true" className="quote-timer" />}
-              <span className="relative">{q.name}</span>
-            </button>
           ))}
         </div>
       </div>

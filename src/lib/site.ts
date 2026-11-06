@@ -150,7 +150,7 @@ export const TEAM_COPY = {
   closer: "Strategy from the founders, not a template.",
 };
 
-export type TeamChip = { label: string; marks?: ("composio" | "cursor" | "chatgpt")[] };
+export type TeamChip = { label: string; marks?: ("composio" | "litellm" | "cursor" | "chatgpt")[] };
 
 export const TEAM: { role: string; body: string; chips: TeamChip[] }[] = [
   {
@@ -164,21 +164,21 @@ export const TEAM: { role: string; body: string; chips: TeamChip[] }[] = [
   {
     role: "Misbah · Co-founder",
     body: "Founding DevRel at LiteLLM. He built the developer motion from zero: the docs, the tutorials and the community.",
-    chips: [{ label: "Founding DevRel, LiteLLM" }],
+    chips: [{ label: "Founding DevRel, LiteLLM", marks: ["litellm"] }],
   },
 ];
 
 
 export const CMS: IconName[] = ["framer", "notion", "webflow", "wordpress", "ghost", "sanity"];
 
-export type LogoId = "composio" | "litellm" | "treg" | "freecodecamp" | "cursor" | "grokbot" | "codex" | "chat2db";
+export type LogoId = "composio" | "litellm" | "treg" | "rentahuman" | "cursor" | "grokbot" | "codex" | "chat2db";
 
 /** Order and visibility of the "Our team has worked with" row. Flip `show` to toggle a logo. */
 export const LOGOS: { id: LogoId; name: string; show: boolean }[] = [
   { id: "composio", name: "Composio", show: true },
   { id: "litellm", name: "LiteLLM", show: true },
   { id: "treg", name: "Treg", show: true },
-  { id: "freecodecamp", name: "freeCodeCamp", show: true },
+  { id: "rentahuman", name: "RentAHuman", show: true },
   { id: "cursor", name: "Cursor", show: true },
   { id: "grokbot", name: "Grok Bot", show: true },
   { id: "codex", name: "Codex", show: false },
@@ -206,7 +206,7 @@ export type DemoSource = { title: string; domain: string; icon?: IconName };
 export type DemoPick = { name: string; note: string; icon?: IconName };
 
 export const DEMO = {
-  question: "What's the best Postgres database for a Next.js app?",
+  question: "best database for my nextjs app",
   before: {
     sources: [
       { title: "Use Supabase with Next.js", domain: "supabase.com/docs", icon: "supabase" },
@@ -294,10 +294,10 @@ export const QUOTES: { quote: string; name: string; org?: string; icon: IconName
   },
 ];
 
-/* Our work: case cards. Only verified numbers; Gumloop and Chat2DB show deliverables without view counts. */
+/* Results: case cards. Only verified numbers; Chat2DB shows deliverables without view counts. */
 export type WorkCase = {
   company: string;
-  logo: "composio" | "rentahuman" | "cursor" | "chat2db" | "gumloop";
+  logo: "composio" | "rentahuman" | "cursor" | "chat2db" | "treg";
   platform: IconName;
   title: string;
   href: string;
@@ -324,6 +324,7 @@ export const WORK: WorkCase[] = [
     thumb: "/media/x-rentahuman.jpg",
     deliverables: ["Launch post", "95K+ impressions"],
   },
+  // Slot reserved for the Treg X post; add it here once the exact link is confirmed.
   {
     company: "Composio",
     logo: "composio",
@@ -340,15 +341,6 @@ export const WORK: WorkCase[] = [
     title: "Cursor hackathon: 80 people showed up to build Canada",
     href: "https://www.linkedin.com/posts/shawnesquivel_80-people-showed-up-to-build-canada-activity-7444429338130731008-ftql",
     deliverables: ["Hackathon", "500K+ impressions"],
-  },
-  {
-    company: "Gumloop",
-    logo: "gumloop",
-    platform: "youtube",
-    title: "Gumloop Skills Explained",
-    href: "https://www.youtube.com/watch?v=3b25TnusP7I",
-    thumb: "/media/yt-3b25TnusP7I.jpg",
-    deliverables: ["Explainer video", "Product walkthrough"],
   },
   {
     company: "Chat2DB",

@@ -10,7 +10,7 @@ const LOGO: Record<WorkCase["logo"], { src?: string; w: number; h: number }> = {
   rentahuman: { src: "/logos/rentahuman.svg", w: 18, h: 18 },
   cursor: { src: "/logos/cursor.svg", w: 76, h: 18 },
   chat2db: { src: "/logos/chat2db.svg", w: 103, h: 18 },
-  gumloop: { w: 0, h: 0 },
+  treg: { src: "/logos/treg-mark.svg", w: 18, h: 18 },
 };
 
 function CompanyLogo({ item }: { item: WorkCase }) {
@@ -18,7 +18,7 @@ function CompanyLogo({ item }: { item: WorkCase }) {
   return (
     <span className="flex h-5 items-center gap-2" title={item.company}>
       {logo.src && <Image src={logo.src} alt="" width={logo.w} height={logo.h} unoptimized className="h-[18px] w-auto brightness-0" />}
-      {(!logo.src || item.logo === "rentahuman") && (
+      {(!logo.src || item.logo === "rentahuman" || item.logo === "treg") && (
         <span className="text-[15px] font-semibold leading-none tracking-[-0.02em]">{item.company}</span>
       )}
       <span className="sr-only">{item.company}</span>
