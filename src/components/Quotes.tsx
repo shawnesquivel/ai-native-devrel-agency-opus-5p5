@@ -1,0 +1,97 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { QUOTES } from "@/lib/site";
+import BrandIcon from "./BrandIcon";
+import { Section } from "./ui";
+
+const INTERVAL = 7000;
+
+export default function Quotes() {
+  const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const reduced = useRef(true);
+
+  useEffect(() => {
+    reduced.current = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  }, []);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = window.setTimeout(() => {
+      if (!reduced.current) setActive((a) => (a + 1) % QUOTES.length);
+    }, INTERVAL);
+    return () => clearTimeout(t);
+  }, [active, paused]);
+
+  return (
+    <Section id="agents" index="02" label="The shift" title="Make Something Agents Want">
+      <div
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        onFocusCapture={() => setPaused(true)}
+        onBlurCapture={() => setPaused(false)}
+        className="rounded-xl border border-line bg-card p-6 sm:p-8 md:p-12"
+      >
+        <div className="grid" aria-live="polite">
+          {QUOTES.map((q, n) => (
+            <figure
+              key={q.href}
+              aria-hidden={n !== active}
+              className={`col-start-1 row-start-1 transition-[opacity,transform] duration-700 ease-out ${
+                n === active ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
+              }`}
+            >
+              <blockquote className="max-w-[40ch] text-pretty text-[1.625rem] font-semibold leading-[1.2] tracking-[-0.03em] sm:text-4xl md:text-[2.75rem]">
+                &ldquo;{q.quote}&rdquo;
+              </blockquote>
+              <figcaption className="mt-8 flex items-center gap-3 text-[15px]">
+                <span className="grid size-9 place-items-center rounded-lg border border-line bg-paper text-ink">
+                  <BrandIcon name={q.icon} className="size-4" />
+                </span>
+                <span>
+                  <span className="font-semibold">{q.name}</span>
+                  {q.org && <span className="text-muted">, {q.org}</span>}
+                </span>
+                <a
+                  href={q.href}
+                  target="_blank"
+                  rel="noopener"
+                  tabIndex={n === active ? 0 : -1}
+                  aria-label={`Source: ${q.name}`}
+                  className="grid size-7 place-items-center rounded-md border border-line text-muted transition-colors hover:border-ink hover:text-ink"
+                >
+                  <svg viewBox="0 0 16 16" className="size-3" fill="none" aria-hidden="true">
+                    <path
+                      d="M6.5 9.5 9.5 6.5M7 4.5l1.2-1.2a2.5 2.5 0 0 1 3.5 3.5L10.5 8M9 11.5l-1.2 1.2a2.5 2.5 0 0 1-3.5-3.5L5.5 8"
+                      stroke="currentColor"
+                      strokeWidth="1.4"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </a>
+              </figcaption>
+            </figure>
+          ))}
+        </div>
+
+        <div role="group" aria-label="Choose a quote" className="mt-10 flex flex-wrap gap-2 border-t border-line pt-6">
+          {QUOTES.map((q, n) => (
+            <button
+              key={q.href}
+              type="button"
+              aria-pressed={n === active}
+              onClick={() => setActive(n)}
+              className={`relative overflow-hidden rounded-full border px-3 py-1.5 text-[13px] transition-colors duration-300 ${
+                n === active ? "border-ink text-ink" : "border-line text-muted hover:border-line-strong hover:text-ink"
+              }`}
+            >
+              {n === active && !paused && <span key={active} aria-hidden="true" className="quote-timer" />}
+              <span className="relative">{q.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}
