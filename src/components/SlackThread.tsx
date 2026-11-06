@@ -113,7 +113,7 @@ export default function SlackThread() {
                       <BrandIcon name={o.icon} className="size-3.5" />
                       <span className="sr-only">{o.label}</span>
                     </span>
-                    <span className="min-w-0 text-[13px] leading-snug text-ink">{o.text}</span>
+                    <span className="min-w-0 flex-1 text-[13px] leading-snug text-ink">{o.text}</span>
                   </li>
                 ))}
               </ul>

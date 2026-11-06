@@ -38,16 +38,20 @@ export default function Quotes() {
             <figure
               key={q.href}
               aria-hidden={n !== active}
-              className={`col-start-1 row-start-1 transition-[opacity,transform] duration-700 ease-out ${
+              className={`col-start-1 row-start-1 flex flex-col justify-end transition-[opacity,transform] duration-700 ease-out ${
                 n === active ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
               }`}
             >
-              <blockquote className="max-w-[40ch] text-pretty text-[1.625rem] font-semibold leading-[1.2] tracking-[-0.03em] sm:text-4xl md:text-[2.75rem]">
+              <blockquote
+                className={`max-w-[40ch] text-pretty font-semibold leading-[1.2] tracking-[-0.03em] sm:text-4xl md:text-[2.75rem] ${
+                  q.quote.length > 150 ? "text-[1.25rem]" : q.quote.length > 100 ? "text-[1.5rem]" : "text-[1.875rem]"
+                }`}
+              >
                 &ldquo;{q.quote}&rdquo;
               </blockquote>
-              <figcaption className="mt-8 flex items-center gap-3 text-[15px]">
-                <span className="grid size-9 place-items-center rounded-lg border border-line bg-paper text-ink">
-                  <BrandIcon name={q.icon} className="size-4" />
+              <figcaption className="mt-5 flex items-center gap-3 text-[15px] sm:mt-8">
+                <span className="grid size-9 place-items-center overflow-hidden rounded-lg border border-line bg-paper text-ink">
+                  <BrandIcon name={q.icon} className={q.icon === "ycombinator" ? "size-9" : "size-4"} />
                 </span>
                 <span>
                   <span className="font-semibold">{q.name}</span>
@@ -75,7 +79,7 @@ export default function Quotes() {
           ))}
         </div>
 
-        <div role="group" aria-label="Choose a quote" className="mt-10 flex flex-wrap gap-2 border-t border-line pt-6">
+        <div role="group" aria-label="Choose a quote" className="mt-6 flex flex-wrap gap-2 border-t border-line pt-5 sm:mt-10 sm:pt-6">
           {QUOTES.map((q, n) => (
             <button
               key={q.href}
