@@ -49,9 +49,11 @@ export default function Quotes() {
                 <Image
                   src={q.avatar}
                   alt=""
-                  width={44}
-                  height={44}
-                  className="size-11 shrink-0 rounded-full border border-line bg-paper object-cover"
+                  width={56}
+                  height={56}
+                  preload={n === 0}
+                  loading={n === 0 ? undefined : "eager"}
+                  className="size-12 shrink-0 rounded-full border border-line bg-paper object-cover md:size-14"
                 />
                 <span className="min-w-0 text-pretty leading-snug">
                   <span className="font-semibold">{q.name}</span>

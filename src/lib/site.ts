@@ -249,15 +249,9 @@ export const DEMO = {
 };
 
 /* "Make Something Agents Want": verbatim quotes, trimmed only with an ellipsis. */
-/* Titles verified against each X bio on Nov 6, 2026; avatars are their X profile photos, saved in public/quotes/. */
+/* Titles verified against each X bio on Nov 6, 2026; avatars are their X profile photos, saved in public/quotes/.
+   The YC quote is unsigned copy from YC's event page, so it closes the rotation and people lead. */
 export const QUOTES: { quote: string; name: string; title?: string; avatar: string; href: string }[] = [
-  {
-    quote:
-      "Bot and agent traffic on the web now is greater than human traffic. If you're running a dev tools company, ecommerce store, or even a website, you are increasingly thinking about building for agents.",
-    name: "Y Combinator",
-    avatar: "/quotes/ycombinator.png",
-    href: "https://events.ycombinator.com/MakeSomethingAgentsWant",
-  },
   {
     quote: "…increasingly all of us are realizing it's make something agents want.",
     name: "Garry Tan",
@@ -282,7 +276,7 @@ export const QUOTES: { quote: string; name: string; title?: string; avatar: stri
   {
     quote: "Spoiler alert: most bot traffic to docs now comes from AI crawlers.",
     name: "Lee Robinson",
-    title: "SpaceX",
+    title: "Product at SpaceX",
     avatar: "/quotes/leerob.jpg",
     href: "https://leerob.com/docs",
   },
@@ -292,6 +286,13 @@ export const QUOTES: { quote: string; name: string; title?: string; avatar: stri
     title: "Y Combinator co-founder",
     avatar: "/quotes/paulg.jpg",
     href: "https://x.com/paulg/status/2108011311229747525",
+  },
+  {
+    quote:
+      "Bot and agent traffic on the web now is greater than human traffic. If you're running a dev tools company, ecommerce store, or even a website, you are increasingly thinking about building for agents.",
+    name: "Y Combinator",
+    avatar: "/quotes/ycombinator.png",
+    href: "https://events.ycombinator.com/MakeSomethingAgentsWant",
   },
 ];
 
