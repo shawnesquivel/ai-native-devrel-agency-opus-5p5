@@ -42,11 +42,7 @@ export default function Quotes() {
                 n === active ? "opacity-100" : "pointer-events-none translate-y-2 opacity-0"
               }`}
             >
-              <blockquote
-                className={`max-w-[40ch] text-pretty font-semibold leading-[1.2] tracking-[-0.03em] sm:text-4xl md:text-[2.75rem] ${
-                  q.quote.length > 150 ? "text-[1.25rem]" : q.quote.length > 100 ? "text-[1.5rem]" : "text-[1.875rem]"
-                }`}
-              >
+              <blockquote className="max-w-[60ch] text-pretty text-[18px] font-normal leading-relaxed tracking-normal text-ink-2 md:text-[22px]">
                 &ldquo;{q.quote}&rdquo;
               </blockquote>
               <figcaption className="mt-5 flex items-center gap-3 text-[15px] sm:mt-8">
