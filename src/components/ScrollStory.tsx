@@ -35,8 +35,6 @@ const STOPS: [number, number][] = [
 ];
 /* Strategize draws a dashed 4-week plan ahead of the real line. */
 const PLAN_WEEKS = 4;
-/* Compound re-plans every 4 weeks. */
-const REPLANS = [5, 9, 13, 17, 21, 25];
 
 const lerp = (pts: [number, number][], x: number) => {
   for (let k = 1; k < pts.length; k++) {
@@ -232,18 +230,6 @@ export default function ScrollStory() {
                 plan
               </span>
 
-              {REPLANS.map((w, n) => (
-                <span
-                  key={w}
-                  className={`replan ${week >= w ? "on" : ""}`}
-                  style={{ left: `${(gx(w) / 400) * 100}%`, top: `${(PX.b / 220) * 100}%` }}
-                  title="Re-plan"
-                >
-                  <Loop />
-                  {n === 0 && <span className="graph-label bottom-full left-1/2 -translate-x-1/2 pb-1">re-plan</span>}
-                </span>
-              ))}
-
               <span className="graph-tip" style={{ left: `${tip.x}%`, top: `${tip.y}%` }}>
                 <span className="graph-dot" />
                 <span className={`graph-value ${tip.x > 78 ? "right-3" : "left-3"}`}>{score}</span>
@@ -253,14 +239,6 @@ export default function ScrollStory() {
         </div>
       </div>
     </div>
-  );
-}
-
-function Loop() {
-  return (
-    <svg viewBox="0 0 16 16" className="size-full" fill="none" aria-hidden="true">
-      <path d="M12.5 8a4.5 4.5 0 1 1-1.3-3.2M12.5 3v2.5H10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
   );
 }
 
