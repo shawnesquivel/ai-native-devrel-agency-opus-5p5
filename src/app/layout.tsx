@@ -4,6 +4,9 @@ import { GeistMono } from "geist/font/mono";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import RevealObserver from "@/components/RevealObserver";
+import Tracker from "@/components/Tracker";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SITE } from "@/lib/site";
 import "./globals.css";
 
@@ -41,6 +44,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </main>
         <Footer />
         <RevealObserver />
+        <Tracker />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
