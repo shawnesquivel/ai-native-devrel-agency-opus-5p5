@@ -185,81 +185,85 @@ body {
 }
 
 /* ---------- Buttons ---------- */
+/* In the components layer so Tailwind utilities (hidden, w-full, …) can override them. */
 
-.btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  height: 2.75rem;
-  padding-inline: 1.125rem;
-  border-radius: 0.5rem;
-  font-size: 0.9375rem;
-  font-weight: 500;
-  letter-spacing: -0.01em;
-  white-space: nowrap;
-  user-select: none;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    box-shadow 0.2s ease,
-    transform 0.15s var(--ease-out-quart);
-  -webkit-tap-highlight-color: transparent;
-}
+@layer components {
 
-.btn:active {
-  transform: translateY(1px) scale(0.985);
-  transition-duration: 0.06s;
-}
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.75rem;
+    padding-inline: 1.125rem;
+    border-radius: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    user-select: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease,
+      box-shadow 0.2s ease,
+      transform 0.15s var(--ease-out-quart);
+    -webkit-tap-highlight-color: transparent;
+  }
 
-.btn-primary {
-  background: var(--color-ink);
-  color: var(--color-paper);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.12),
-    0 1px 2px rgb(18 18 17 / 0.2);
-}
+  .btn:active {
+    transform: translateY(1px) scale(0.985);
+    transition-duration: 0.06s;
+  }
 
-.btn-primary:hover {
-  background: #2a2926;
-}
+  .btn-primary {
+    background: var(--color-ink);
+    color: var(--color-paper);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.12),
+      0 1px 2px rgb(18 18 17 / 0.2);
+  }
 
-.btn-accent {
-  background: var(--color-accent);
-  color: var(--color-ink);
-  box-shadow:
-    inset 0 1px 0 rgb(255 255 255 / 0.25),
-    0 1px 2px rgb(18 18 17 / 0.25);
-}
+  .btn-primary:hover {
+    background: #2a2926;
+  }
 
-.btn-accent:hover {
-  background: #ff6a3d;
-}
+  .btn-accent {
+    background: var(--color-accent);
+    color: var(--color-ink);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.25),
+      0 1px 2px rgb(18 18 17 / 0.25);
+  }
 
-.btn-ghost {
-  color: var(--color-ink);
-  border: 1px solid var(--color-line-strong);
-  background: var(--color-card);
-}
+  .btn-accent:hover {
+    background: #ff6a3d;
+  }
 
-.btn-ghost:hover {
-  border-color: var(--color-ink);
-}
+  .btn-ghost {
+    color: var(--color-ink);
+    border: 1px solid var(--color-line-strong);
+    background: var(--color-card);
+  }
 
-.btn-sm {
-  height: 2.25rem;
-  padding-inline: 0.875rem;
-  font-size: 0.875rem;
-}
+  .btn-ghost:hover {
+    border-color: var(--color-ink);
+  }
 
-.btn .arrow {
-  transition: transform 0.25s var(--ease-out-expo);
-}
+  .btn-sm {
+    height: 2.25rem;
+    padding-inline: 0.875rem;
+    font-size: 0.875rem;
+  }
 
-.btn:hover .arrow {
-  transform: translateX(3px);
+  .btn .arrow {
+    transition: transform 0.25s var(--ease-out-expo);
+  }
+
+  .btn:hover .arrow {
+    transform: translateX(3px);
+  }
 }
 
 /* ---------- Problem: buyers flowing into one assistant ---------- */
@@ -291,6 +295,26 @@ body {
 
 .demo-dot {
   animation: demo-dot 1s ease-in-out infinite;
+}
+
+.demo-win {
+  box-shadow:
+    0 0 0 3px rgb(255 79 26 / 0.18),
+    0 10px 24px -16px rgb(255 79 26 / 0.7);
+}
+
+@keyframes demo-badge {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 79 26 / 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 5px rgb(255 79 26 / 0);
+  }
+}
+
+.demo-badge {
+  animation: demo-badge 2.4s ease-in-out infinite;
 }
 
 /* ---------- Problem illustrations (.pa) ----------
@@ -464,6 +488,26 @@ body {
   font-variant-numeric: tabular-nums;
 }
 
+/* ---------- Quotes ---------- */
+
+@keyframes quote-timer {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.quote-timer {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 2px;
+  background: var(--color-accent);
+  transform-origin: left;
+  animation: quote-timer 7s linear both;
+}
+
 /* ---------- Mobile carousels ---------- */
 
 .snap-row {
@@ -524,6 +568,10 @@ body {
 
   .pa {
     animation: none !important;
+  }
+
+  .quote-timer {
+    display: none;
   }
 
   .js [data-reveal],
