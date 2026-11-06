@@ -74,7 +74,7 @@ export default async function Image() {
               </div>
             </div>
             <div>want.</div>
-            <div style={{ color: "#66655f" }}>Now make sure they can find it.</div>
+            <div style={{ color: "#66655f" }}>We make sure agents can find you.</div>
           </div>
         </div>
       </div>

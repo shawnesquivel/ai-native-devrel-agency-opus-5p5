@@ -41,7 +41,7 @@ export default function Hero() {
             </span>
             <span className="hero-line">
               <span style={i(1)} className="text-muted">
-                Now make sure they can find it.
+                We make sure agents can find you.
               </span>
             </span>
           </h1>

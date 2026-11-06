@@ -8,7 +8,7 @@ const at = (share: number) => ({ "--at": share }) as CSSProperties;
 
 function Answer() {
   return (
-    <div className="flex h-full flex-col justify-center gap-2 px-4 py-3">
+    <div className="flex h-full flex-col justify-center gap-2 px-4 py-6">
       <p className="pa-at self-end rounded-lg rounded-br-sm bg-ink px-2.5 py-1 font-mono text-[11px] text-paper" style={at(0)}>
         best auth sdk?
       </p>
@@ -128,7 +128,7 @@ const ARTS: Record<Art, () => JSX.Element> = { answer: Answer, docs: Docs, hire:
 export default function ProblemArt({ art }: { art: Art }) {
   const Comp = ARTS[art];
   return (
-    <div data-observe aria-hidden="true" className="pa relative h-44 overflow-hidden rounded-lg border border-line bg-paper">
+    <div data-observe aria-hidden="true" className="pa relative h-56 overflow-hidden rounded-lg border border-line bg-paper">
       <Comp />
     </div>
   );

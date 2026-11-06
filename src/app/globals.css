@@ -415,6 +415,27 @@ body {
   white-space: nowrap;
 }
 
+.replan {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  margin: -7px 0 0 -7px;
+  padding: 1px;
+  border-radius: 999px;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  opacity: 0;
+  transform: scale(0.6);
+  transition:
+    opacity 0.35s ease,
+    transform 0.45s var(--ease-out-expo);
+}
+
+.replan.on {
+  opacity: 1;
+  transform: none;
+}
+
 .graph-tip {
   position: absolute;
   width: 0;

@@ -1,5 +1,5 @@
 import { Mark } from "./Brand";
-import { THEME } from "@/lib/site";
+import { HOOK_STAT } from "@/lib/site";
 import { CtaLink, i } from "./ui";
 
 export default function FinalCta() {
@@ -16,8 +16,17 @@ export default function FinalCta() {
             >
               Make sure agents can find you.
             </h2>
-            <p data-reveal style={i(1)} className="mt-4 text-lg text-[#bdbbb2]">
-              {THEME}
+            <p data-reveal style={i(1)} className="mt-5 max-w-[46ch] text-pretty text-lg leading-relaxed text-[#bdbbb2]">
+              ChatGPT has{" "}
+              <a
+                href={HOOK_STAT.href}
+                target="_blank"
+                rel="noopener"
+                className="text-paper underline decoration-white/30 underline-offset-4 transition-colors hover:decoration-accent"
+              >
+                1.2 billion weekly users
+              </a>
+              . Win your competitors&apos; customers back with AEO-optimized content.
             </p>
           </div>
           <div data-reveal style={i(2)}>

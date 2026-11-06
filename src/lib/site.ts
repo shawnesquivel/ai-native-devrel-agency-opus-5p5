@@ -15,7 +15,7 @@ export const SITE = {
   name: BRAND_NAME,
   url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
   email: "shawn@amihanventures.ca",
-  tagline: "You built something agents want. Now make sure they can find it.",
+  tagline: "You built something agents want. We make sure agents can find you.",
   eyebrow: "Your full-stack DevRel studio",
   subline:
     "AI solved coding, not distribution. We do everything that gets you recommended by ChatGPT and Claude.",
@@ -43,7 +43,7 @@ export const PROBLEMS: { outcome: string; title: string; body: string; art: Prob
   {
     outcome: "Customers",
     title: "Agents can't use your docs.",
-    body: "Cursor, Claude Code and Codex build from your docs. When they get lost, adoption fails and you never see why.",
+    body: "Agents build from your messy documentation. When they get lost, you lose a customer, and never know what to fix.",
     art: "docs",
   },
   {
@@ -65,19 +65,19 @@ export const HOOK_STAT = {
 export const STEPS = [
   {
     title: "Audit",
-    body: "We ask ChatGPT, Claude, Gemini, Grok and Hermes your buyers' questions and check your socials. You get your AI visibility score.",
+    body: "We measure how often AI recommends you, and who it recommends instead.",
+  },
+  {
+    title: "Strategize",
+    body: "A 4-week content plan built from your buyers, what's trending, and the search gaps your competitors left open. Planned the way a DevRel team plans a launch.",
   },
   {
     title: "Ship",
-    body: "Everything that gets you recommended, shipped every day: docs, AEO fixes, videos, tutorials, starter code, MCP plugins, founder posts and events.",
+    body: "Every day, in your brand voice, across your docs, blog and socials.",
   },
   {
-    title: "Measure",
-    body: "A monthly, done-for-you report: your AI visibility score, citations, competitors and what ships next.",
-  },
-  {
-    title: "Repeat",
-    body: "The engine keeps shipping. It finds trending formats and builds them in your brand voice, so your score keeps climbing.",
+    title: "Compound",
+    body: "We track your score daily and re-plan every 4 weeks. Double down on what works, kill what doesn't.",
   },
 ];
 
@@ -90,7 +90,7 @@ export const SERVICES: { label: string; icon: IconName }[] = [
   { label: "MCP plugins for ChatGPT and Claude", icon: "mcp" },
   { label: "Founder-led content", icon: "x" },
   { label: "Events", icon: "calendar" },
-  { label: "Monthly visibility tracking", icon: "chart" },
+  { label: "Daily AI visibility tracking", icon: "chart" },
 ];
 
 export const AUDIT = {
@@ -243,8 +243,12 @@ export const FAQ = [
     a: `Yes. On white-glove, tag ${BRAND_NAME} in your Slack channel or through MCP when inspiration strikes, and the request goes into the engine. On Basic, ask us in your dedicated Slack channel.`,
   },
   {
+    q: "How does it work?",
+    a: "Four steps. Audit: we measure how often AI recommends you, and who it recommends instead. Strategize: a 4-week content plan from your buyers, trends and your competitors' search gaps. Ship: every day, in your brand voice, across your docs, blog and socials. Compound: we track your score daily and re-plan every 4 weeks.",
+  },
+  {
     q: "How do you measure AI visibility?",
-    a: "We ask the major AI assistants the questions your buyers ask, and record who gets named and which pages get cited. That becomes your AI visibility score, reported monthly with competitors and what ships next.",
+    a: "We ask the major AI assistants the questions your buyers ask, every day, and record who gets named and which pages get cited. That's your AI visibility score. Every 4 weeks we re-plan around what moved.",
   },
   {
     q: "How fast will we see results?",

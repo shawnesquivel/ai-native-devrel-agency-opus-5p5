@@ -37,10 +37,13 @@ export default function Stack() {
           <h3 className="mt-3 text-balance text-2xl font-semibold leading-tight tracking-[-0.03em]">
             Tag {BRAND_NAME} when inspiration strikes.
           </h3>
+          <p className="mt-3 text-pretty text-[15px] leading-relaxed text-muted">
+            Your best content is happening in your Slack threads. Tag {BRAND_NAME} and it builds the first draft.
+          </p>
 
           <div className="mt-8 rounded-lg border border-line bg-paper text-[14px]" aria-label="Example Slack thread">
             <p className="flex items-center gap-1.5 border-b border-line px-3 py-2 font-mono text-[11px] text-muted">
-              <BrandIcon name="slack" className="size-3" /># [your-channel]
+              <BrandIcon name="slack" className="size-3" />#agent-studio
             </p>
             <div className="space-y-3 p-3">
               <div className="flex gap-2.5">

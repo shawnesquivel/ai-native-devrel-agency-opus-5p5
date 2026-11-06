@@ -8,7 +8,7 @@ export default function Process() {
       id="process"
       index="02"
       label="How it works"
-      title="Audit. Ship. Measure. Repeat."
+      title="Audit. Strategize. Ship. Compound."
       intro={ENGINE}
       bodyClassName="mt-4 md:mt-6"
     >
