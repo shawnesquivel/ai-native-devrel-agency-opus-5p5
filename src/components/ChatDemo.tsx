@@ -188,8 +188,8 @@ export default function ChatDemo() {
                     <li key={s.domain} className={`flex items-center gap-2.5 rounded-lg border border-line bg-paper px-2.5 py-2 ${vis(stage >= 2 + n && !answered)}`}>
                       <Favicon icon={s.icon} />
                       <span className="min-w-0">
-                        <span className="block truncate text-[13px] font-medium text-ink">{s.title}</span>
-                        <span className="block truncate font-mono text-[11px] text-muted">{s.domain}</span>
+                        <span className="block text-pretty text-[13px] font-medium leading-snug text-ink">{s.title}</span>
+                        <span className="block font-mono text-[11px] text-muted">{s.domain}</span>
                       </span>
                     </li>
                   ))}
