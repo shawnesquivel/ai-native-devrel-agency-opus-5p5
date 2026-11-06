@@ -17,7 +17,7 @@ export default function Blog() {
           First posts soon.
         </h1>
         <div className="mt-10">
-          <CtaLink>Book a call</CtaLink>
+          <CtaLink location="blog">Book a call</CtaLink>
         </div>
       </div>
     </section>

@@ -1,11 +1,11 @@
 import { BRAND_NAME, CMS } from "@/lib/site";
-import { Mark } from "./Brand";
 import BrandIcon, { ICON_LABELS } from "./BrandIcon";
+import SlackThread from "./SlackThread";
 import { Section, i } from "./ui";
 
 export default function Stack() {
   return (
-    <Section id="stack" index="03" label="Your stack" title="Works with the tools you already use.">
+    <Section id="stack" index="04" label="Your stack" title="Works with the tools you already use.">
       <div className="grid gap-3 md:grid-cols-2">
         <article data-reveal className="flex flex-col rounded-xl border border-line bg-card p-6 md:p-7">
           <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Your CMS</p>
@@ -41,33 +41,8 @@ export default function Stack() {
             Your best content is happening in your Slack threads. Tag {BRAND_NAME} and it builds the first draft.
           </p>
 
-          <div className="mt-8 rounded-lg border border-line bg-paper text-[14px]" aria-label="Example Slack thread">
-            <p className="flex items-center gap-1.5 border-b border-line px-3 py-2 font-mono text-[11px] text-muted">
-              <BrandIcon name="slack" className="size-3" />#agent-studio
-            </p>
-            <div className="space-y-3 p-3">
-              <div className="flex gap-2.5">
-                <span className="grid size-7 shrink-0 place-items-center rounded-md bg-line-strong font-mono text-[11px] text-ink">Y</span>
-                <div className="min-w-0">
-                  <p className="text-[13px] font-semibold">You</p>
-                  <p className="leading-snug text-ink-2">
-                    <span className="rounded bg-accent/25 px-1 font-medium text-ink">@{BRAND_NAME}</span> turn this launch into a thread + tutorial
-                  </p>
-                </div>
-              </div>
-              <div className="flex gap-2.5">
-                <span className="grid size-7 shrink-0 place-items-center rounded-md bg-ink text-paper">
-                  <Mark className="size-3.5" />
-                </span>
-                <div className="min-w-0">
-                  <p className="flex items-center gap-1.5 text-[13px] font-semibold">
-                    {BRAND_NAME}
-                    <span className="rounded border border-line px-1 font-mono text-[10px] font-normal text-muted">APP</span>
-                  </p>
-                  <p className="leading-snug text-ink-2">On it. Drafts land in your CMS for review.</p>
-                </div>
-              </div>
-            </div>
+          <div className="mt-8">
+            <SlackThread />
           </div>
         </article>
       </div>

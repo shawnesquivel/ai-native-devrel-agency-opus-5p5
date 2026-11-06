@@ -1,7 +1,7 @@
-import { POSTS, STATS, VIDEOS } from "@/lib/site";
+import { STATS } from "@/lib/site";
 import CountUp from "./CountUp";
 import Logos from "./Logos";
-import VideoEmbed from "./VideoEmbed";
+import WorkCarousel from "./WorkCarousel";
 import { Section, i } from "./ui";
 
 function External() {
@@ -14,7 +14,7 @@ function External() {
 
 export default function Work() {
   return (
-    <Section id="work" index="06" label="Proof" title="Our work.">
+    <Section id="work" index="07" label="Proof" title="Our work.">
       <h3 data-reveal className="mb-5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
         Our team has worked with
       </h3>
@@ -52,47 +52,9 @@ export default function Work() {
         })}
       </ul>
 
-      <ul
-        aria-label="Videos"
-        className="snap-row -mx-5 mt-16 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:grid sm:snap-none sm:grid-cols-2 sm:gap-x-4 sm:gap-y-8 sm:overflow-visible sm:px-0 sm:pb-0 md:mt-20 lg:grid-cols-3"
-      >
-        {VIDEOS.map((v, n) => (
-          <li key={v.id} data-reveal style={i(n)} className="w-[82%] shrink-0 snap-start sm:w-auto">
-            <VideoEmbed id={v.id} title={v.title} thumb={v.thumb} />
-            <p className="mt-3 font-mono text-[11px] uppercase tracking-[0.14em] text-muted">{v.channel}</p>
-            <p className="mt-1 text-pretty text-[15px] font-medium leading-snug tracking-[-0.01em]">{v.title}</p>
-          </li>
-        ))}
-      </ul>
-
-      <ul
-        aria-label="Videos on X"
-        className="snap-row -mx-5 mt-10 flex snap-x snap-mandatory scroll-px-5 gap-3 overflow-x-auto px-5 pb-2 sm:mx-0 sm:mt-12 sm:grid sm:snap-none sm:grid-cols-3 sm:gap-0 sm:overflow-visible sm:border-l sm:border-t sm:border-line sm:px-0 sm:pb-0"
-      >
-        {POSTS.map((p, n) => (
-          <li
-            key={p.href}
-            data-reveal
-            style={i(n)}
-            className="w-[82%] shrink-0 snap-start rounded-lg border border-line sm:w-auto sm:rounded-none sm:border-0 sm:border-b sm:border-r"
-          >
-            <a
-              href={p.href}
-              target="_blank"
-              rel="noopener"
-              className="group flex h-full items-center justify-between gap-4 p-5 transition-colors duration-300 hover:bg-card md:px-6"
-            >
-              <span>
-                <span className="block font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Video on X</span>
-                <span className="mt-1.5 block text-[15px] font-medium tracking-[-0.01em]">{p.title}</span>
-              </span>
-              <span className="text-line-strong transition-[color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-ink">
-                <External />
-              </span>
-            </a>
-          </li>
-        ))}
-      </ul>
+      <div className="mt-16 md:mt-20">
+        <WorkCarousel />
+      </div>
     </Section>
   );
 }

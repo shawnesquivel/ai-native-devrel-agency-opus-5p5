@@ -1,4 +1,4 @@
-import { AUDIT, CAL_URL, CMS, ENGINE, FAQ, PACKAGES, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
+import { AUDIT, CAL_URL, CMS, ENGINE, FAQ, FUNNEL, PACKAGES, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
 import { ICON_LABELS } from "@/components/BrandIcon";
 
 export const dynamic = "force-static";
@@ -24,9 +24,13 @@ ${STEPS.map((s, n) => `${n + 1}. ${s.title}: ${s.body}`).join("\n")}
 
 ## Ways to work with us
 
-- ${AUDIT.title}: ${AUDIT.body} Free.
-- ${PACKAGES.basic.title} (${PACKAGES.basic.tag.toLowerCase()}): ${PACKAGES.basic.items.join(", ")}. ${PACKAGES.pricing}.
-- ${PACKAGES.whiteGlove.title} (${PACKAGES.whiteGlove.tag.toLowerCase()}): ${PACKAGES.whiteGlove.lead} ${PACKAGES.whiteGlove.items.join(", ")}. ${PACKAGES.pricing}.
+- ${AUDIT.title} (${AUDIT.tag.toLowerCase()}): ${AUDIT.body}
+- ${PACKAGES.launch.title} (${PACKAGES.launch.tag.toLowerCase()}): ${PACKAGES.launch.outcome} ${PACKAGES.launch.items.join(", ")}. ${PACKAGES.pricing}.
+- ${PACKAGES.scale.title} (${PACKAGES.scale.tag.toLowerCase()}): ${PACKAGES.scale.note} ${PACKAGES.scale.lead} ${PACKAGES.scale.items.join(", ")}. ${PACKAGES.pricing}.
+
+## Get started
+
+${FUNNEL.steps.map((step, n) => `${n + 1}. ${step}`).join("\n")}
 
 ## Works with your stack
 

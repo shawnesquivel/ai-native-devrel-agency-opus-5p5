@@ -3,7 +3,7 @@ import { Section, i } from "./ui";
 
 export default function Team() {
   return (
-    <Section id="team" index="05" label="Team" title="Engineers who have done DevRel at leading AI startups." intro={TEAM_INTRO}>
+    <Section id="team" index="06" label="Team" title="Engineers who have done DevRel at leading AI startups." intro={TEAM_INTRO}>
       <ul className="grid border-l border-t border-line md:grid-cols-2">
         {TEAM.map((m, n) => (
           <li key={n} data-reveal style={i(n)} className="flex flex-col gap-8 border-b border-r border-line bg-card p-6 md:p-7">
