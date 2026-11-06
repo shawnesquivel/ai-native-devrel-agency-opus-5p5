@@ -302,9 +302,7 @@ export type WorkCase = {
   title: string;
   href: string;
   thumb?: string;
-  /* Shown after the company name, e.g. "Treg · Launch video". */
-  label?: string;
-  deliverables?: [string, string];
+  deliverables: [string, string];
 };
 
 export const WORK: WorkCase[] = [
@@ -333,7 +331,8 @@ export const WORK: WorkCase[] = [
     title: "Claude Code Mods + Jev memory harness",
     href: "https://x.com/shawnbuilds/status/2106405013111328977",
     thumb: "/media/x-treg-jev.jpg",
-    label: "Launch video",
+    /* 9,239 impressions, verified. */
+    deliverables: ["Launch video", "9K+ impressions"],
   },
   {
     company: "Composio",
