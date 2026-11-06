@@ -2,7 +2,7 @@ import Link from "next/link";
 import { NAV } from "@/lib/site";
 import { Wordmark } from "./Brand";
 import MobileMenu from "./MobileMenu";
-import { CtaLink, ShareLink } from "./ui";
+import { CtaLink } from "./ui";
 
 export default function Nav() {
   return (
@@ -17,6 +17,7 @@ export default function Nav() {
               <li key={item.href}>
                 <a
                   href={item.href}
+                  data-cta={item.href.endsWith("#contact") ? "nav" : undefined}
                   className="rounded-md px-3 py-2 text-sm text-ink-2 transition-colors duration-200 hover:bg-ink/[0.05] hover:text-ink"
                 >
                   {item.label}
@@ -26,10 +27,7 @@ export default function Nav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <CtaLink location="nav" variant="ghost" size="sm" arrow={false} className="hidden sm:inline-flex">
-            Book a call
-          </CtaLink>
-          <ShareLink size="sm" className="hidden min-[360px]:inline-flex" />
+          <CtaLink location="nav" size="sm" />
           <MobileMenu />
         </div>
       </div>

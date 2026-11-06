@@ -32,8 +32,11 @@ export default function Tracker() {
     });
 
     const onClick = (e: MouseEvent) => {
-      const link = (e.target as Element | null)?.closest<HTMLElement>("[data-book-call]");
-      if (link) trackEvent("book_call_click", { location: link.dataset.bookCall ?? "unknown" });
+      const target = e.target as Element | null;
+      const call = target?.closest<HTMLElement>("[data-book-call]");
+      if (call) trackEvent("book_call_click", { location: call.dataset.bookCall ?? "unknown" });
+      const cta = target?.closest<HTMLElement>("[data-cta]");
+      if (cta) trackEvent("cta_click", { location: cta.dataset.cta ?? "unknown" });
     };
     document.addEventListener("click", onClick);
 

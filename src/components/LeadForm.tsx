@@ -8,10 +8,10 @@ import { Arrow } from "./ui";
 type State = { status: "idle" | "sending" | "done" | "error"; error?: string };
 
 /**
- * "Share your site": work email + website, posted to /api/lead.
+ * The audit form, the only form on the page: work email + website, posted to /api/lead.
  * The success message replaces the fields in the same box, so the layout doesn't move.
  */
-export default function LeadForm({ location, dark = false }: { location: "hero" | "final"; dark?: boolean }) {
+export default function LeadForm({ location = "final", dark = false }: { location?: "final"; dark?: boolean }) {
   const ref = useRef<HTMLFormElement>(null);
   const id = useId();
   const [state, setState] = useState<State>({ status: "idle" });
@@ -90,7 +90,7 @@ export default function LeadForm({ location, dark = false }: { location: "hero" 
         </div>
         <div className="flex flex-col gap-2 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
           <button type="submit" disabled={state.status === "sending"} className={`btn ${dark ? "btn-accent" : "btn-primary"} disabled:opacity-70`}>
-            {state.status === "sending" ? "Sending…" : FUNNEL.title}
+            {state.status === "sending" ? "Sending…" : FUNNEL.submit}
             <Arrow />
           </button>
           <p role="status" aria-live="polite" className={`min-h-5 text-[13px] ${dark ? "text-[#ffb59b]" : "text-[#b4361a]"}`}>

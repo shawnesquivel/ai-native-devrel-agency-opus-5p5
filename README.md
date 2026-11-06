@@ -14,7 +14,7 @@ npm run dev
 
 ## Lead form
 
-The "Share your site" form posts to `/api/lead`. The route validates the email and website, drops submissions that fill the hidden honeypot field, rate-limits each IP (5 per 10 minutes, per server instance), and emails the founders through [Resend](https://resend.com).
+The audit form in the final `#contact` section (the only form on the page) posts to `/api/lead`. The route validates the email and website, drops submissions that fill the hidden honeypot field, rate-limits each IP (5 per 10 minutes, per server instance), and emails the founders through [Resend](https://resend.com).
 
 | Variable | Required | Default | Purpose |
 | --- | --- | --- | --- |
@@ -28,7 +28,8 @@ Set them in Vercel under Project Settings → Environment Variables, then redepl
 
 `@vercel/analytics` and `@vercel/speed-insights` are mounted in the root layout. Custom events (sent with `track()`):
 
-- `cta_form_view` (`location`: hero, final), `cta_form_submit` (`location`, `status`: success or fail)
+- `cta_form_view` (`location`: final), `cta_form_submit` (`location`, `status`: success or fail)
+- `cta_click` (`location`: hero, nav, packages): clicks on "Get your AI visibility audit" and the other links that scroll to the form
 - `book_call_click` (`location`: nav, hero, final, packages, blog)
 - `section_view` (`section`: hero, problem, how-it-works, packages, work, faq), once per session
 - `demo_toggle` (`phase`: before, after)

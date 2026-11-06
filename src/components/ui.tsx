@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { CAL_URL } from "@/lib/site";
 
@@ -34,23 +33,23 @@ export function CtaLink({
   );
 }
 
-/** Primary CTA: jumps to the "Share your site" form. */
-export function ShareLink({
-  children = "Share your site",
+/** Primary CTA: scrolls to the audit form in #contact. `location` is sent with the cta_click event. */
+export function AuditLink({
+  children = "Get your AI visibility audit",
   variant = "primary",
-  size,
   className = "",
+  location,
 }: {
   children?: ReactNode;
   variant?: Variant;
-  size?: "sm";
   className?: string;
+  location: "hero" | "packages";
 }) {
   return (
-    <Link href="/#contact" className={`btn btn-${variant} ${size === "sm" ? "btn-sm" : ""} ${className}`}>
+    <a href="#contact" data-cta={location} className={`btn btn-${variant} ${className}`}>
       {children}
       <Arrow />
-    </Link>
+    </a>
   );
 }
 

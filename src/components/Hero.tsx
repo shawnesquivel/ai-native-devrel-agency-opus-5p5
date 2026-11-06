@@ -1,8 +1,7 @@
 import { CAL_URL, SITE } from "@/lib/site";
-import LeadForm from "./LeadForm";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 import ChatDemo from "./ChatDemo";
-import { i } from "./ui";
+import { AuditLink, i } from "./ui";
 
 const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
   { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "cursor", "codex"] },
@@ -51,14 +50,17 @@ export default function Hero() {
             {SITE.subline}
           </p>
 
-          <div className="hero-fade mt-10 max-w-xl" style={i(2)}>
-            <LeadForm location="hero" />
-            <p className="mt-3 text-[14px] text-muted">
-              Ready now?{" "}
-              <a href={CAL_URL} target="_blank" rel="noopener" data-book-call="hero" className="font-medium text-ink underline decoration-line-strong underline-offset-4 hover:decoration-ink">
-                Book a call
-              </a>
-            </p>
+          <div className="hero-fade mt-10 flex flex-wrap items-center gap-x-5 gap-y-4" style={i(2)}>
+            <AuditLink location="hero" />
+            <a
+              href={CAL_URL}
+              target="_blank"
+              rel="noopener"
+              data-book-call="hero"
+              className="text-[15px] text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+            >
+              or book a call
+            </a>
           </div>
           </div>
 

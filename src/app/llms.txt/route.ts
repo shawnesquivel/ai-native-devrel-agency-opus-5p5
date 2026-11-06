@@ -25,7 +25,7 @@ ${STEPS.map((s, n) => `${n + 1}. ${s.title}: ${s.body}`).join("\n")}
 ## Ways to work with us
 
 - ${AUDIT.title} (${AUDIT.tag.toLowerCase()}): ${AUDIT.body}
-- ${PACKAGES.launch.title} (${PACKAGES.launch.tag.toLowerCase()}): ${PACKAGES.launch.outcome} ${PACKAGES.launch.items.join(", ")}. ${PACKAGES.pricing}.
+- ${PACKAGES.launch.title} (${PACKAGES.launch.badge.toLowerCase()}): ${PACKAGES.launch.outcome} ${PACKAGES.launch.items.join(", ")}. ${PACKAGES.pricing}.
 - ${PACKAGES.scale.title} (${PACKAGES.scale.tag.toLowerCase()}): ${PACKAGES.scale.note} ${PACKAGES.scale.lead} ${PACKAGES.scale.items.join(", ")}. ${PACKAGES.pricing}.
 
 ## Get started

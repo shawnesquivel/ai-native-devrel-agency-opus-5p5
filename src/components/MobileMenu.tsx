@@ -2,8 +2,6 @@
 
 import { useEffect, useId, useState } from "react";
 import { NAV } from "@/lib/site";
-import { CtaLink, ShareLink } from "./ui";
-
 export default function MobileMenu() {
   const [open, setOpen] = useState(false);
   const id = useId();
@@ -42,18 +40,17 @@ export default function MobileMenu() {
         <ul className="divide-y divide-line">
           {NAV.map((item) => (
             <li key={item.href}>
-              <a href={item.href} onClick={() => setOpen(false)} className="block py-3.5 text-lg tracking-tight">
+              <a
+                href={item.href}
+                data-cta={item.href.endsWith("#contact") ? "nav" : undefined}
+                onClick={() => setOpen(false)}
+                className="block py-3.5 text-lg tracking-tight"
+              >
                 {item.label}
               </a>
             </li>
           ))}
         </ul>
-        <div className="mt-4 grid gap-2" onClick={() => setOpen(false)}>
-          <ShareLink className="w-full" />
-          <CtaLink location="nav" variant="ghost" className="w-full">
-            Ready now? Book a call
-          </CtaLink>
-        </div>
       </div>
     </div>
   );

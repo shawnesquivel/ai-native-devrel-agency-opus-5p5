@@ -1,6 +1,6 @@
 import { AUDIT, PACKAGES, SERVICES, THEME } from "@/lib/site";
 import BrandIcon from "./BrandIcon";
-import { CtaLink, Section, ShareLink, i } from "./ui";
+import { AuditLink, CtaLink, Section, i } from "./ui";
 
 function Items({ items, dark = false }: { items: string[]; dark?: boolean }) {
   return (
@@ -47,7 +47,9 @@ export default function Offers() {
             ))}
           </span>
           <div className="mt-auto pt-8">
-            <ShareLink variant="ghost" className="w-full" />
+            <AuditLink location="packages" variant="ghost" className="w-full">
+              Get your audit
+            </AuditLink>
           </div>
         </article>
 
@@ -56,10 +58,7 @@ export default function Offers() {
           style={i(1)}
           className="relative flex flex-col rounded-xl border border-ink bg-card p-6 shadow-[0_0_0_4px_rgb(255_79_26/0.12),0_18px_40px_-28px_rgb(18_18_17/0.45)] lg:col-span-4 md:p-7"
         >
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{launch.tag}</p>
-            <span className="rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink">{launch.badge}</span>
-          </div>
+          <span className="w-fit rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink">{launch.badge}</span>
           <h4 className="mt-6 text-2xl font-semibold leading-tight tracking-[-0.03em]">{launch.title}</h4>
           <p className="mt-2 text-pretty text-lg font-medium leading-snug tracking-[-0.015em]">{launch.outcome}</p>
           <div className="mt-6 border-t border-line pt-6">

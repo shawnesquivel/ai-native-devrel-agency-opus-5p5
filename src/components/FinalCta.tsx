@@ -43,10 +43,12 @@ export default function FinalCta() {
 
           <div className="lg:col-span-7 lg:pt-16">
             <div data-reveal style={i(2)} className="rounded-xl border border-white/15 bg-white/[0.04] p-5 sm:p-7">
-              <h3 className="text-xl font-semibold tracking-[-0.02em]">{FUNNEL.title}</h3>
-              <p className="mt-1.5 text-[15px] text-[#bdbbb2]">We&apos;ll look at your AI visibility before we talk.</p>
+              <h3 id="audit-title" className="text-2xl font-semibold tracking-[-0.025em] sm:text-[1.75rem]">
+                {FUNNEL.title}
+              </h3>
+              <p className="mt-2 text-pretty text-[15px] leading-relaxed text-[#bdbbb2]">{FUNNEL.subline}</p>
               <div className="mt-6">
-                <LeadForm location="final" dark />
+                <LeadForm dark />
               </div>
             </div>
             <div data-reveal style={i(3)} className="mt-5 flex flex-wrap items-center gap-x-4 gap-y-3">
