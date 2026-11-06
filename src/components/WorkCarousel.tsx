@@ -37,7 +37,7 @@ function Check() {
 }
 
 function Card({ item }: { item: WorkCase }) {
-  const stat = item.deliverables.find((d) => /\d/.test(d));
+  const stat = item.deliverables?.find((d) => /\d/.test(d));
   return (
     <a href={item.href} target="_blank" rel="noopener" className="group relative flex h-full flex-col rounded-xl border border-line bg-card p-3 transition-[border-color,box-shadow] duration-300 hover:border-line-strong hover:shadow-[0_14px_32px_-22px_rgb(18_18_17/0.45)]">
       <span className="relative block aspect-video overflow-hidden rounded-lg border border-line bg-ink">
@@ -61,10 +61,13 @@ function Card({ item }: { item: WorkCase }) {
         </span>
       </span>
       <span className="flex flex-1 flex-col px-1.5 pb-1.5 pt-4">
-        <CompanyLogo item={item} />
+        <span className="flex h-5 items-center gap-2">
+          <CompanyLogo item={item} />
+          {item.label && <span className="text-[14px] text-muted">· {item.label}</span>}
+        </span>
         <span className="mt-3 block text-pretty text-[15px] font-medium leading-snug tracking-[-0.01em]">{item.title}</span>
         <span className="mt-auto flex flex-col gap-1.5 pt-4">
-          {item.deliverables.map((d) => (
+          {item.deliverables?.map((d) => (
             <span key={d} className="flex items-center gap-2 text-[14px] text-ink-2">
               <Check />
               {d}

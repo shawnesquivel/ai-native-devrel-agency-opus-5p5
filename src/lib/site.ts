@@ -302,7 +302,9 @@ export type WorkCase = {
   title: string;
   href: string;
   thumb?: string;
-  deliverables: [string, string];
+  /* Shown after the company name, e.g. "Treg · Launch video". */
+  label?: string;
+  deliverables?: [string, string];
 };
 
 export const WORK: WorkCase[] = [
@@ -324,7 +326,15 @@ export const WORK: WorkCase[] = [
     thumb: "/media/x-rentahuman.jpg",
     deliverables: ["Launch post", "95K+ impressions"],
   },
-  // Slot reserved for the Treg X post; add it here once the exact link is confirmed.
+  {
+    company: "Treg",
+    logo: "treg",
+    platform: "x",
+    title: "Claude Code Mods + Jev memory harness",
+    href: "https://x.com/shawnbuilds/status/2106405013111328977",
+    thumb: "/media/x-treg-jev.jpg",
+    label: "Launch video",
+  },
   {
     company: "Composio",
     logo: "composio",
