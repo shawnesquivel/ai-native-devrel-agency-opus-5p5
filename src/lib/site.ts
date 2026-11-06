@@ -282,7 +282,7 @@ export const QUOTES: { quote: string; name: string; title?: string; avatar: stri
   {
     quote: "Spoiler alert: most bot traffic to docs now comes from AI crawlers.",
     name: "Lee Robinson",
-    title: "Product at SpaceX, ex-Cursor",
+    title: "SpaceX",
     avatar: "/quotes/leerob.jpg",
     href: "https://leerob.com/docs",
   },
