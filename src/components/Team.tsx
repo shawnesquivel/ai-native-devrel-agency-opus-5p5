@@ -26,12 +26,6 @@ function Chip({ chip }: { chip: TeamChip }) {
   );
 }
 
-const PROOF_LOGOS = [
-  <BrandIcon key="cursor" name="cursor" className="size-4" />,
-  <BrandIcon key="codex" name="codex" className="size-4" />,
-  <Image key="composio" src="/logos/composio-mark.svg" alt="" width={14} height={16} unoptimized className={LOGO} />,
-  <Image key="rentahuman" src="/logos/rentahuman.svg" alt="" width={16} height={16} unoptimized className="size-4 brightness-0" />,
-];
 
 export default function Team() {
   return (
@@ -52,13 +46,7 @@ export default function Team() {
         ))}
       </ul>
 
-      <div data-reveal className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:gap-4">
-        <span className="flex shrink-0 items-center gap-2.5 text-ink" aria-hidden="true">
-          {PROOF_LOGOS}
-        </span>
-        <p className="text-pretty text-[15px] leading-relaxed text-ink-2">{TEAM_COPY.proof}</p>
-      </div>
-      <p data-reveal className="mt-8 flex items-center gap-3 text-lg font-medium tracking-[-0.015em] text-ink">
+      <p data-reveal className="mt-6 flex items-center gap-3 text-lg font-medium tracking-[-0.015em] text-ink">
         <span aria-hidden="true" className="size-2 shrink-0 bg-accent" />
         {TEAM_COPY.closer}
       </p>

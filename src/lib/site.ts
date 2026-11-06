@@ -146,7 +146,6 @@ export const TEAM_COPY = {
   title: "We've done this from the inside.",
   intro:
     "Before this studio, we were the DevRel team at fast-growing AI startups. We shipped the launches, wrote the docs, and grew the communities. Now we do it for you.",
-  proof: "We've shipped content for Cursor, Codex, Composio and RentAHuman, including launches that reached 500K+ views.",
   closer: "Strategy from the founders, not a template.",
 };
 
@@ -250,46 +249,48 @@ export const DEMO = {
 };
 
 /* "Make Something Agents Want": verbatim quotes, trimmed only with an ellipsis. */
-export const QUOTES: { quote: string; name: string; org?: string; icon: IconName; href: string }[] = [
+/* Titles verified against each X bio on Nov 6, 2026; avatars are their X profile photos, saved in public/quotes/. */
+export const QUOTES: { quote: string; name: string; title?: string; avatar: string; href: string }[] = [
   {
     quote:
       "Bot and agent traffic on the web now is greater than human traffic. If you're running a dev tools company, ecommerce store, or even a website, you are increasingly thinking about building for agents.",
     name: "Y Combinator",
-    icon: "ycombinator",
+    avatar: "/quotes/ycombinator.png",
     href: "https://events.ycombinator.com/MakeSomethingAgentsWant",
   },
   {
     quote: "…increasingly all of us are realizing it's make something agents want.",
     name: "Garry Tan",
-    org: "YC",
-    icon: "ycombinator",
+    title: "Y Combinator President & CEO",
+    avatar: "/quotes/garrytan.jpg",
     href: "https://www.youtube.com/watch?v=vl7HiMdGfjo",
   },
   {
     quote: "Agentic traffic growing so fast that bots have now passed human traffic online for the first time in the Internet's history.",
     name: "Matthew Prince",
-    org: "Cloudflare",
-    icon: "cloudflare",
+    title: "Cloudflare co-founder & CEO",
+    avatar: "/quotes/eastdakota.jpg",
     href: "https://x.com/eastdakota/status/2062212701414187452",
   },
   {
     quote: "Agents are motivating so many healthy software habits. Open APIs, documentation (skills), tests (evals), Unix (CLIs)…",
     name: "Guillermo Rauch",
-    org: "Vercel",
-    icon: "vercel",
+    title: "Vercel CEO",
+    avatar: "/quotes/rauchg.jpg",
     href: "https://x.com/rauchg/status/2067936390285807940",
   },
   {
     quote: "Spoiler alert: most bot traffic to docs now comes from AI crawlers.",
     name: "Lee Robinson",
-    org: "Cursor",
-    icon: "cursor",
+    title: "Product at SpaceX, ex-Cursor",
+    avatar: "/quotes/leerob.jpg",
     href: "https://leerob.com/docs",
   },
   {
     quote: "People will want agents to buy stuff for them. It will be one of the main use cases.",
     name: "Paul Graham",
-    icon: "ycombinator",
+    title: "Y Combinator co-founder",
+    avatar: "/quotes/paulg.jpg",
     href: "https://x.com/paulg/status/2108011311229747525",
   },
 ];
@@ -365,67 +366,59 @@ export const WORK: WorkCase[] = [
 export const FAQ = [
   {
     q: `What is ${BRAND_NAME}?`,
-    a: "A full-stack DevRel studio. We do everything that gets you recommended: agent-ready docs, AEO fixes, videos, tutorials, starter code, MCP plugins, founder content and events, tracked monthly. Every day the engine ships.",
+    a: "A full-stack DevRel studio. We do everything that gets you recommended: docs, AEO fixes, videos, tutorials, starter code, MCP plugins, founder content and events.",
   },
   {
     q: `Why ${BRAND_NAME}?`,
-    a: "More and more, an AI agent decides which tool its user signs up for. Our job is to win those agents for you: make sure they find you, understand you, and recommend you.",
+    a: "AI agents now decide which tools their users pick. We help you win them.",
   },
   {
     q: "Are you AI native?",
-    a: "Yes. Our engine runs on agents: it finds trending formats every day and builds them in your brand voice. Engineers and our own review agents check every piece before it ships.",
+    a: "Yes. Our engine runs on agents and ships daily in your brand voice. Engineers and our review agents check every piece.",
   },
   {
     q: "How is this different from an AI content agency?",
-    a: "We're engineers. We build with your product, so the code in every tutorial, starter and docs example runs. Every piece is reviewed.",
-  },
-  {
-    q: "Who makes the content?",
-    a: "Our engine drafts, our engineers build and edit. Every piece is reviewed by an engineer and by our own review agents.",
+    a: "We're engineers. We build with your product, so the code in every tutorial, starter and docs example runs.",
   },
   {
     q: "Can you build an MCP app for ChatGPT and Claude?",
-    a: "Yes, on Scale. We build your MCP server and plugin so your product works natively inside ChatGPT and Claude. We follow the platforms' best practices, because approval can take months when teams don't. We've done this at Composio.",
+    a: "Yes, on Scale. We build your MCP server and plugin to the platforms' best practices, as we did at Composio.",
   },
   {
     q: "Do you publish to our CMS?",
-    a: "Yes. We publish straight into the blog CMS you already use, like Framer, Notion, Webflow, WordPress, Ghost or Sanity.",
+    a: "Yes. We publish straight into your CMS: Framer, Notion, Webflow, WordPress, Ghost or Sanity.",
   },
   {
     q: "Can we request content ourselves?",
-    a: `Yes. On Scale, tag ${BRAND_NAME} in your Slack channel or through MCP when inspiration strikes, and the request goes into the engine. On Launch, ask us in your Slack channel.`,
+    a: `Yes. On Scale, tag ${BRAND_NAME} in Slack or through MCP. On Launch, ask us in your Slack channel.`,
   },
   {
     q: "How does it work?",
-    a: "Four steps. Audit: we measure how often AI recommends you, and who it recommends instead. Strategize: our founders build a 4-week plan from your market, positioning, buyers, trends and your competitors' gaps. Ship: every day, in your brand voice, across your docs, blog and socials. Compound: we track your score daily and re-plan every 4 weeks.",
+    a: "Audit, strategize, ship, compound. We measure your AI visibility, our founders build a 4-week plan, we ship daily and re-plan every 4 weeks.",
   },
   {
     q: "How do you measure AI visibility?",
-    a: "We ask the major AI assistants the questions your buyers ask, every day, and record who gets named and which pages get cited. That's your AI visibility score. Every 4 weeks we re-plan around what moved.",
+    a: "We ask the major AI assistants your buyers' questions every day and record who gets named and cited. That's your AI visibility score.",
   },
   {
     q: "How fast will we see results?",
-    a: "Content ships from day one. AI assistants pick it up on their own schedule, so treat visibility as a multi-month effort. The report shows what moved.",
+    a: "Content ships from day one. AI assistants pick it up on their own schedule, so expect a multi-month effort.",
   },
   {
     q: "What's the difference between Launch and Scale?",
-    a: `Launch gets you recommended: a founder-built 4-week strategy, daily content in your brand voice, agent-ready docs and AEO fixes, your own Slack channel, and a weekly AI visibility score. Scale adds priority turnaround, a direct line to our founders, requests by tagging ${BRAND_NAME}, videos, tutorials, starter code, MCP apps, founder content, events, and courses and workshops for your developers.`,
+    a: "Launch: strategy, daily content, docs and AEO fixes, Slack and a weekly score. Scale adds priority turnaround, founder access, videos, MCP apps, events and courses.",
   },
   {
     q: "How long is the contract?",
-    a: "Launch and Scale are month-to-month. The AI visibility audit is free, and it happens live on the call.",
-  },
-  {
-    q: "Who builds our strategy?",
-    a: "Our founders, from scratch: your market, your positioning, your buyers, what's trending, and the gaps your competitors left open. Not a template or a tool.",
+    a: "Month-to-month. The AI visibility audit is free, live on the call.",
   },
   {
     q: "How do we get started?",
-    a: "Share your site or book a call. We audit your AI visibility live on the call, and you leave with your fix list.",
+    a: "Share your site or book a call. We audit your AI visibility live, and you leave with your fix list.",
   },
   {
     q: "What do you need from us?",
-    a: "Product access, one technical point of contact, and time to review drafts. For founder posts, a short call so we get your voice right.",
+    a: "Product access, one technical contact and time to review drafts. For founder posts, a short call to get your voice right.",
   },
   {
     q: "Who do you work with?",
