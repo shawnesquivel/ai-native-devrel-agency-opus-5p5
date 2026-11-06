@@ -67,19 +67,19 @@ export default function LeadForm({ location = "final", dark = false }: { locatio
             type="email"
             required
             autoComplete="email"
-            placeholder="you@startup.com"
+            placeholder="you@company.com"
             className={`h-11 rounded-lg border px-3 text-[15px] outline-none transition-colors ${field}`}
           />
         </label>
         <label className="grid gap-1.5">
-          <span className={`text-[13px] font-medium ${label}`}>Startup website</span>
+          <span className={`text-[13px] font-medium ${label}`}>Company website</span>
           <input
             name="website"
             type="text"
             inputMode="url"
             required
             autoComplete="url"
-            placeholder="startup.com"
+            placeholder="company.com"
             className={`h-11 rounded-lg border px-3 text-[15px] outline-none transition-colors ${field}`}
           />
         </label>

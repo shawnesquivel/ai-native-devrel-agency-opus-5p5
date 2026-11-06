@@ -1,4 +1,4 @@
-import { CAL_URL, SITE } from "@/lib/site";
+import { SITE } from "@/lib/site";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 import ChatDemo from "./ChatDemo";
 import { AuditLink, i } from "./ui";
@@ -20,14 +20,9 @@ export default function Hero() {
 
         <div className="relative grid grid-cols-[minmax(0,1fr)] gap-12 px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10">
           <div className="min-w-0 lg:col-span-7">
-          <p className="hero-fade inline-flex items-center gap-2.5 border border-line bg-card py-1.5 pl-2 pr-3 font-mono text-xs uppercase tracking-[0.12em] text-ink-2" style={i(0)}>
-            <span className="size-2 bg-accent" aria-hidden="true" />
-            {SITE.eyebrow}
-          </p>
-
           <h1
             id="hero-title"
-            className="mt-8 max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[3.75rem] xl:text-[4.25rem]"
+            className="max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[3.75rem] xl:text-[4.25rem]"
           >
             <span className="hero-line">
               <span style={i(0)}>
@@ -50,17 +45,8 @@ export default function Hero() {
             {SITE.subline}
           </p>
 
-          <div className="hero-fade mt-10 flex flex-wrap items-center gap-x-5 gap-y-4" style={i(2)}>
+          <div className="hero-fade mt-10" style={i(2)}>
             <AuditLink location="hero" />
-            <a
-              href={CAL_URL}
-              target="_blank"
-              rel="noopener"
-              data-book-call="hero"
-              className="text-[15px] text-muted underline decoration-line-strong underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
-            >
-              or book a call
-            </a>
           </div>
           </div>
 
