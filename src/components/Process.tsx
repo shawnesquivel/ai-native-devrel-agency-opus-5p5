@@ -6,7 +6,7 @@ export default function Process() {
   return (
     <Section
       id="process"
-      index="03"
+      index="02"
       label="How it works"
       title="Audit. Strategize. Ship. Compound."
       intro={ENGINE}

@@ -25,7 +25,7 @@ export default function Quotes() {
   }, [active, paused]);
 
   return (
-    <Section id="agents" index="02" label="The shift" title="Make Something Agents Want">
+    <Section id="agents" index="08" label="The shift" title="Make Something Agents Want">
       <div
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}

@@ -40,7 +40,6 @@ export default function Home() {
       />
       <Hero />
       <Problem />
-      <Quotes />
       <Process />
       <Stack />
       <Offers />
@@ -48,6 +47,7 @@ export default function Home() {
       <Work />
       <Faq />
       <FinalCta />
+      <Quotes />
     </>
   );
 }

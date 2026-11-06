@@ -18,7 +18,7 @@ function Items({ items, dark = false }: { items: string[]; dark?: boolean }) {
 export default function Offers() {
   const { launch, scale, pricing } = PACKAGES;
   return (
-    <Section id="services" index="05" label="Services" title={THEME}>
+    <Section id="services" index="04" label="Services" title={THEME}>
       <ul className="mb-14 grid grid-cols-1 gap-x-6 border-t border-line sm:grid-cols-2 lg:grid-cols-3 md:mb-16">
         {SERVICES.map((s, n) => (
           <li key={s.label} data-reveal style={i(n)} className="flex items-center gap-3 border-b border-line py-3.5 text-[15px]">
