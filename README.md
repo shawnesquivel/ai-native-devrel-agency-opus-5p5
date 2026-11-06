@@ -1,8 +1,8 @@
-# Lode
+# AgentWin
 
-Landing page for Lode, a full-stack DevRel studio. Next.js 16 (App Router), React 19, Tailwind CSS v4, Geist + Geist Mono.
+Landing page for AgentWin, a full-stack DevRel studio. Next.js 16 (App Router), React 19, Tailwind CSS v4, Geist + Geist Mono.
 
-- The studio name (currently "Lode") lives in `BRAND_NAME` in `src/lib/site.ts`. It drives the wordmark, the agent's name, metadata, the OG image and `/llms.txt`.
+- The studio name (currently "AgentWin") lives in `BRAND_NAME` in `src/lib/site.ts`. It drives the wordmark, the agent's name, metadata, the OG image and `/llms.txt`.
 - All copy, logos (toggle with `show`), stats, case cards, quotes and FAQ are in `src/lib/site.ts`.
 - Routes: `/`, `/blog`, `/llms.txt`, `/sitemap.xml`, `/robots.txt`, `/opengraph-image`, `POST /api/lead`.
 - Logo sources: `public/logos/` (Composio, Cursor, Codex, Chat2DB, Treg and Grok Bot from the brand kit; RentAHuman from rentahuman.ai; LiteLLM rasterized from the official lockup on litellm.ai, and its monogram from `litellm/proxy/logo_monogram.png` in BerriAI/litellm; Hermes Agent from NousResearch/hermes-agent). Inline marks come from Simple Icons.
@@ -20,7 +20,7 @@ The audit form in the final `#contact` section (the only form on the page) posts
 | --- | --- | --- | --- |
 | `RESEND_API_KEY` | No | none | Resend API key. Without it, leads are logged server-side and the visitor still sees the success message. |
 | `LEAD_NOTIFY_TO` | No | `shawnesquivel24@gmail.com` | Who gets lead emails. Comma-separated, e.g. `shawn@…,misbah@…`. |
-| `LEAD_FROM` | No | `Lode leads <onboarding@resend.dev>` | Sender. The Resend sandbox sender only delivers to your own Resend account's email; set a verified domain sender to email anyone else. |
+| `LEAD_FROM` | No | `AgentWin leads <onboarding@resend.dev>` | Sender. The Resend sandbox sender only delivers to your own Resend account's email; set a verified domain sender to email anyone else. |
 
 Set them in Vercel under Project Settings → Environment Variables, then redeploy.
 

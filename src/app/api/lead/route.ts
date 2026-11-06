@@ -1,3 +1,5 @@
+import { BRAND_NAME } from "@/lib/site";
+
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 const WINDOW_MS = 10 * 60 * 1000;
 const MAX_PER_WINDOW = 5;
@@ -65,7 +67,7 @@ export async function POST(request: Request) {
     .split(",")
     .map((v) => v.trim())
     .filter(Boolean);
-  const from = process.env.LEAD_FROM || "Lode leads <onboarding@resend.dev>";
+  const from = process.env.LEAD_FROM || `${BRAND_NAME} leads <onboarding@resend.dev>`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -74,7 +76,7 @@ export async function POST(request: Request) {
       from,
       to,
       reply_to: email,
-      subject: `New lead: ${new URL(website).hostname}`,
+      subject: `New ${BRAND_NAME} lead: ${new URL(website).hostname}`,
       text: `Work email: ${email}\nWebsite: ${website}\nForm: ${source}\nAt: ${lead.at}`,
       html: `<p><strong>Work email:</strong> ${escape(email)}<br><strong>Website:</strong> <a href="${escape(website)}">${escape(website)}</a><br><strong>Form:</strong> ${escape(source)}<br><strong>At:</strong> ${lead.at}</p>`,
     }),

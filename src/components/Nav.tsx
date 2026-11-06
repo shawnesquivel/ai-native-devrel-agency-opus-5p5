@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { NAV } from "@/lib/site";
+import { BRAND_NAME, NAV } from "@/lib/site";
 import { Wordmark } from "./Brand";
 import MobileMenu from "./MobileMenu";
 import { CtaLink } from "./ui";
@@ -8,7 +8,7 @@ export default function Nav() {
   return (
     <header className="sticky top-0 z-40 border-b border-line bg-paper/85 backdrop-blur-md backdrop-saturate-150">
       <div className="frame flex h-16 items-center justify-between gap-4 px-4 sm:px-8 md:px-12">
-        <Link href="/" aria-label="Home" className="-m-2 rounded p-2 text-[15px]">
+        <Link href="/" aria-label={`${BRAND_NAME} home`} className="-m-2 rounded p-2 text-[15px]">
           <Wordmark />
         </Link>
         <nav aria-label="Main" className="hidden md:block">

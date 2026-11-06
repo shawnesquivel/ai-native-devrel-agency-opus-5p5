@@ -3,7 +3,7 @@ import type { IconName } from "@/components/BrandIcon";
 const VERCEL_HOST = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
 
 /** The studio name. Change it here and it updates the wordmark, metadata, OG image and llms.txt. */
-export const BRAND_NAME = "Lode";
+export const BRAND_NAME = "AgentWin";
 
 /** The one line every section comes back to. */
 export const THEME = "Everything that gets you recommended.";
@@ -20,7 +20,7 @@ export const SITE = {
   subline:
     "AI solved coding, not distribution. We do everything that gets you recommended by ChatGPT and Claude.",
   description:
-    `AI solved coding, not distribution. ${BRAND_NAME} is an AI-native, full-stack DevRel studio that does everything that gets you recommended by ChatGPT and Claude.`,
+    `AI solved coding, not distribution. ${BRAND_NAME} is a full-stack DevRel studio that does everything that gets you recommended by ChatGPT and Claude.`,
 };
 
 export const CAL_URL = "https://cal.com/shawn-ai/30min";
@@ -366,6 +366,10 @@ export const FAQ = [
   {
     q: `What is ${BRAND_NAME}?`,
     a: "A full-stack DevRel studio. We do everything that gets you recommended: agent-ready docs, AEO fixes, videos, tutorials, starter code, MCP plugins, founder content and events, tracked monthly. Every day the engine ships.",
+  },
+  {
+    q: `Why ${BRAND_NAME}?`,
+    a: "More and more, an AI agent decides which tool its user signs up for. Our job is to win those agents for you: make sure they find you, understand you, and recommend you.",
   },
   {
     q: "Are you AI native?",

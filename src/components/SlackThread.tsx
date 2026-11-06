@@ -11,7 +11,7 @@ const OUTPUTS: { icon: IconName; label: string; text: string }[] = [
   { icon: "linkedin", label: "LinkedIn", text: "Drafted a founder post" },
 ];
 
-/* Step: 0 Greg, 1 Sam, 2 the tag, 3 Lode typing, 4-6 outputs. */
+/* Step: 0 Greg, 1 Sam, 2 the tag, 3 the agent typing, 4-6 outputs. */
 const LAST = 6;
 const TIMES = [200, 1000, 1800, 2600, 4000, 4500, 5000];
 

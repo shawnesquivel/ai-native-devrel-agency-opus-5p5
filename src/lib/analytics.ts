@@ -13,7 +13,7 @@ export function trackEvent(name: string, props?: Props) {
 /** Fires an event at most once per browser session. */
 export function trackOnce(key: string, name: string, props?: Props) {
   try {
-    const id = `lode:${key}`;
+    const id = `agentwin:${key}`;
     if (sessionStorage.getItem(id)) return;
     sessionStorage.setItem(id, "1");
   } catch {
