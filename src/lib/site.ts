@@ -98,7 +98,7 @@ export const AUDIT = {
   title: "AI visibility audit",
   tag: "Free, live on the call",
   body: "Your before score, plus everything holding you back on AI platforms and socials.",
-  icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "reddit"] as IconName[],
+  icons: ["chatgpt", "claude", "gemini", "grokbot"] as IconName[],
 };
 
 /* Contact funnel: the one form on the page (primary) or book a call (secondary). */

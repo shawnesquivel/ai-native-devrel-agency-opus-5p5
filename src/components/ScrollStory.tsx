@@ -5,7 +5,7 @@ import { STEPS } from "@/lib/site";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 
 const ICONS: IconName[][] = [
-  ["chatgpt", "claude", "gemini", "grokbot", "hermes", "reddit"],
+  ["chatgpt", "claude", "gemini", "grokbot"],
   ["aeo", "reddit", "x", "youtube"],
   ["markdown", "aeo", "youtube", "tutorial", "github", "mcp", "x", "calendar"],
   [],
