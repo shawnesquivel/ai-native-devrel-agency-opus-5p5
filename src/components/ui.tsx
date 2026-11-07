@@ -1,5 +1,6 @@
+import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
-import { CAL_URL } from "@/lib/site";
+import { AUDIT_CTA, CAL_URL } from "@/lib/site";
 
 type Variant = "primary" | "accent" | "ghost" | "quiet";
 
@@ -33,23 +34,25 @@ export function CtaLink({
   );
 }
 
-/** Primary CTA: scrolls to the audit form in #contact. `location` is sent with the cta_click event. */
+/** Primary CTA: goes to the audit form in #contact (from any page). `location` is sent with the cta_click event. */
 export function AuditLink({
-  children = "Get your AI visibility audit",
-  variant = "primary",
+  children = AUDIT_CTA,
+  variant = "accent",
+  size,
   className = "",
   location,
 }: {
   children?: ReactNode;
   variant?: Variant;
+  size?: "sm";
   className?: string;
-  location: "hero" | "packages";
+  location: "nav" | "hero" | "packages" | "blog";
 }) {
   return (
-    <a href="#contact" data-cta={location} className={`btn btn-${variant} ${className}`}>
+    <Link href="/#contact" data-cta={location} className={`btn btn-${variant} ${size === "sm" ? "btn-sm" : ""} ${className}`}>
       {children}
       <Arrow />
-    </a>
+    </Link>
   );
 }
 

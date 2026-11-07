@@ -46,7 +46,7 @@ export default function Hero() {
           </p>
 
           <div className="hero-fade mt-10" style={i(2)}>
-            <AuditLink location="hero" variant="accent" />
+            <AuditLink location="hero" />
             <p className="mt-3 text-sm text-muted">Free audit within 48 hours.</p>
           </div>
           </div>
@@ -75,7 +75,7 @@ export default function Hero() {
                     className="hero-fade grid size-9 place-items-center rounded-lg border border-line bg-card text-ink sm:size-10"
                     style={i(n * 3 + k + 4)}
                   >
-                    <BrandIcon name={icon} className="size-[18px]" />
+                    <BrandIcon name={icon} className="size-[18px]" color={p.label === "For agents"} />
                     <span className="sr-only">{ICON_LABELS[icon]}</span>
                   </li>
                 ))}

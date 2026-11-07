@@ -2,7 +2,7 @@ import Link from "next/link";
 import { BRAND_NAME, NAV } from "@/lib/site";
 import { Wordmark } from "./Brand";
 import MobileMenu from "./MobileMenu";
-import { CtaLink } from "./ui";
+import { AuditLink } from "./ui";
 
 export default function Nav() {
   return (
@@ -27,7 +27,7 @@ export default function Nav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <CtaLink location="nav" size="sm" variant="quiet" arrow={false} />
+          <AuditLink location="nav" size="sm" />
           <MobileMenu />
         </div>
       </div>

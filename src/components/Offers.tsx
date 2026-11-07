@@ -1,6 +1,6 @@
 import { AUDIT, PACKAGES, SERVICES, THEME } from "@/lib/site";
 import BrandIcon from "./BrandIcon";
-import { AuditLink, CtaLink, Section, i } from "./ui";
+import { AuditLink, Section, i } from "./ui";
 
 function Items({ items, dark = false }: { items: string[]; dark?: boolean }) {
   return (
@@ -18,7 +18,7 @@ function Items({ items, dark = false }: { items: string[]; dark?: boolean }) {
 export default function Offers() {
   const { launch, scale, pricing } = PACKAGES;
   return (
-    <Section id="services" title={THEME}>
+    <Section id="services" title={THEME} intro="Audits, content, docs and distribution, run by one team.">
       <ul className="mb-14 grid grid-cols-1 gap-x-6 border-t border-line sm:grid-cols-2 lg:grid-cols-3 md:mb-16">
         {SERVICES.map((s, n) => (
           <li key={s.label} data-reveal style={i(n)} className="flex items-center gap-3 border-b border-line py-3.5 text-[15px]">
@@ -47,9 +47,7 @@ export default function Offers() {
             ))}
           </span>
           <div className="mt-auto pt-8">
-            <AuditLink location="packages" variant="ghost" className="w-full">
-              Get your audit
-            </AuditLink>
+            <AuditLink location="packages" variant="ghost" className="w-full" />
           </div>
         </article>
 
@@ -66,9 +64,7 @@ export default function Offers() {
           </div>
           <div className="mt-auto pt-8">
             <p className="font-mono text-xs uppercase tracking-[0.12em] text-ink-2">{pricing}</p>
-            <CtaLink location="packages" variant="accent" className="mt-4 w-full">
-              Book a call
-            </CtaLink>
+            <AuditLink location="packages" className="mt-4 w-full" />
           </div>
         </article>
 
@@ -84,9 +80,7 @@ export default function Offers() {
           </div>
           <div className="mt-auto pt-8">
             <p className="font-mono text-xs uppercase tracking-[0.12em] text-[#bdbbb2]">{pricing}</p>
-            <CtaLink location="packages" variant="ghost" className="mt-4 w-full">
-              Book a call
-            </CtaLink>
+            <AuditLink location="packages" variant="ghost" className="mt-4 w-full" />
           </div>
         </article>
       </div>
