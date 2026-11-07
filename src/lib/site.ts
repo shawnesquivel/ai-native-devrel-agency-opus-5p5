@@ -6,7 +6,7 @@ const VERCEL_HOST = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || pro
 export const BRAND_NAME = "AgentWin";
 
 /** The one line every section comes back to. */
-export const THEME = "Everything that gets you recommended.";
+export const THEME = "Everything that helps you win more agents.";
 export const SITE = {
   name: BRAND_NAME,
   url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
@@ -20,6 +20,9 @@ export const SITE = {
 };
 
 export const CAL_URL = "https://cal.com/shawn-ai/30min";
+
+/** Every primary CTA (header, hero, packages, form submit) uses this label. */
+export const AUDIT_CTA = "Get my free audit";
 
 export const NAV = [
   { label: "Services", href: "/#services" },
@@ -99,10 +102,16 @@ export const AUDIT = {
 
 /* Contact funnel: the one form on the page (primary) or book a call (secondary). */
 export const FUNNEL = {
+  headline: "Make sure agents can find you.",
+  /** One or two sentences under the form headline. */
+  description:
+    "Get a free audit on your product. See where you rank on ChatGPT, Claude, and Google AI Overview – and exactly how you can fix it.",
   title: "Get your AI visibility audit",
   subline: "Share your site. We'll reach out within 48 hours with next steps.",
   submit: "Share your site",
   success: "Thanks, we'll reach out within 48 hours with next steps.",
+  successTitle: "You're in.",
+  successLine: "We'll send your audit within 48 hours.",
   steps: ["Share your site or pick a time", "We audit your AI visibility live on the call", "You leave with your fix list"],
 };
 
@@ -151,7 +160,8 @@ export const TEAM: { role: string; body: string; chips: TeamChip[] }[] = [
     role: "Shawn · Co-founder",
     body: "Founding engineer turned DevRel at Series A startups. At Composio he wrote product code as MTS and was on the growth team, so he knows what actually gets developers to sign up.",
     chips: [
-      { label: "Ex-DevRel + MTS, Composio", marks: ["composio"] },      { label: "Cursor + Codex Ambassador", marks: ["cursor", "chatgpt"] },
+      { label: "Prev. DevRel/MTS, Composio", marks: ["composio"] },
+      { label: "Cursor + Codex Ambassador", marks: ["cursor", "chatgpt"] },
     ],
   },
   {

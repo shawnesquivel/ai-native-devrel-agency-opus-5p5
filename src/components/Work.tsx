@@ -13,7 +13,7 @@ function External() {
 
 export default function Work() {
   return (
-    <Section id="work" title="Results.">
+    <Section id="work" title="Results." intro="Real launches our team shipped, with the numbers they hit.">
       <ul className="grid grid-cols-1 border-l border-t border-line sm:grid-cols-3">
         {STATS.map((s, n) => {
           const body = (
