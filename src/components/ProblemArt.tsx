@@ -23,11 +23,12 @@ function Named({ icon, children }: { icon: "supabase" | "neon"; children: string
 
 function Answer() {
   return (
-    <div className="flex h-full flex-col justify-center gap-2 px-4 py-6">
+    <div className="flex h-full flex-col justify-center gap-2 px-5 py-5 md:max-xl:gap-1.5 md:max-xl:px-4 md:max-xl:py-4">
       <p className="pa-at self-end rounded-lg rounded-br-sm bg-ink px-2.5 py-1 font-mono text-[11px] text-paper" style={at(0)}>
         best database for my nextjs app
       </p>
-      <p className="pa-at flex items-center gap-1.5 font-mono text-[11px] text-muted" style={at(0.1)}>
+      {/* Three-up cards at md-xl are too narrow for every line, so the status line and third source drop out there. */}
+      <p className="pa-at flex items-center gap-1.5 font-mono text-[11px] text-muted md:max-xl:hidden" style={at(0.1)}>
         <span className="flex gap-0.5" aria-hidden="true">
           {[0, 1, 2].map((d) => (
             <span key={d} className="demo-dot size-1 rounded-full bg-muted" style={{ animationDelay: `${d * 150}ms` }} />
@@ -40,7 +41,9 @@ function Answer() {
           <span
             key={src.domain}
             title={src.title}
-            className="pa-at inline-flex items-center gap-1 rounded border border-line bg-card px-1.5 py-0.5 font-mono text-[10.5px] text-ink-2"
+            className={`pa-at inline-flex items-center gap-1 rounded border border-line bg-card px-1.5 py-0.5 font-mono text-[10.5px] text-ink-2 ${
+              n === 2 ? "md:max-xl:hidden" : ""
+            }`}
             style={at(0.2 + n * 0.06)}
           >
             <BrandIcon name={src.icon} className="size-2.5 text-ink" />
