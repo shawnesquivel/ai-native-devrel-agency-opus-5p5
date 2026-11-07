@@ -14,7 +14,7 @@ export const SITE = {
   tagline: "You built something agents want. We make sure agents can find you.",
   eyebrow: "Your full-stack DevRel studio",
   subline:
-    "AI solved coding, not distribution. We do everything that gets you recommended by ChatGPT and Claude.",
+    "End-to-end DevRel studio that writes your docs, films your content, and handles distribution. We help you track and improve your AI visibility so ChatGPT and Claude recommend you more.",
   description:
     `AI solved coding, not distribution. ${BRAND_NAME} is a full-stack DevRel studio that does everything that gets you recommended by ChatGPT and Claude.`,
 };
