@@ -146,7 +146,6 @@ export const TEAM_COPY = {
   title: "We've done this from the inside.",
   intro:
     "Before this studio, we were the DevRel team at fast-growing AI startups. We shipped the launches, wrote the docs, and grew the communities. Now we do it for you.",
-  closer: "Strategy from the founders, not a template.",
 };
 
 export type TeamChip = { label: string; marks?: ("composio" | "litellm" | "cursor" | "chatgpt")[] };
@@ -154,10 +153,9 @@ export type TeamChip = { label: string; marks?: ("composio" | "litellm" | "curso
 export const TEAM: { role: string; body: string; chips: TeamChip[] }[] = [
   {
     role: "Shawn · Co-founder",
-    body: "Founding engineer turned DevRel at Series A startups. At Composio he wrote product code as MTS and ran growth, so he knows what actually gets developers to sign up.",
+    body: "Founding engineer turned DevRel at Series A startups. At Composio he wrote product code as MTS and was on the growth team, so he knows what actually gets developers to sign up.",
     chips: [
-      { label: "Ex-DevRel + MTS, Composio", marks: ["composio"] },
-      { label: "Cursor + Codex Ambassador", marks: ["cursor", "chatgpt"] },
+      { label: "Ex-DevRel + MTS, Composio", marks: ["composio"] },      { label: "Cursor + Codex Ambassador", marks: ["cursor", "chatgpt"] },
     ],
   },
   {

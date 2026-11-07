@@ -29,7 +29,7 @@ function Chip({ chip }: { chip: TeamChip }) {
 
 export default function Team() {
   return (
-    <Section id="team" index="05" label="Team" title={TEAM_COPY.title} intro={TEAM_COPY.intro}>
+    <Section id="team" title={TEAM_COPY.title} intro={TEAM_COPY.intro}>
       <ul className="grid border-l border-t border-line md:grid-cols-2">
         {TEAM.map((m, n) => (
           <li key={m.role} data-reveal style={i(n)} className="flex flex-col gap-4 border-b border-r border-line bg-card p-5 sm:p-6 md:gap-5 md:p-7">
@@ -45,11 +45,6 @@ export default function Team() {
           </li>
         ))}
       </ul>
-
-      <p data-reveal className="mt-6 flex items-center gap-3 text-lg font-medium tracking-[-0.015em] text-ink">
-        <span aria-hidden="true" className="size-2 shrink-0 bg-accent" />
-        {TEAM_COPY.closer}
-      </p>
     </Section>
   );
 }
