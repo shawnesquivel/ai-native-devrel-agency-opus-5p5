@@ -1,16 +1,16 @@
 import type { IconName } from "@/components/BrandIcon";
 
-const VERCEL_HOST = process.env.NEXT_PUBLIC_VERCEL_PROJECT_PRODUCTION_URL || process.env.NEXT_PUBLIC_VERCEL_URL;
-
 /** The studio name. Change it here and it updates the wordmark, metadata, OG image and llms.txt. */
 export const BRAND_NAME = "AgentWin";
 
 /** The one line every section comes back to. */
 export const THEME = "Everything that helps you win more agents.";
+
 export const SITE = {
   name: BRAND_NAME,
-  url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
-  email: "shawn@amihanventures.ca",
+  /** Canonical origin for metadata, sitemap and robots; www redirects here. */
+  url: "https://agentwin.dev",
+  email: "shawnesquivel24@gmail.com",
   tagline: "You built something agents want. We make sure agents can find you.",
   eyebrow: "Your full-stack DevRel studio",
   subline:
