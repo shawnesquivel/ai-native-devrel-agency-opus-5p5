@@ -67,7 +67,7 @@ export async function POST(request: Request) {
     .split(",")
     .map((v) => v.trim())
     .filter(Boolean);
-  const from = process.env.LEAD_FROM || `${BRAND_NAME} leads <onboarding@resend.dev>`;
+  const from = process.env.RESEND_FROM || `${BRAND_NAME} <audit@agentwin.dev>`;
 
   const res = await fetch("https://api.resend.com/emails", {
     method: "POST",
