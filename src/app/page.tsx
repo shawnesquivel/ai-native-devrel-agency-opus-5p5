@@ -1,9 +1,11 @@
 import Faq from "@/components/Faq";
 import FinalCta from "@/components/FinalCta";
 import Hero from "@/components/Hero";
+import { LogoStrip } from "@/components/Logos";
 import Offers from "@/components/Offers";
 import Problem from "@/components/Problem";
 import Process from "@/components/Process";
+import Quotes from "@/components/Quotes";
 import Stack from "@/components/Stack";
 import Team from "@/components/Team";
 import Work from "@/components/Work";
@@ -38,6 +40,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
       />
       <Hero />
+      <LogoStrip />
       <Problem />
       <Process />
       <Stack />
@@ -46,6 +49,7 @@ export default function Home() {
       <Work />
       <Faq />
       <FinalCta />
+      <Quotes />
     </>
   );
 }

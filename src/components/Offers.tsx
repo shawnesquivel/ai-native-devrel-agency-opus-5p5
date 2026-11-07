@@ -1,6 +1,6 @@
 import { AUDIT, PACKAGES, SERVICES, THEME } from "@/lib/site";
 import BrandIcon from "./BrandIcon";
-import { CtaLink, Section, i } from "./ui";
+import { AuditLink, Section, i } from "./ui";
 
 function Items({ items, dark = false }: { items: string[]; dark?: boolean }) {
   return (
@@ -16,9 +16,9 @@ function Items({ items, dark = false }: { items: string[]; dark?: boolean }) {
 }
 
 export default function Offers() {
-  const { basic, whiteGlove, pricing } = PACKAGES;
+  const { launch, scale, pricing } = PACKAGES;
   return (
-    <Section id="services" index="04" label="Services" title={THEME}>
+    <Section id="services" title={THEME} intro="Audits, content, docs and distribution, run by one team.">
       <ul className="mb-14 grid grid-cols-1 gap-x-6 border-t border-line sm:grid-cols-2 lg:grid-cols-3 md:mb-16">
         {SERVICES.map((s, n) => (
           <li key={s.label} data-reveal style={i(n)} className="flex items-center gap-3 border-b border-line py-3.5 text-[15px]">
@@ -36,7 +36,7 @@ export default function Offers() {
 
       <div className="grid gap-3 lg:grid-cols-12">
         <article data-reveal style={i(0)} className="flex flex-col rounded-xl border border-line bg-card p-6 lg:col-span-3 md:p-7">
-          <p className="w-fit rounded-full border border-ink px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em]">Free</p>
+          <p className="w-fit rounded-full border border-ink px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em]">{AUDIT.tag}</p>
           <h4 className="mt-6 text-2xl font-semibold leading-tight tracking-[-0.03em]">{AUDIT.title}</h4>
           <p className="mt-3 text-pretty text-[15px] leading-relaxed text-muted">{AUDIT.body}</p>
           <span className="mt-6 flex flex-wrap gap-1.5">
@@ -47,40 +47,40 @@ export default function Offers() {
             ))}
           </span>
           <div className="mt-auto pt-8">
-            <CtaLink variant="primary" className="w-full">
-              Book a call
-            </CtaLink>
+            <AuditLink location="packages" variant="ghost" className="w-full" />
           </div>
         </article>
 
-        <article data-reveal style={i(1)} className="flex flex-col rounded-xl border border-line bg-card p-6 lg:col-span-4 md:p-7">
-          <p className="font-mono text-[11px] uppercase tracking-[0.12em] text-muted">{basic.tag}</p>
-          <h4 className="mt-6 text-2xl font-semibold leading-tight tracking-[-0.03em]">{basic.title}</h4>
+        <article
+          data-reveal
+          style={i(1)}
+          className="relative flex flex-col rounded-xl border border-ink bg-card p-6 shadow-[0_0_0_4px_rgb(255_79_26/0.12),0_18px_40px_-28px_rgb(18_18_17/0.45)] lg:col-span-4 md:p-7"
+        >
+          <span className="w-fit rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.08em] text-ink">{launch.badge}</span>
+          <h4 className="mt-6 text-2xl font-semibold leading-tight tracking-[-0.03em]">{launch.title}</h4>
+          <p className="mt-2 text-pretty text-lg font-medium leading-snug tracking-[-0.015em]">{launch.outcome}</p>
           <div className="mt-6 border-t border-line pt-6">
-            <Items items={basic.items} />
+            <Items items={launch.items} />
           </div>
           <div className="mt-auto pt-8">
             <p className="font-mono text-xs uppercase tracking-[0.12em] text-ink-2">{pricing}</p>
-            <CtaLink variant="primary" className="mt-4 w-full">
-              Book a call
-            </CtaLink>
+            <AuditLink location="packages" className="mt-4 w-full" />
           </div>
         </article>
 
         <article data-reveal style={i(2)} className="flex flex-col rounded-xl border border-ink bg-ink p-6 text-paper lg:col-span-5 md:p-7">
-          <p className="w-fit rounded-full bg-accent px-2 py-0.5 font-mono text-[11px] uppercase tracking-[0.1em] text-ink">{whiteGlove.tag}</p>
-          <h4 className="mt-6 text-2xl font-semibold leading-tight tracking-[-0.03em]">{whiteGlove.title}</h4>
+          <p className="w-fit font-mono text-[11px] uppercase tracking-[0.12em] text-[#bdbbb2]">{scale.tag}</p>
+          <h4 className="mt-6 text-2xl font-semibold leading-tight tracking-[-0.03em]">{scale.title}</h4>
+          <p className="mt-2 text-pretty text-lg font-medium leading-snug tracking-[-0.015em]">{scale.note}</p>
           <div className="mt-6 border-t border-white/15 pt-6">
-            <p className="mb-4 text-[15px] text-[#bdbbb2]">{whiteGlove.lead}</p>
+            <p className="mb-4 text-[15px] text-[#bdbbb2]">{scale.lead}</p>
             <div className="sm:columns-2 sm:gap-6">
-              <Items items={whiteGlove.items} dark />
+              <Items items={scale.items} dark />
             </div>
           </div>
           <div className="mt-auto pt-8">
             <p className="font-mono text-xs uppercase tracking-[0.12em] text-[#bdbbb2]">{pricing}</p>
-            <CtaLink variant="accent" className="mt-4 w-full">
-              Book a call
-            </CtaLink>
+            <AuditLink location="packages" variant="ghost" className="mt-4 w-full" />
           </div>
         </article>
       </div>

@@ -15,7 +15,12 @@ const ART: Record<LogoId, ReactNode> = {
       <span className="font-mono text-[22px] font-bold leading-none tracking-[-0.04em] text-black">treg</span>
     </span>
   ),
-  freecodecamp: <Image src="/logos/freecodecamp.svg" alt="" width={158} height={18} unoptimized className={img} />,
+  rentahuman: (
+    <span className="flex items-center gap-2">
+      <Image src="/logos/rentahuman.svg" alt="" width={24} height={24} unoptimized className={img} />
+      <span className="text-[19px] font-semibold leading-none tracking-[-0.02em] text-black">RentAHuman</span>
+    </span>
+  ),
   cursor: <Image src="/logos/cursor.svg" alt="" width={110} height={26} unoptimized className={img} />,
   codex: (
     <span className="flex items-center gap-2">
@@ -31,6 +36,23 @@ const ART: Record<LogoId, ReactNode> = {
   ),
   chat2db: <Image src="/logos/chat2db.svg" alt="" width={137} height={24} unoptimized className={img} />,
 };
+
+/** "Our team has worked with" band, directly under the hero. */
+export function LogoStrip() {
+  return (
+    <section aria-labelledby="logos-title" className="relative">
+      <div className="frame cross">
+        <div data-line className="absolute inset-x-0 top-0 h-px bg-line" aria-hidden="true" />
+        <div className="px-5 py-10 sm:px-8 md:px-12 md:py-14">
+          <h2 id="logos-title" data-reveal className="mb-5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
+            Our team has worked with
+          </h2>
+          <Logos />
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function Logos() {
   const shown = LOGOS.filter((l) => l.show);

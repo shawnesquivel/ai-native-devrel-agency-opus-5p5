@@ -22,6 +22,14 @@ const PATHS = {
   ghost: "M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm.256 2.313c2.47.005 5.116 2.008 5.898 2.962l.244.3c1.64 1.994 3.569 4.34 3.569 6.966 0 3.719-2.98 5.808-6.158 7.508-1.433.766-2.98 1.508-4.748 1.508-4.543 0-8.366-3.569-8.366-8.112 0-.706.17-1.425.342-2.15.122-.515.244-1.033.307-1.549.548-4.539 2.967-6.795 8.422-7.408a4.29 4.29 0 01.49-.026Z",
   sanity: "m23.327 15.205-.893-1.555-4.321 2.632 4.799-6.11.726-.426-.179-.27.33-.421-1.515-1.261-.693.883-13.992 8.186 5.173-6.221 9.636-5.282-.915-1.769-5.248 2.876 2.584-3.106-1.481-1.305-5.816 6.994-5.777 3.168 4.423-5.847 2.771-1.442-.88-1.789-8.075 4.203L6.186 4.43 4.648 3.198 0 9.349l.072.058.868 1.768 5.153-2.683-4.696 6.207.77.617.458.885 5.425-2.974-5.974 7.185 1.481 1.304.297-.358 14.411-8.459-4.785 6.094.078.065-.007.005.992 1.726 6.364-3.877-2.451 3.954 1.642 1.077L24 15.648z",
   slack: "M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z",
+  supabase: "M11.9 1.036c-.015-.986-1.26-1.41-1.874-.637L.764 12.05C-.33 13.427.65 15.455 2.409 15.455h9.579l.113 7.51c.014.985 1.259 1.408 1.873.636l9.262-11.653c1.093-1.375.113-3.403-1.645-3.403h-9.642z",
+  neon: "M24 0V24l-9.365-8.045V24H0V0ZM2.942 21.087h8.751V9.563l9.365 8.204V2.919L2.942 2.914Z",
+  planetscale: "M0 12C0 5.373 5.373 0 12 0c4.873 0 9.067 2.904 10.947 7.077l-15.87 15.87a11.981 11.981 0 0 1-1.935-1.099L14.99 12H12l-8.485 8.485A11.962 11.962 0 0 1 0 12Zm12.004 12L24 12.004C23.998 18.628 18.628 23.998 12.004 24Z",
+  ycombinator: "M0 24V0h24v24H0zM6.951 5.896l4.112 7.708v5.064h1.583v-4.972l4.148-7.799h-1.749l-2.457 4.875c-.372.745-.688 1.434-.688 1.434s-.297-.708-.651-1.434L8.831 5.896h-1.88z",
+  cloudflare: "M16.5088 16.8447c.1475-.5068.0908-.9707-.1553-1.3154-.2246-.3164-.6045-.499-1.0615-.5205l-8.6592-.1123a.1559.1559 0 0 1-.1333-.0713c-.0283-.042-.0351-.0986-.021-.1553.0278-.084.1123-.1484.2036-.1562l8.7359-.1123c1.0351-.0489 2.1601-.8868 2.5537-1.9136l.499-1.3013c.0215-.0561.0293-.1128.0147-.168-.5625-2.5463-2.835-4.4453-5.5499-4.4453-2.5039 0-4.6284 1.6177-5.3876 3.8614-.4927-.3658-1.1187-.5625-1.794-.499-1.2026.119-2.1665 1.083-2.2861 2.2856-.0283.31-.0069.6128.0635.894C1.5683 13.171 0 14.7754 0 16.752c0 .1748.0142.3515.0352.5273.0141.083.0844.1475.1689.1475h15.9814c.0909 0 .1758-.0645.2032-.1553l.12-.4268zm2.7568-5.5634c-.0771 0-.1611 0-.2383.0112-.0566 0-.1054.0415-.127.0976l-.3378 1.1744c-.1475.5068-.0918.9707.1543 1.3164.2256.3164.6055.498 1.0625.5195l1.8437.1133c.0557 0 .1055.0263.1329.0703.0283.043.0351.1074.0214.1562-.0283.084-.1132.1485-.204.1553l-1.921.1123c-1.041.0488-2.1582.8867-2.5527 1.914l-.1406.3585c-.0283.0713.0215.1416.0986.1416h6.5977c.0771 0 .1474-.0489.169-.126.1122-.4082.1757-.837.1757-1.2803 0-2.6025-2.125-4.727-4.7344-4.727",
+  vercel: "m12 1.608 12 20.784H0Z",
+  medium: "M13.54 12a6.8 6.8 0 0 1-6.77 6.82A6.8 6.8 0 0 1 0 12a6.8 6.8 0 0 1 6.77-6.82A6.8 6.8 0 0 1 13.54 12zm7.42 0c0 3.54-1.51 6.42-3.38 6.42-1.87 0-3.39-2.88-3.39-6.42s1.52-6.42 3.39-6.42 3.38 2.88 3.38 6.42M24 12c0 3.17-.53 5.75-1.19 5.75-.66 0-1.19-2.58-1.19-5.75s.53-5.75 1.19-5.75C23.47 6.25 24 8.83 24 12z",
+  udemy: "M12 0L5.81 3.573v3.574l6.189-3.574 6.191 3.574V3.573zM5.81 10.148v8.144c0 1.85.589 3.243 1.741 4.234S10.177 24 11.973 24s3.269-.482 4.448-1.474c1.179-.991 1.768-2.439 1.768-4.314v-8.064h-3.242v7.85c0 2.036-1.509 3.055-2.948 3.055-1.428 0-2.947-.991-2.947-3.027v-7.878z",
   aeo: "M10.5 3a7.5 7.5 0 0 1 5.96 12.06l4.24 4.24-1.4 1.4-4.24-4.24A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z",
   tutorial: "M3 4h18v16H3V4Zm2 2v12h14V6H5Zm2.3 2.3L11 12l-3.7 3.7-1.4-1.4L8.2 12 5.9 9.7l1.4-1.4ZM12 14h5v2h-5v-2Z",
   chart: "M4 20V11h3v9H4Zm6.5 0V4h3v16h-3ZM17 20v-6h3v6h-3Z",
@@ -58,6 +66,14 @@ export const ICON_LABELS: Record<IconName, string> = {
   ghost: "Ghost",
   sanity: "Sanity",
   slack: "Slack",
+  supabase: "Supabase",
+  neon: "Neon",
+  planetscale: "PlanetScale",
+  ycombinator: "Y Combinator",
+  cloudflare: "Cloudflare",
+  vercel: "Vercel",
+  medium: "Medium",
+  udemy: "Udemy",
   aeo: "AEO",
   tutorial: "Tutorials",
   chart: "Tracking",
@@ -65,10 +81,76 @@ export const ICON_LABELS: Record<IconName, string> = {
   calendar: "Calendar",
 };
 
-export default function BrandIcon({ name, className = "size-5" }: { name: IconName; className?: string }) {
+/* Official colours, opt-in via `color`. Gradient ids are per icon; repeated identical defs are harmless. */
+function Colored({ name, className }: { name: "claude" | "gemini" | "codex"; className: string }) {
+  const path = <path d={PATHS[name]} fillRule={EVENODD.has(name) ? "evenodd" : undefined} />;
+  if (name === "claude") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="#D97757" aria-hidden="true">
+        {path}
+      </svg>
+    );
+  }
+  if (name === "codex") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <defs>
+          <linearGradient id="bi-codex" x1="12" y1="0" x2="12" y2="24" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#B1A7FF" />
+            <stop offset=".5" stopColor="#7A9DFF" />
+            <stop offset="1" stopColor="#3941FF" />
+          </linearGradient>
+        </defs>
+        <path d={PATHS.codex} fillRule="evenodd" fill="url(#bi-codex)" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="bi-gemini-g" x1="7" y1="15.5" x2="11" y2="12" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#08B962" />
+          <stop offset="1" stopColor="#08B962" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="bi-gemini-r" x1="8" y1="5.5" x2="11.5" y2="11" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#F94543" />
+          <stop offset="1" stopColor="#F94543" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="bi-gemini-y" x1="3.5" y1="13.5" x2="17.5" y2="12" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#FABC12" />
+          <stop offset=".46" stopColor="#FABC12" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={PATHS.gemini} fill="#3186FF" />
+      <path d={PATHS.gemini} fill="url(#bi-gemini-g)" />
+      <path d={PATHS.gemini} fill="url(#bi-gemini-r)" />
+      <path d={PATHS.gemini} fill="url(#bi-gemini-y)" />
+    </svg>
+  );
+}
+
+export default function BrandIcon({ name, className = "size-5", color = false }: { name: IconName; className?: string; color?: boolean }) {
+  if (color && (name === "claude" || name === "gemini" || name === "codex")) return <Colored name={name} className={className} />;
   if (name === "hermes") {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src="/logos/hermes-agent.png" alt="" width={128} height={128} loading="lazy" className={`rounded-[22%] ${className}`} />;
+  }
+  // These two always render in their official brand colors.
+  if (name === "youtube") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <path d={PATHS.youtube.split("zM")[0] + "z"} fill="#FF0000" />
+        <path d="M9.545 15.568V8.432L15.818 12z" fill="#fff" />
+      </svg>
+    );
+  }
+  if (name === "ycombinator") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <rect width="24" height="24" fill="#F26522" />
+        <path d={"M" + PATHS.ycombinator.split("zM")[1]} fill="#fff" />
+      </svg>
+    );
   }
   return (
     <svg viewBox={VIEWBOX[name] ?? "0 0 24 24"} className={className} fill="currentColor" aria-hidden="true">

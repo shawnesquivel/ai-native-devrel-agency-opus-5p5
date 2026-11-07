@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CtaLink } from "@/components/ui";
+import { AuditLink } from "@/components/ui";
 import { SITE } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -17,7 +17,7 @@ export default function Blog() {
           First posts soon.
         </h1>
         <div className="mt-10">
-          <CtaLink>Book a call</CtaLink>
+          <AuditLink location="blog" />
         </div>
       </div>
     </section>

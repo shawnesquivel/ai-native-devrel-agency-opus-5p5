@@ -6,13 +6,29 @@ import BrandIcon from "./BrandIcon";
    `.pa-at` reveals an element at --at (a share of the 9s loop); base styles are the finished frame. */
 const at = (share: number) => ({ "--at": share }) as CSSProperties;
 
+const SOURCES = [
+  { icon: "supabase", title: "Use Supabase with Next.js", domain: "supabase.com/docs" },
+  { icon: "neon", title: "Neon vs PlanetScale: which Postgres to pick", domain: "neon.com/blog" },
+  { icon: "reddit", title: "Best Postgres for Next.js in 2026?", domain: "reddit.com/r/nextjs" },
+] as const;
+
+function Named({ icon, children }: { icon: "supabase" | "neon"; children: string }) {
+  return (
+    <span className="inline-flex items-baseline gap-1 font-semibold">
+      <BrandIcon name={icon} className="size-3 translate-y-[1px] self-center" />
+      {children}
+    </span>
+  );
+}
+
 function Answer() {
   return (
-    <div className="flex h-full flex-col justify-center gap-2 px-4 py-3">
+    <div className="flex h-full flex-col justify-center gap-2 px-4 py-4 md:max-xl:gap-1.5 md:max-lg:gap-1 xl:px-5 xl:py-5">
       <p className="pa-at self-end rounded-lg rounded-br-sm bg-ink px-2.5 py-1 font-mono text-[11px] text-paper" style={at(0)}>
-        best auth sdk?
+        best database for my nextjs app
       </p>
-      <p className="pa-at flex items-center gap-1.5 font-mono text-[11px] text-muted" style={at(0.1)}>
+      {/* Three-up cards at md-xl are too narrow for every line, so the status line and third source drop out there. */}
+      <p className="pa-at flex items-center gap-1.5 font-mono text-[11px] text-muted md:max-xl:hidden" style={at(0.1)}>
         <span className="flex gap-0.5" aria-hidden="true">
           {[0, 1, 2].map((d) => (
             <span key={d} className="demo-dot size-1 rounded-full bg-muted" style={{ animationDelay: `${d * 150}ms` }} />
@@ -21,19 +37,22 @@ function Answer() {
         Searching the web…
       </p>
       <p className="flex flex-wrap gap-1">
-        {["[A] docs", "reddit.com", "[B] blog"].map((src, n) => (
+        {SOURCES.map((src, n) => (
           <span
-            key={src}
-            className="pa-at inline-flex items-center gap-1 rounded border border-line bg-card px-1.5 py-0.5 font-mono text-[10.5px] text-ink-2"
+            key={src.domain}
+            title={src.title}
+            className={`pa-at inline-flex items-center gap-1 rounded border border-line bg-card px-1.5 py-0.5 font-mono text-[10.5px] text-ink-2 ${
+              n === 2 ? "md:max-xl:hidden" : ""
+            }`}
             style={at(0.2 + n * 0.06)}
           >
-            <span className="size-1.5 rounded-full border border-muted" />
-            {src}
+            <BrandIcon name={src.icon} className="size-2.5 text-ink" />
+            {src.domain}
           </span>
         ))}
       </p>
       <p className="pa-at text-[12.5px] leading-snug text-ink" style={at(0.45)}>
-        I recommend <span className="font-semibold">[Competitor A]</span>… and <span className="font-semibold">[Competitor B]</span>…
+        I recommend <Named icon="supabase">Supabase</Named>… and <Named icon="neon">Neon</Named>…
       </p>
       <p
         className="pa-at w-fit rounded-full border border-dashed border-line-strong px-2 py-0.5 font-mono text-[10.5px] text-muted"
@@ -86,7 +105,7 @@ const SHIPS = [3, 16, 29, 42, 55, 68, 81, 94];
 
 function Hire() {
   return (
-    <div className="flex h-full flex-col justify-center gap-4 px-5">
+    <div className="flex h-full flex-col justify-center gap-4 px-5 md:max-lg:px-4">
       <div>
         <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted">DevRel hire</p>
         <div className="relative mt-1.5 h-2 rounded-full bg-line">
@@ -96,7 +115,7 @@ function Hire() {
             style={{ left: "84%", ...at(0.74) }}
           />
         </div>
-        <p className="mt-1 flex justify-between font-mono text-[10.5px] text-muted">
+        <p className="mt-1 flex justify-between gap-2 whitespace-nowrap font-mono text-[10.5px] text-muted">
           <span>onboarding</span>
           <span className="pa-at" style={at(0.74)}>
             first post
@@ -128,7 +147,7 @@ const ARTS: Record<Art, () => JSX.Element> = { answer: Answer, docs: Docs, hire:
 export default function ProblemArt({ art }: { art: Art }) {
   const Comp = ARTS[art];
   return (
-    <div data-observe aria-hidden="true" className="pa relative h-44 overflow-hidden rounded-lg border border-line bg-paper">
+    <div data-observe aria-hidden="true" className="pa relative h-56 overflow-hidden rounded-lg border border-line bg-paper">
       <Comp />
     </div>
   );

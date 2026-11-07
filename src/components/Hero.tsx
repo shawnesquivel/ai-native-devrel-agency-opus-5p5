@@ -1,7 +1,7 @@
 import { SITE } from "@/lib/site";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 import ChatDemo from "./ChatDemo";
-import { CtaLink, i } from "./ui";
+import { AuditLink, i } from "./ui";
 
 const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
   { label: "For agents", body: "Docs they can read and cite.", icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "cursor", "codex"] },
@@ -10,7 +10,7 @@ const PILLARS: { label: string; body: string; icons: IconName[] }[] = [
 
 export default function Hero() {
   return (
-    <section aria-labelledby="hero-title" className="relative">
+    <section id="hero" aria-labelledby="hero-title" className="relative">
       <div className="frame overflow-hidden">
         <div aria-hidden="true" className="pointer-events-none absolute inset-0">
           {[25, 50, 75].map((x, n) => (
@@ -18,16 +18,11 @@ export default function Hero() {
           ))}
         </div>
 
-        <div className="relative grid gap-12 px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10">
-          <div className="lg:col-span-7">
-          <p className="hero-fade inline-flex items-center gap-2.5 border border-line bg-card py-1.5 pl-2 pr-3 font-mono text-xs uppercase tracking-[0.12em] text-ink-2" style={i(0)}>
-            <span className="size-2 bg-accent" aria-hidden="true" />
-            {SITE.eyebrow}
-          </p>
-
+        <div className="relative grid grid-cols-[minmax(0,1fr)] gap-12 px-5 pb-16 pt-16 sm:px-8 sm:pt-24 md:px-12 md:pb-24 md:pt-28 lg:grid-cols-12 lg:items-center lg:gap-10">
+          <div className="min-w-0 lg:col-span-7">
           <h1
             id="hero-title"
-            className="mt-8 max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[3.75rem] xl:text-[4.25rem]"
+            className="max-w-[15ch] text-balance text-[min(2.5rem,10vw)] font-semibold leading-[1] tracking-[-0.05em] sm:text-6xl md:text-7xl lg:text-[3.75rem] xl:text-[4.25rem]"
           >
             <span className="hero-line">
               <span style={i(0)}>
@@ -41,7 +36,7 @@ export default function Hero() {
             </span>
             <span className="hero-line">
               <span style={i(1)} className="text-muted">
-                Now make sure they can find it.
+                We make sure agents can find you.
               </span>
             </span>
           </h1>
@@ -50,13 +45,13 @@ export default function Hero() {
             {SITE.subline}
           </p>
 
-          <div className="hero-fade mt-10 flex flex-col gap-3 sm:flex-row sm:items-center" style={i(2)}>
-            <CtaLink variant="primary">Book a call</CtaLink>
-            <CtaLink variant="ghost">Get a free AI visibility audit</CtaLink>
+          <div className="hero-fade mt-10" style={i(2)}>
+            <AuditLink location="hero" />
+            <p className="mt-3 text-sm text-muted">Free audit within 48 hours.</p>
           </div>
           </div>
 
-          <div className="hero-fade lg:col-span-5" style={i(3)}>
+          <div className="hero-fade min-w-0 lg:col-span-5" style={i(3)}>
             <ChatDemo />
           </div>
         </div>
@@ -80,7 +75,7 @@ export default function Hero() {
                     className="hero-fade grid size-9 place-items-center rounded-lg border border-line bg-card text-ink sm:size-10"
                     style={i(n * 3 + k + 4)}
                   >
-                    <BrandIcon name={icon} className="size-[18px]" />
+                    <BrandIcon name={icon} className="size-[18px]" color={p.label === "For agents"} />
                     <span className="sr-only">{ICON_LABELS[icon]}</span>
                   </li>
                 ))}

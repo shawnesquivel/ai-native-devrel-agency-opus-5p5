@@ -5,7 +5,7 @@ import { Section, i } from "./ui";
 
 export default function Problem() {
   return (
-    <Section id="problem" index="01" label="Problem" title="Developers ask AI before they ask you.">
+    <Section id="problem" title="If agents don't trust you, then no one will.">
       <StatFlow />
 
       <ul className="grid border-l border-t border-line md:grid-cols-3">

@@ -1,24 +1,19 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { STEPS } from "@/lib/site";
 import BrandIcon, { ICON_LABELS, type IconName } from "./BrandIcon";
 
-const CHAPTERS: { title: string; body: string; icons: IconName[] }[] = [
-  {
-    title: "Audit",
-    body: "We ask the assistants your buyers ask. You get your score.",
-    icons: ["chatgpt", "claude", "gemini", "grokbot", "hermes", "reddit"],
-  },
-  {
-    title: "Ship",
-    body: "Everything that gets you recommended, shipped every day.",
-    icons: ["markdown", "aeo", "youtube", "tutorial", "github", "mcp", "x", "calendar"],
-  },
-  { title: "Measure", body: "A monthly report: your score, what moved and what ships next.", icons: [] },
-  { title: "Repeat", body: "The engine keeps shipping trending formats in your brand voice. Your score keeps climbing.", icons: [] },
+const ICONS: IconName[][] = [
+  ["chatgpt", "claude", "gemini", "grokbot"],
+  ["aeo", "reddit", "x", "youtube"],
+  ["markdown", "aeo", "youtube", "tutorial", "github", "mcp", "x", "calendar"],
+  [],
 ];
 
-/* Illustrative curve, not client data: [week, score]. Caps at 96. */
+const CHAPTERS = STEPS.map((s, n) => ({ ...s, icons: ICONS[n] }));
+
+/* Sample curve, not client data: [week, score]. Caps at 96. */
 const CURVE: [number, number][] = [
   [1, 34],
   [2, 38],
@@ -31,15 +26,13 @@ const CURVE: [number, number][] = [
 const NAMED_AT = 50;
 const LAST_WEEK = 26;
 
-/* Scroll progress -> weeks shown. Audit shows week 1; each later step extends the line. */
+/* Scroll progress -> weeks of real line. Audit and Strategize hold at week 1 (34); Ship climbs; Compound runs to 96. */
 const STOPS: [number, number][] = [
   [0, 1],
-  [0.25, 1],
-  [0.5, 4],
-  [0.75, 13],
+  [0.5, 1],
+  [0.75, 4],
   [1, LAST_WEEK],
 ];
-
 const lerp = (pts: [number, number][], x: number) => {
   for (let k = 1; k < pts.length; k++) {
     const [x0, y0] = pts[k - 1];
@@ -106,7 +99,8 @@ export default function ScrollStory() {
   const named = score >= NAMED_AT;
   const shown = CURVE.filter(([w]) => w < week);
   const line = [...shown, [week, lerp(CURVE, week)] as [number, number]];
-  const d = line.map(([w, v], n) => `${n ? "L" : "M"}${gx(w).toFixed(1)} ${gy(v).toFixed(1)}`).join(" ");
+  const toPath = (pts: [number, number][]) => pts.map(([w, v], n) => `${n ? "L" : "M"}${gx(w).toFixed(1)} ${gy(v).toFixed(1)}`).join(" ");
+  const d = toPath(line);
   const tip = { x: (gx(week) / 400) * 100, y: (gy(lerp(CURVE, week)) / 220) * 100 };
   /* Line fill runs marker-to-marker: 0 at the first marker, 1 at the last. */
   const fill = Math.min(1, Math.max(0, progress * CHAPTERS.length - 0.5) / (CHAPTERS.length - 1));
@@ -159,16 +153,11 @@ export default function ScrollStory() {
         </ol>
 
         {/* AI visibility score */}
-        <div className="order-1 lg:order-2 lg:col-span-6" role="img" aria-label={`Illustrative AI visibility score: ${score} out of 100, rising over time.`}>
+        <div className="order-1 lg:order-2 lg:col-span-6" role="img" aria-label={`Example AI visibility score: ${score} out of 100, rising over time.`}>
           <div aria-hidden="true">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="flex items-center gap-2 text-[15px] font-semibold tracking-[-0.01em]">
-                  AI visibility score
-                  <span className="rounded border border-line px-1 py-px font-mono text-[10px] font-normal uppercase tracking-[0.08em] text-muted">
-                    illustrative
-                  </span>
-                </p>
+                <p className="text-[15px] font-semibold tracking-[-0.01em]">AI visibility score</p>
                 <p className="mt-1 max-w-[36ch] text-pretty text-[13px] leading-snug text-muted">
                   How often AI assistants name you when buyers ask about your category.
                 </p>
@@ -187,15 +176,6 @@ export default function ScrollStory() {
               <svg viewBox="0 0 400 220" className="absolute inset-0 size-full overflow-visible" fill="none">
                 <line x1={PX.l} y1={PX.b} x2={PX.r} y2={PX.b} className="stroke-line-strong" vectorEffect="non-scaling-stroke" />
                 <line x1={PX.l} y1={PX.t} x2={PX.l} y2={PX.b} className="stroke-line-strong" vectorEffect="non-scaling-stroke" />
-                <line
-                  x1={PX.l}
-                  y1={gy(NAMED_AT)}
-                  x2={PX.r}
-                  y2={gy(NAMED_AT)}
-                  className="stroke-line-strong"
-                  strokeDasharray="3 4"
-                  vectorEffect="non-scaling-stroke"
-                />
                 <path d={d} className="stroke-ink" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
               </svg>
 
@@ -204,9 +184,6 @@ export default function ScrollStory() {
                   {v}
                 </span>
               ))}
-              <span className="graph-label right-0 -translate-y-full pb-1" style={{ top: `${(gy(NAMED_AT) / 220) * 100}%` }}>
-                named
-              </span>
               {X_TICKS.map((t) => (
                 <span
                   key={t.label}
