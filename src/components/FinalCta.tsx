@@ -1,4 +1,4 @@
-import { BRAND_NAME, FUNNEL, HOOK_STAT } from "@/lib/site";
+import { FUNNEL, HOOK_STAT } from "@/lib/site";
 import { Mark } from "./Brand";
 import LeadForm from "./LeadForm";
 import { CtaLink, i } from "./ui";
@@ -28,9 +28,6 @@ export default function FinalCta() {
                 1.2 billion weekly users
               </a>
               . Win your competitors&apos; customers back with AEO-optimized content.
-            </p>
-            <p data-reveal style={i(2)} className="mt-3 max-w-[46ch] text-pretty text-base leading-relaxed text-[#bdbbb2] md:mt-4 md:text-lg">
-              Agents now pick the tools their users install. <span className="text-paper">{BRAND_NAME}</span> helps you win them.
             </p>
             <ol className="mt-10 hidden space-y-4 md:block">
               {FUNNEL.steps.map((step, n) => (
