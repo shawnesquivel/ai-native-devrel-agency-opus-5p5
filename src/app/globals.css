@@ -630,3 +630,29 @@ body {
     display: none;
   }
 }
+
+/* ---------- /preview/chatgpt-globe ---------- */
+
+.globe-label {
+  translate: -50% -100%;
+}
+
+.globe-label-on {
+  animation: globe-label 3s var(--ease-out-quart) both;
+}
+
+@keyframes globe-label {
+  0% {
+    opacity: 0;
+    translate: -50% -60%;
+  }
+  15%,
+  70% {
+    opacity: 1;
+    translate: -50% -160%;
+  }
+  100% {
+    opacity: 0;
+    translate: -50% -200%;
+  }
+}
