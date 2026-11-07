@@ -47,6 +47,7 @@ export default function Hero() {
 
           <div className="hero-fade mt-10" style={i(2)}>
             <AuditLink location="hero" variant="accent" />
+            <p className="mt-3 text-sm text-muted">Free audit within 48 hours.</p>
           </div>
           </div>
 
