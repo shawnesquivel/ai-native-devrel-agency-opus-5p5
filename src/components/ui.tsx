@@ -1,7 +1,7 @@
 import type { CSSProperties, ReactNode } from "react";
 import { CAL_URL } from "@/lib/site";
 
-type Variant = "primary" | "accent" | "ghost";
+type Variant = "primary" | "accent" | "ghost" | "quiet";
 
 /** "Book a call" link to Cal. `location` is sent with the book_call_click event. */
 export function CtaLink({
@@ -63,50 +63,43 @@ export function Arrow({ className = "arrow size-3.5" }: { className?: string }) 
 
 export function Section({
   id,
-  index,
-  label,
   title,
   intro,
   children,
   className = "",
   bodyClassName = "mt-14 md:mt-20",
+  split = false,
 }: {
   id?: string;
-  index: string;
-  label: string;
   title: ReactNode;
   intro?: ReactNode;
   children: ReactNode;
   className?: string;
   bodyClassName?: string;
+  /** From lg up: heading in a sticky left column, body beside it. */
+  split?: boolean;
 }) {
   const headingId = id ? `${id}-title` : undefined;
   return (
     <section id={id} aria-labelledby={headingId} className={`relative ${className}`}>
       <div className="frame cross">
         <div data-line className="absolute inset-x-0 top-0 h-px bg-line" aria-hidden="true" />
-        <div className="px-5 py-20 sm:px-8 md:px-12 md:py-28">
-          <header>
-            <p data-reveal className="font-mono text-xs uppercase tracking-[0.14em] text-muted">
-              <span className="text-ink">{index}</span>
-              <span className="mx-2 text-line-strong">/</span>
-              {label}
-            </p>
+        <div className={`px-5 py-20 sm:px-8 md:px-12 md:py-28 ${split ? "lg:grid lg:grid-cols-12 lg:gap-12" : ""}`}>
+          <header className={split ? "lg:sticky lg:top-28 lg:col-span-4 lg:self-start" : ""}>
             <h2
               id={headingId}
               data-reveal
-              style={i(1)}
-              className="mt-5 text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[2.5rem] md:text-pretty md:text-5xl"
+              className="text-balance text-[2rem] font-semibold leading-[1.05] tracking-[-0.035em] sm:text-[2.5rem] md:text-pretty md:text-5xl"
             >
               {title}
             </h2>
             {intro && (
-              <p data-reveal style={i(2)} className="mt-5 max-w-[60ch] text-pretty text-lg leading-relaxed text-muted">
+              <p data-reveal style={i(1)} className="mt-5 max-w-[60ch] text-pretty text-lg leading-relaxed text-muted">
                 {intro}
               </p>
             )}
           </header>
-          <div className={bodyClassName}>{children}</div>
+          <div className={split ? `${bodyClassName} lg:col-span-8 lg:mt-0` : bodyClassName}>{children}</div>
         </div>
       </div>
     </section>

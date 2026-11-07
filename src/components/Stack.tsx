@@ -5,7 +5,7 @@ import { Section, i } from "./ui";
 
 export default function Stack() {
   return (
-    <Section id="stack" index="03" label="Your stack" title="Works with the tools you already use.">
+    <Section id="stack" title="Works with the tools you already use.">
       <div className="grid gap-3 md:grid-cols-2">
         <article data-reveal className="flex flex-col rounded-xl border border-line bg-card p-6 md:p-7">
           <p className="font-mono text-[11px] uppercase tracking-[0.14em] text-muted">Your CMS</p>
