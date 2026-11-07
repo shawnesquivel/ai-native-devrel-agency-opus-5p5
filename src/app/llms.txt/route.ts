@@ -1,4 +1,4 @@
-import { AUDIT, CAL_URL, CMS, ENGINE, FAQ, FUNNEL, PACKAGES, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
+import { AUDIT, CAL_URL, CMS, FAQ, FUNNEL, PACKAGES, SERVICES, SITE, STEPS, THEME } from "@/lib/site";
 import { ICON_LABELS } from "@/components/BrandIcon";
 
 export const dynamic = "force-static";
@@ -9,8 +9,6 @@ export function GET() {
 > ${SITE.eyebrow}. ${SITE.tagline}
 
 ${SITE.subline}
-
-${ENGINE}
 
 ## Services
 

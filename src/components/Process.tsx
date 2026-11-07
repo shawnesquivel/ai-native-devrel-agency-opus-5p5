@@ -1,5 +1,4 @@
 import ScrollStory from "./ScrollStory";
-import { ENGINE } from "@/lib/site";
 import { Section } from "./ui";
 
 export default function Process() {
@@ -7,8 +6,7 @@ export default function Process() {
     <Section
       id="process"
       title="Audit. Strategize. Ship. Compound."
-      intro={ENGINE}
-      bodyClassName="mt-4 md:mt-6"
+      bodyClassName="mt-6 md:mt-8"
     >
       <ScrollStory />
     </Section>

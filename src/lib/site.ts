@@ -7,10 +7,6 @@ export const BRAND_NAME = "AgentWin";
 
 /** The one line every section comes back to. */
 export const THEME = "Everything that gets you recommended.";
-
-/** The daily engine, in one line. */
-export const ENGINE = "Every day the engine ships. It finds trending formats and builds them in your brand voice.";
-
 export const SITE = {
   name: BRAND_NAME,
   url: VERCEL_HOST ? `https://${VERCEL_HOST}` : "http://localhost:3000",
