@@ -33,9 +33,6 @@ const STOPS: [number, number][] = [
   [0.75, 4],
   [1, LAST_WEEK],
 ];
-/* Strategize draws a dashed 4-week plan ahead of the real line. */
-const PLAN_WEEKS = 4;
-
 const lerp = (pts: [number, number][], x: number) => {
   for (let k = 1; k < pts.length; k++) {
     const [x0, y0] = pts[k - 1];
@@ -104,10 +101,6 @@ export default function ScrollStory() {
   const line = [...shown, [week, lerp(CURVE, week)] as [number, number]];
   const toPath = (pts: [number, number][]) => pts.map(([w, v], n) => `${n ? "L" : "M"}${gx(w).toFixed(1)} ${gy(v).toFixed(1)}`).join(" ");
   const d = toPath(line);
-  const plan = Math.min(1, Math.max(0, (progress - 0.27) / 0.18));
-  const planWeek = 1 + plan * (PLAN_WEEKS - 1);
-  const planPts: [number, number][] = [...CURVE.filter(([w]) => w < planWeek), [planWeek, lerp(CURVE, planWeek)]];
-  const planEnd = { x: (gx(planWeek) / 400) * 100, y: (gy(lerp(CURVE, planWeek)) / 220) * 100 };
   const tip = { x: (gx(week) / 400) * 100, y: (gy(lerp(CURVE, week)) / 220) * 100 };
   /* Line fill runs marker-to-marker: 0 at the first marker, 1 at the last. */
   const fill = Math.min(1, Math.max(0, progress * CHAPTERS.length - 0.5) / (CHAPTERS.length - 1));
@@ -183,25 +176,6 @@ export default function ScrollStory() {
               <svg viewBox="0 0 400 220" className="absolute inset-0 size-full overflow-visible" fill="none">
                 <line x1={PX.l} y1={PX.b} x2={PX.r} y2={PX.b} className="stroke-line-strong" vectorEffect="non-scaling-stroke" />
                 <line x1={PX.l} y1={PX.t} x2={PX.l} y2={PX.b} className="stroke-line-strong" vectorEffect="non-scaling-stroke" />
-                <line
-                  x1={PX.l}
-                  y1={gy(NAMED_AT)}
-                  x2={PX.r}
-                  y2={gy(NAMED_AT)}
-                  className="stroke-line-strong"
-                  strokeDasharray="3 4"
-                  vectorEffect="non-scaling-stroke"
-                />
-                {plan > 0 && (
-                  <path
-                    d={toPath(planPts)}
-                    className="stroke-muted"
-                    strokeWidth="1.5"
-                    strokeDasharray="4 4"
-                    strokeLinecap="round"
-                    vectorEffect="non-scaling-stroke"
-                  />
-                )}
                 <path d={d} className="stroke-ink" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
               </svg>
 
@@ -210,9 +184,6 @@ export default function ScrollStory() {
                   {v}
                 </span>
               ))}
-              <span className="graph-label right-0 -translate-y-full pb-1" style={{ top: `${(gy(NAMED_AT) / 220) * 100}%` }}>
-                named
-              </span>
               {X_TICKS.map((t) => (
                 <span
                   key={t.label}
@@ -222,13 +193,6 @@ export default function ScrollStory() {
                   {t.label}
                 </span>
               ))}
-
-              <span
-                className={`graph-label -translate-y-full pb-1.5 transition-opacity duration-300 ${plan > 0.6 && week < 1.05 ? "opacity-100" : "opacity-0"}`}
-                style={{ left: `${planEnd.x}%`, top: `${planEnd.y}%` }}
-              >
-                plan
-              </span>
 
               <span className="graph-tip" style={{ left: `${tip.x}%`, top: `${tip.y}%` }}>
                 <span className="graph-dot" />
