@@ -81,7 +81,56 @@ export const ICON_LABELS: Record<IconName, string> = {
   calendar: "Calendar",
 };
 
-export default function BrandIcon({ name, className = "size-5" }: { name: IconName; className?: string }) {
+/* Official colours, opt-in via `color`. Gradient ids are per icon; repeated identical defs are harmless. */
+function Colored({ name, className }: { name: "claude" | "gemini" | "codex"; className: string }) {
+  const path = <path d={PATHS[name]} fillRule={EVENODD.has(name) ? "evenodd" : undefined} />;
+  if (name === "claude") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} fill="#D97757" aria-hidden="true">
+        {path}
+      </svg>
+    );
+  }
+  if (name === "codex") {
+    return (
+      <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+        <defs>
+          <linearGradient id="bi-codex" x1="12" y1="0" x2="12" y2="24" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#B1A7FF" />
+            <stop offset=".5" stopColor="#7A9DFF" />
+            <stop offset="1" stopColor="#3941FF" />
+          </linearGradient>
+        </defs>
+        <path d={PATHS.codex} fillRule="evenodd" fill="url(#bi-codex)" />
+      </svg>
+    );
+  }
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden="true">
+      <defs>
+        <linearGradient id="bi-gemini-g" x1="7" y1="15.5" x2="11" y2="12" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#08B962" />
+          <stop offset="1" stopColor="#08B962" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="bi-gemini-r" x1="8" y1="5.5" x2="11.5" y2="11" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#F94543" />
+          <stop offset="1" stopColor="#F94543" stopOpacity="0" />
+        </linearGradient>
+        <linearGradient id="bi-gemini-y" x1="3.5" y1="13.5" x2="17.5" y2="12" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#FABC12" />
+          <stop offset=".46" stopColor="#FABC12" stopOpacity="0" />
+        </linearGradient>
+      </defs>
+      <path d={PATHS.gemini} fill="#3186FF" />
+      <path d={PATHS.gemini} fill="url(#bi-gemini-g)" />
+      <path d={PATHS.gemini} fill="url(#bi-gemini-r)" />
+      <path d={PATHS.gemini} fill="url(#bi-gemini-y)" />
+    </svg>
+  );
+}
+
+export default function BrandIcon({ name, className = "size-5", color = false }: { name: IconName; className?: string; color?: boolean }) {
+  if (color && (name === "claude" || name === "gemini" || name === "codex")) return <Colored name={name} className={className} />;
   if (name === "hermes") {
     // eslint-disable-next-line @next/next/no-img-element
     return <img src="/logos/hermes-agent.png" alt="" width={128} height={128} loading="lazy" className={`rounded-[22%] ${className}`} />;
