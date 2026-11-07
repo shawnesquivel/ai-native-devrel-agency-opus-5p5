@@ -7,11 +7,16 @@ import { chromium } from "playwright-core";
 const URL = process.argv[2] || "http://localhost:3000";
 const OUT = process.argv[3] || "qa-screenshots";
 const CHROME = process.env.CHROME_PATH || "/usr/local/bin/google-chrome";
-const VIEWPORTS = [
+const ALL_VIEWPORTS = [
+  { name: "wide", width: 1920, height: 1080 },
   { name: "desktop", width: 1440, height: 900 },
+  { name: "medium", width: 1000, height: 900 },
+  { name: "tablet", width: 820, height: 1180 },
   { name: "mobile", width: 390, height: 844, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },
 ];
-const PAGES = ["/", "/blog"];
+// QA_VIEWPORTS=wide,desktop,medium,mobile and QA_PAGES=/,/preview/form-1 override the defaults.
+const VIEWPORTS = ALL_VIEWPORTS.filter((v) => (process.env.QA_VIEWPORTS || "desktop,mobile").split(",").includes(v.name));
+const PAGES = (process.env.QA_PAGES || "/,/blog").split(",");
 
 mkdirSync(OUT, { recursive: true });
 
@@ -49,7 +54,7 @@ function audit(rootSelector) {
   const visible = (el) =>
     el.checkVisibility({ opacityProperty: true, visibilityProperty: true }) &&
     opaque(el) &&
-    !el.closest(".sr-only, [hidden], [aria-hidden='true'] .invisible");
+    !el.closest(".sr-only, [hidden], [aria-hidden='true'] .invisible, [data-qa-ignore]");
 
   // Sticky/fixed UI (the nav) floats over scrolled content by design; only compare text within the same layer.
   const layerOf = (el) => {
