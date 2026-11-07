@@ -25,7 +25,7 @@ export default function Quotes() {
   }, [active, paused]);
 
   return (
-    <Section id="agents" index="08" label="The shift" title="Make Something Agents Want">
+    <Section id="agents" title="Make Something Agents Want">
       <div
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
@@ -49,11 +49,11 @@ export default function Quotes() {
                 <Image
                   src={q.avatar}
                   alt=""
-                  width={56}
-                  height={56}
+                  width={28}
+                  height={28}
                   preload={n === 0}
                   loading={n === 0 ? undefined : "eager"}
-                  className="size-12 shrink-0 rounded-full border border-line bg-paper object-cover md:size-14"
+                  className="size-6 shrink-0 rounded-full border border-line bg-paper object-cover md:size-7"
                 />
                 <span className="min-w-0 text-pretty leading-snug">
                   <span className="font-semibold">{q.name}</span>
