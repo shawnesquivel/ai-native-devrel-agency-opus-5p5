@@ -46,7 +46,7 @@ export default function Hero() {
           </p>
 
           <div className="hero-fade mt-10" style={i(2)}>
-            <AuditLink location="hero" />
+            <AuditLink location="hero" variant="accent" />
           </div>
           </div>
 

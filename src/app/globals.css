@@ -251,6 +251,22 @@ body {
     border-color: var(--color-ink);
   }
 
+  .btn-quiet {
+    color: var(--color-ink-2);
+    padding-inline: 0.5rem;
+    text-decoration: underline;
+    text-decoration-color: transparent;
+    text-underline-offset: 4px;
+    transition:
+      color 0.2s ease,
+      text-decoration-color 0.2s ease;
+  }
+
+  .btn-quiet:hover {
+    color: var(--color-ink);
+    text-decoration-color: var(--color-line-strong);
+  }
+
   .btn-sm {
     height: 2.25rem;
     padding-inline: 0.875rem;

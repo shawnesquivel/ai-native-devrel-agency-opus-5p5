@@ -27,7 +27,7 @@ export default function Nav() {
           </ul>
         </nav>
         <div className="flex items-center gap-2">
-          <CtaLink location="nav" size="sm" />
+          <CtaLink location="nav" size="sm" variant="quiet" arrow={false} />
           <MobileMenu />
         </div>
       </div>
