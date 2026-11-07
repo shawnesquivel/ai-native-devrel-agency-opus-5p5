@@ -17,7 +17,7 @@ export function CtaLink({
   size?: "sm";
   className?: string;
   arrow?: boolean;
-  location: "nav" | "hero" | "final" | "packages" | "blog";
+  location: "nav" | "hero" | "final" | "packages" | "blog" | "preview";
 }) {
   return (
     <a

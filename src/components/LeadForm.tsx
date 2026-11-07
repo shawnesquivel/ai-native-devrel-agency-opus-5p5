@@ -11,7 +11,21 @@ type State = { status: "idle" | "sending" | "done" | "error"; error?: string };
  * The audit form, the only form on the page: work email + website, posted to /api/lead.
  * The success message replaces the fields in the same box, so the layout doesn't move.
  */
-export default function LeadForm({ location = "final", dark = false }: { location?: "final"; dark?: boolean }) {
+export default function LeadForm({
+  location = "final",
+  dark = false,
+  layout = "grid",
+  submitLabel = FUNNEL.submit,
+  bareLabels = false,
+}: {
+  location?: "final" | "preview";
+  dark?: boolean;
+  /** grid: two fields then the button; row: fields and button on one line from md; stack: one column. */
+  layout?: "grid" | "row" | "stack";
+  submitLabel?: string;
+  /** Visually hide the labels and use them as placeholders. */
+  bareLabels?: boolean;
+}) {
   const ref = useRef<HTMLFormElement>(null);
   const id = useId();
   const [state, setState] = useState<State>({ status: "idle" });
@@ -55,31 +69,38 @@ export default function LeadForm({ location = "final", dark = false }: { locatio
   const field = dark
     ? "border-white/15 bg-white/5 text-paper placeholder:text-[#8f8d86] focus-visible:border-paper"
     : "border-line-strong bg-card text-ink placeholder:text-muted focus-visible:border-ink";
-  const label = dark ? "text-[#bdbbb2]" : "text-ink-2";
+  const label = bareLabels ? "sr-only" : `text-[13px] font-medium ${dark ? "text-[#bdbbb2]" : "text-ink-2"}`;
+  const grid = { grid: "sm:grid-cols-2", row: "md:grid-cols-[1fr_1fr_auto]", stack: "" }[layout];
+  const actions = {
+    grid: "flex flex-col gap-2 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between",
+    row: "contents",
+    stack: "flex flex-col gap-2",
+  }[layout];
+  const accent = dark || layout !== "grid";
 
   return (
     <form ref={ref} onSubmit={onSubmit} noValidate aria-label={FUNNEL.title} className="relative">
-      <div className={`grid gap-3 sm:grid-cols-2 ${state.status === "done" ? "invisible" : ""}`} aria-hidden={state.status === "done"}>
+      <div className={`grid gap-3 ${grid} ${state.status === "done" ? "invisible" : ""}`} aria-hidden={state.status === "done"}>
         <label className="grid gap-1.5">
-          <span className={`text-[13px] font-medium ${label}`}>Work email</span>
+          <span className={label}>Work email</span>
           <input
             name="email"
             type="email"
             required
             autoComplete="email"
-            placeholder="you@company.com"
+            placeholder={bareLabels ? "Work email" : "you@company.com"}
             className={`h-11 rounded-lg border px-3 text-[15px] outline-none transition-colors ${field}`}
           />
         </label>
         <label className="grid gap-1.5">
-          <span className={`text-[13px] font-medium ${label}`}>Company website</span>
+          <span className={label}>Company website</span>
           <input
             name="website"
             type="text"
             inputMode="url"
             required
             autoComplete="url"
-            placeholder="company.com"
+            placeholder={bareLabels ? "Company website" : "company.com"}
             className={`h-11 rounded-lg border px-3 text-[15px] outline-none transition-colors ${field}`}
           />
         </label>
@@ -88,12 +109,18 @@ export default function LeadForm({ location = "final", dark = false }: { locatio
           <label htmlFor={`${id}-company`}>Company URL</label>
           <input id={`${id}-company`} name="company_url" type="text" tabIndex={-1} autoComplete="off" />
         </div>
-        <div className="flex flex-col gap-2 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
-          <button type="submit" disabled={state.status === "sending"} className={`btn ${dark ? "btn-accent" : "btn-primary"} disabled:opacity-70`}>
-            {state.status === "sending" ? "Sending…" : FUNNEL.submit}
+        <div className={actions}>
+          <button
+            type="submit"
+            disabled={state.status === "sending"}
+            className={`btn ${accent ? "btn-accent" : "btn-primary"} disabled:opacity-70 ${layout === "grid" ? "" : "h-11 w-full md:w-auto"} ${
+              layout === "stack" ? "md:w-full" : ""
+            } ${layout === "row" ? "self-end" : ""}`}
+          >
+            {state.status === "sending" ? "Sending…" : submitLabel}
             <Arrow />
           </button>
-          <p role="status" aria-live="polite" className={`min-h-5 text-[13px] ${dark ? "text-[#ffb59b]" : "text-[#b4361a]"}`}>
+          <p role="status" aria-live="polite" className={`text-[13px] ${layout === "grid" ? "min-h-5" : "empty:hidden"} ${layout === "row" ? "md:col-span-3" : ""} ${dark ? "text-[#ffb59b]" : "text-[#b4361a]"}`}>
             {state.status === "error" ? state.error : ""}
           </p>
         </div>
