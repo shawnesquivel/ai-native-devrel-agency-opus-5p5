@@ -23,7 +23,7 @@ function Named({ icon, children }: { icon: "supabase" | "neon"; children: string
 
 function Answer() {
   return (
-    <div className="flex h-full flex-col justify-center gap-2 px-5 py-5 md:max-xl:gap-1.5 md:max-xl:px-4 md:max-xl:py-4">
+    <div className="flex h-full flex-col justify-center gap-2 px-4 py-4 md:max-xl:gap-1.5 md:max-lg:gap-1 xl:px-5 xl:py-5">
       <p className="pa-at self-end rounded-lg rounded-br-sm bg-ink px-2.5 py-1 font-mono text-[11px] text-paper" style={at(0)}>
         best database for my nextjs app
       </p>
@@ -105,7 +105,7 @@ const SHIPS = [3, 16, 29, 42, 55, 68, 81, 94];
 
 function Hire() {
   return (
-    <div className="flex h-full flex-col justify-center gap-4 px-5">
+    <div className="flex h-full flex-col justify-center gap-4 px-5 md:max-lg:px-4">
       <div>
         <p className="font-mono text-[10.5px] uppercase tracking-[0.1em] text-muted">DevRel hire</p>
         <div className="relative mt-1.5 h-2 rounded-full bg-line">
@@ -115,7 +115,7 @@ function Hire() {
             style={{ left: "84%", ...at(0.74) }}
           />
         </div>
-        <p className="mt-1 flex justify-between font-mono text-[10.5px] text-muted">
+        <p className="mt-1 flex justify-between gap-2 whitespace-nowrap font-mono text-[10.5px] text-muted">
           <span>onboarding</span>
           <span className="pa-at" style={at(0.74)}>
             first post
