@@ -1,6 +1,5 @@
 import { STATS } from "@/lib/site";
 import CountUp from "./CountUp";
-import Logos from "./Logos";
 import WorkCarousel from "./WorkCarousel";
 import { Section, i } from "./ui";
 
@@ -14,13 +13,8 @@ function External() {
 
 export default function Work() {
   return (
-    <Section id="work" index="06" label="Proof" title="Results.">
-      <h3 data-reveal className="mb-5 font-mono text-xs uppercase tracking-[0.14em] text-muted">
-        Our team has worked with
-      </h3>
-      <Logos />
-
-      <ul className="mt-16 grid grid-cols-1 border-l border-t border-line sm:grid-cols-3 md:mt-20">
+    <Section id="work" title="Results.">
+      <ul className="grid grid-cols-1 border-l border-t border-line sm:grid-cols-3">
         {STATS.map((s, n) => {
           const body = (
             <>
