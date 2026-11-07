@@ -63,7 +63,7 @@ export async function POST(request: Request) {
     return Response.json({ ok: true });
   }
 
-  const to = (process.env.LEAD_NOTIFY_TO || "shawnesquivel24@gmail.com")
+  const to = (process.env.LEAD_NOTIFY_TO || "founders@agentwin.dev")
     .split(",")
     .map((v) => v.trim())
     .filter(Boolean);

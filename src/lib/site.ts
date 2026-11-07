@@ -10,7 +10,7 @@ export const SITE = {
   name: BRAND_NAME,
   /** Canonical origin for metadata, sitemap and robots; www redirects here. */
   url: "https://agentwin.dev",
-  email: "shawnesquivel24@gmail.com",
+  email: "founders@agentwin.dev",
   tagline: "You built something agents want. We make sure agents can find you.",
   eyebrow: "Your full-stack DevRel studio",
   subline:

@@ -19,7 +19,7 @@ The audit form in the final `#contact` section (the only form on the page) posts
 | Variable | Required | Default | Purpose |
 | --- | --- | --- | --- |
 | `RESEND_API_KEY` | No | none | Resend API key. Without it, leads are logged server-side and the visitor still sees the success message. |
-| `LEAD_NOTIFY_TO` | No | `shawnesquivel24@gmail.com` | Who gets lead emails. Comma-separated, e.g. `shawn@…,misbah@…`. |
+| `LEAD_NOTIFY_TO` | No | `founders@agentwin.dev` | Who gets lead emails. Comma-separated, e.g. `shawn@…,misbah@…`. |
 | `RESEND_FROM` | No | `AgentWin <audit@agentwin.dev>` | Sender. Must be on a domain verified in Resend (agentwin.dev is). Replies go to the lead's submitted email. |
 
 Set them in Vercel under Project Settings → Environment Variables, then redeploy.
