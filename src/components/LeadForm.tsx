@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState, type FormEvent } from "react";
 import { FUNNEL } from "@/lib/site";
 import { trackEvent, trackOnce } from "@/lib/analytics";
-import { Arrow } from "./ui";
+import { Arrow, CtaLink } from "./ui";
 
 type State = { status: "idle" | "sending" | "done" | "error"; error?: string };
 
@@ -79,7 +79,7 @@ export default function LeadForm({
   const accent = dark || layout !== "grid";
 
   return (
-    <form ref={ref} onSubmit={onSubmit} noValidate aria-label={FUNNEL.title} className="relative">
+    <form ref={ref} onSubmit={onSubmit} noValidate data-done={state.status === "done" || undefined} aria-label={FUNNEL.title} className="relative">
       <div className={`grid gap-3 ${grid} ${state.status === "done" ? "invisible" : ""}`} aria-hidden={state.status === "done"}>
         <label className="grid gap-1.5">
           <span className={label}>Work email</span>
@@ -126,16 +126,39 @@ export default function LeadForm({
         </div>
       </div>
 
-      {state.status === "done" && (
+      {state.status === "done" && layout === "stack" && (
+        <div role="status" className="absolute inset-0 flex flex-col items-center justify-center gap-1.5 text-center">
+          <p className={`flex items-center gap-2.5 text-xl font-semibold tracking-[-0.025em] ${dark ? "text-paper" : "text-ink"}`}>
+            <Check dark={dark} />
+            {FUNNEL.successTitle}
+          </p>
+          <p className={`text-[15px] ${dark ? "text-[#bdbbb2]" : "text-muted"}`}>{FUNNEL.successLine}</p>
+          <CtaLink
+            location={location}
+            variant="quiet"
+            size="sm"
+            className={`mt-1 ${dark ? "text-paper hover:decoration-white/40" : ""}`}
+          >
+            Or book a call now
+          </CtaLink>
+        </div>
+      )}
+      {state.status === "done" && layout !== "stack" && (
         <div role="status" className="absolute inset-0 flex items-center gap-3">
-          <span className={`grid size-9 shrink-0 place-items-center rounded-full ${dark ? "bg-accent text-ink" : "bg-ink text-paper"}`}>
-            <svg viewBox="0 0 16 16" className="size-4" fill="none" aria-hidden="true">
-              <path d="M3.5 8.5 6.5 11.5 12.5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </span>
+          <Check dark={dark} />
           <p className={`text-[15px] font-medium ${dark ? "text-paper" : "text-ink"}`}>{FUNNEL.success}</p>
         </div>
       )}
     </form>
+  );
+}
+
+function Check({ dark }: { dark: boolean }) {
+  return (
+    <span className={`grid size-8 shrink-0 place-items-center rounded-full ${dark ? "bg-accent text-ink" : "bg-ink text-paper"}`}>
+      <svg viewBox="0 0 16 16" className="size-4" fill="none" aria-hidden="true">
+        <path d="M3.5 8.5 6.5 11.5 12.5 4.5" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
   );
 }
